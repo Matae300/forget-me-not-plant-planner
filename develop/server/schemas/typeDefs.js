@@ -46,7 +46,7 @@ type Query {
   plants(username: String!): [Plant]
   plant(plantID: ID!): Plant
   task(taskID: ID!): Task
-  tasks(username: String!): [Task] 
+  tasks(username: String!, plantID: ID!): [Task] 
 }
 type Mutation {
   addUser(username: String!, email: String!, password: String!): Auth
