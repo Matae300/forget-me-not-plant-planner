@@ -29,6 +29,13 @@ type Task {
   watering: String
 }
 
+input TaskInput {
+  planting: String
+  fertilizing: String
+  pruning: String
+  watering: String
+}
+
 type Auth {
   token: ID!
   user: User
@@ -56,7 +63,7 @@ type Mutation {
     whenToPlant: String!,
     spacing: String!,
     fertilization: String!,
-    tasks: [Task]!
+    tasks: [TaskInput]!
   ): Plant
   removePlant(plantID: ID!): Plant
   addTask(
