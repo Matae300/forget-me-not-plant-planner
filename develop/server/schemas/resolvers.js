@@ -1,11 +1,11 @@
-const { User } = require('../models');
+const { User, Plant } = require('../models');
 const { signToken } = require('../utils/auth');
 const { AuthenticationError } = require('apollo-server-express'); 
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id });
+        return User.findOne({ _id: context.user._id }).populate('plants');
       }
       throw AuthenticationError;
     }
@@ -32,6 +32,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+
   }
 };
 
