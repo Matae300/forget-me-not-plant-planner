@@ -12,10 +12,10 @@ const resolvers = {
     },
     plants: async (parent, { username }, context) => { 
       const params = username ? { username } : {}; 
-      return await Plant.find(params).sort({ createdAt: -1 });
+      return await Plant.find(params).sort({ createdAt: -1 }).populate('tasks');
     },
     plant: async (parent, { plantId }) => { 
-      return await Plant.findOne({ _id: plantId });
+      return await Plant.findOne({ _id: plantId }).populate('tasks');
     },
     tasks: async (parent, { username }, context) => { 
       const params = username ? { username } : {}; 
