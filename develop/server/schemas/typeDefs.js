@@ -43,10 +43,10 @@ type Auth {
 
 type Query {
   me: User
-  Plants(name: String!, tasks: [String]!): [Plant]
-  Plant(plantID: ID!): Plant
-  addTask(input: createTask): Tasks
-  Task(taskId: ID!): Tasks
+  plants(name: String!, tasks: [String]!): [Plant]
+  plant(plantID: ID!): Plant
+  addTask(input: createTaskInput!): Task
+  task(taskId: ID!): Task
 }
 
 type Mutation {
@@ -55,8 +55,8 @@ type Mutation {
   addPlant(name: String!, tasks: [String]!): Plant
   updatePlant(name: String!): Plant
   removePlant(plantID: ID!): Plant
-  addTask(input: createTaskInput!): Task
-  updateTask(taskId: ID!, input: createTaskInput!): Task
+  addTask(sunlight: Int!, watering: Int!): Task
+  updateTask(): Task
   removeTask(taskId: ID!): Task
 }
 `;
