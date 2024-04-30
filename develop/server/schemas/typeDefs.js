@@ -43,20 +43,34 @@ type Auth {
 
 type Query {
   me: User
-  plants(name: String!, tasks: [String]!): [Plant]
+  plants(username: String!): [Plant]
   plant(plantID: ID!): Plant
-  addTask(input: createTaskInput!): Task
-  task(taskId: ID!): Task
+  task(taskID: ID!): Task
+  tasks(username: String!): [Task] 
 }
-
 type Mutation {
   addUser(username: String!, email: String!, password: String!): Auth
   login(email: String!, password: String!): Auth
-  addPlant(name: String!, tasks: [String]!): Plant
-  updatePlant(name: String!): Plant
+  addPlant(
+    name: String!,
+    description: String!,
+    wateringFrequency: Int!,
+    wateringInstructions: String!,
+    sunExposure: String!,
+    growingMonths: String!,
+    bloomSeason: String!,
+    whenToPlant: String!,
+    spacing: String!,
+    fertilization: String!,
+    tasks: [createTaskInput]!  # Changed to input type createTaskInput
+  ): Plant
   removePlant(plantID: ID!): Plant
-  addTask(sunlight: Int!, watering: Int!): Task
-  updateTask(): Task
+  addTask(
+    planting: String!, 
+    fertilizing: String!, 
+    pruning: String!, 
+    watering: String
+  ): Task
   removeTask(taskId: ID!): Task
 }
 `;
