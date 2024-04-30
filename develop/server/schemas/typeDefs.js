@@ -22,13 +22,6 @@ type Plant {
   tasks: [Task]!
 }
 
-input createTaskInput {
-  planting: String
-  fertilizing: String
-  pruning: String
-  watering: String
-}
-
 type Task {
   planting: String
   fertilizing: String
@@ -48,6 +41,7 @@ type Query {
   task(taskID: ID!): Task
   tasks(username: String!, plantID: ID!): [Task] 
 }
+
 type Mutation {
   addUser(username: String!, email: String!, password: String!): Auth
   login(email: String!, password: String!): Auth
@@ -62,7 +56,7 @@ type Mutation {
     whenToPlant: String!,
     spacing: String!,
     fertilization: String!,
-    tasks: [createTaskInput]!  # Changed to input type createTaskInput
+    tasks: [Task]!
   ): Plant
   removePlant(plantID: ID!): Plant
   addTask(
