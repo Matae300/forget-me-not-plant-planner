@@ -16,6 +16,40 @@ const resolvers = {
       }
       throw AuthenticationError;
     }
+  },
+  Mutation: {
+    addUser: async (_, { username, email, password }) => {
+      try {
+        const user = await User.create({ username, email, password });
+    
+        if (!user) {
+          throw new Error('Failed to create user');
+        }
+    
+        console.log('New user created:', user);
+        return { token: signToken(user), user };
+      } catch (error) {
+        console.error('Error creating user:', error);
+        throw new Error('Failed to create user');
+      }
+    },
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw AuthenticationError;
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw AuthenticationError;
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
+    },
   }
 };
 
