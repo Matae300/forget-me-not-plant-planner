@@ -1,5 +1,12 @@
 const { Schema, model } = require('mongoose');
 
+const taskSchema = new Schema({
+  planting: String,
+  fertilizing: String,
+  pruning: String,
+  watering: String
+});
+
 const plantSchema = new Schema({
   name: {
     type: String,
@@ -52,12 +59,7 @@ const plantSchema = new Schema({
     required: true,
     trim: true,
   },
-  tasks: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Task',
-    },
-  ],
+  tasks: [taskSchema]
 });
 
 const Plant = model('Plant', plantSchema);

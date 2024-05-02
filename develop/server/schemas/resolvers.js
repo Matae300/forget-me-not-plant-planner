@@ -14,8 +14,8 @@ const resolvers = {
       const params = username ? { username } : {}; 
       return await Plant.find(params).sort({ createdAt: -1 }).populate('tasks');
     },
-    plant: async (parent, { plantId }) => { 
-      return await Plant.findOne({ _id: plantId }).populate('tasks');
+    plant: async (parent, { _id }) => { 
+      return await Plant.findOne({ _id }).populate('tasks');
     },
     tasks: async (parent, { username }, context) => { 
       const params = username ? { username } : {}; 
@@ -57,15 +57,16 @@ const resolvers = {
       bloomSeason,
       whenToPlant,
       spacing,
-      fertilization 
+      fertilization,
+      tasks
     }, context) => {
       if (!context.user) {
         throw new AuthenticationError('User not authenticated');
       }
     
       try {
-        const plant = await Plant.create({
-          name, 
+        const newPlant = new Plant({
+          name,
           description,
           wateringFrequency,
           wateringInstructions,
@@ -74,16 +75,22 @@ const resolvers = {
           bloomSeason,
           whenToPlant,
           spacing,
-          fertilization 
+          fertilization,
+          tasks
         });
     
+        const savedPlant = await newPlant.save();
+    
+        // Update the user's plants array
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { plants: plant._id } }
+          { $addToSet: { plants: savedPlant._id } }
         );
     
-        return plant;
+        return savedPlant;
       } catch (error) {
+        console.error('Error creating plant:', error);
+    
         if (error.name === 'ValidationError') {
           throw new Error('Validation error: Please check your input and try again.');
         } else if (error.code === 11000) {

@@ -44,7 +44,7 @@ type Auth {
 type Query {
   me: User
   plants(username: String!): [Plant]
-  plant(plantID: ID!): Plant
+  plant(_id: ID!): Plant
   task(plantID: ID!): Task
   tasks(username: String!): [Task] 
 }

@@ -20,7 +20,13 @@ const taskSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-  }
+  },
+  plants: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Plant',
+    },
+  ],
 });
 
 const Task = model('Task', taskSchema);
