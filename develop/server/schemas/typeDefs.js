@@ -39,7 +39,7 @@ type Query {
   users: [User]
   user(username: String!): User
   plants(username: String!): [Plant]
-  plant(_id: ID!): Plant
+  plant(_Id: ID!): Plant
   me: User
 }
 
@@ -60,6 +60,7 @@ type Mutation {
   ): Plant
   removePlant(plantID: ID!): Plant
   addTask(
+    plantId: ID!
     planting: String!, 
     fertilizing: String!, 
     pruning: String!, 

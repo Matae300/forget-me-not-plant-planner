@@ -13,8 +13,8 @@ const resolvers = {
       const params = username ? { username } : {}; 
       return await Plant.find(params).sort({ createdAt: -1 }).populate('tasks');
     },
-    plant: async (parent, { _id }) => { 
-      return await Plant.findOne({ _id }).populate('tasks');
+    plant: async (parent, { _Id }) => { 
+      return await Plant.findOne({ _Id }).populate('tasks');
     },
     me: async (parent, args, context) => {
       if (context.user) {
@@ -80,10 +80,10 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    addTask: async (parent, { ID, planting, fertilizing, pruning, watering }, context) => {
+    addTask: async (parent, { plantId, planting, fertilizing, pruning, watering }, context) => {
       if (context.user) {
         return Plant.findOneAndUpdate(
-          { _id: ID },
+          { _id: plantId },
           {
             $addToSet: {
               tasks: { planting, fertilizing, pruning, watering },
@@ -97,10 +97,10 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    removePlant: async (parent, { ID }, context) => {
+    removePlant: async (parent, { plantId }, context) => {
       if (context.user) {
         const plant = await Plant.findOneAndDelete({
-          _id: ID,
+          _id: plantId,
           
         });
 
@@ -113,10 +113,10 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    removeTask: async (parent, { ID, taskId }, context) => {
+    removeTask: async (parent, { plantId, taskId }, context) => {
       if (context.user) {
         return Plant.findOneAndUpdate(
-          { _id: ID },
+          { _id: plantId },
           {
             $pull: {
               tasks: {
