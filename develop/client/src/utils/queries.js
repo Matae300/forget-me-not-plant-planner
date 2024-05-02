@@ -6,7 +6,16 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      password
+      plants
+    }
+  }`;
+
+  export const QUERY_USER = gql`
+  query User($username: String!) {
+    user(username: $username) {
+      _id
+      username
+      email
       plants
     }
   }`;
