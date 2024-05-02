@@ -12,8 +12,9 @@ const plantSchema = new Schema({
     required: true,
     trim: true,
   },
-  wateringFrequency: {
-    type: Number,
+  // URL to image of plant
+  image: {
+    type: String,
     required: true,
     trim: true,
   },
@@ -37,7 +38,7 @@ const plantSchema = new Schema({
     required: true,
     trim: true,
   },
-  whenToPlant: {
+  plantingInstructions: {
     type: String,
     required: true,
     trim: true,
@@ -47,7 +48,7 @@ const plantSchema = new Schema({
     required: true,
     trim: true,
   },
-  fertilization: {
+ fertilizingInstructions: {
     type: String,
     required: true,
     trim: true,

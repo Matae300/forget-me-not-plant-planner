@@ -20,7 +20,18 @@ const taskSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-  }
+  },
+  careSchedule: {
+      frequency_count: {
+        type: Number,
+      },
+      frequency_unit:{
+        type: Array,
+      },
+      frequency_interval: {
+        type: Number,
+      }
+      }
 });
 
 const Task = model('Task', taskSchema);
