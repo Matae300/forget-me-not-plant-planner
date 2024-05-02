@@ -39,6 +39,7 @@ type Query {
   users: [User]
   user(username: String!): User
   plants(username: String!): [Plant]
+  task(taskId: ID!): Task
   plant(_id: ID!): Plant
   me: User
 }

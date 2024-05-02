@@ -9,12 +9,25 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate('plants');
     },
-    plants: async (parent, { username }) => { 
+    plants: async (parent, { username }, context) => { 
       const params = username ? { username } : {}; 
       return await Plant.find(params).sort({ createdAt: -1 }).populate('tasks');
     },
     plant: async (parent, { _id }) => {  
       return await Plant.findOne({ _id }).populate('tasks');  
+    },
+    task: async (parent, { taskId }) => { 
+       
+      const plant = await Plant.findOne({ 'tasks._id': taskId });
+      if (!plant) {
+        throw new Error('Plant not found');
+      }
+
+      const task = plant.tasks.find(task => task._id.toString() === taskId);
+      if (!task) {
+        throw new Error('Task not found');
+      }
+      return task;
     },
     me: async (parent, args, context) => {
       if (context.user) {
