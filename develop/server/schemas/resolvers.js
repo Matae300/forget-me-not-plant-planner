@@ -1,30 +1,29 @@
-const { User, Plant, Task } = require('../models');
-const { signToken } = require('../utils/auth');
-const { AuthenticationError } = require('apollo-server-express'); 
+const { User, Plant } = require('../models');
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
-    me: async (parent, args, context) => {
-      if (context.user) {
-        return await User.findOne({ _id: context.user._id }).populate('plants');
-      }
-      throw new AuthenticationError('User not authenticated');
+    users: async () => {
+      return User.find().populate('plants');
     },
-    plants: async (parent, { username }, context) => { 
+    user: async (parent, { username }) => {
+      return User.findOne({ username }).populate('plants');
+    },
+    plants: async (parent, { username }) => { 
       const params = username ? { username } : {}; 
       return await Plant.find(params).sort({ createdAt: -1 }).populate('tasks');
     },
     plant: async (parent, { _id }) => { 
       return await Plant.findOne({ _id }).populate('tasks');
     },
-    tasks: async (parent, { username }, context) => { 
-      const params = username ? { username } : {}; 
-      return await Task.find(params).sort({ createdAt: -1 });
+    me: async (parent, args, context) => {
+      if (context.user) {
+        return User.findOne({ _id: context.user._id }).populate('plants');
+      }
+      throw new AuthenticationError('User not authenticated');
     },
-    task: async (parent, { taskId }) => { 
-      return await Task.findOne({ _id: taskId });
-    },
-  },
+  },  
+
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
@@ -47,7 +46,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addPlant: async (parent, { 
+    addPlant: async (parent, {  
       name, 
       description,
       wateringFrequency,
@@ -57,16 +56,10 @@ const resolvers = {
       bloomSeason,
       whenToPlant,
       spacing,
-      fertilization,
-      tasks
-    }, context) => {
-      if (!context.user) {
-        throw new AuthenticationError('User not authenticated');
-      }
-    
-      try {
-        const newPlant = new Plant({
-          name,
+      fertilization  }, context) => {
+      if (context.user) {
+        const plant = await Plant.create({
+          name, 
           description,
           wateringFrequency,
           wateringInstructions,
@@ -75,114 +68,70 @@ const resolvers = {
           bloomSeason,
           whenToPlant,
           spacing,
-          fertilization,
-          tasks
+          fertilization 
         });
-    
-        const savedPlant = await newPlant.save();
-    
-        // Update the user's plants array
+
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { plants: savedPlant._id } }
+          { $addToSet: { plants: plant._id } }
         );
-    
-        return savedPlant;
-      } catch (error) {
-        console.error('Error creating plant:', error);
-    
-        if (error.name === 'ValidationError') {
-          throw new Error('Validation error: Please check your input and try again.');
-        } else if (error.code === 11000) {
-          throw new Error('Duplicate key error: Plant with the same name already exists.');
-        } else {
-          throw new Error('Failed to create plant. Please try again later.');
-        }
+
+        return plant;
       }
+      throw AuthenticationError;
     },
-    removePlant: async (parent, { plantId }, context) => {
-      if (!context.user) {
-        throw new AuthenticationError('User not authenticated');
+    addTask: async (parent, { ID, planting, fertilizing, pruning, watering }, context) => {
+      if (context.user) {
+        return Plant.findOneAndUpdate(
+          { _id: ID },
+          {
+            $addToSet: {
+              tasks: { planting, fertilizing, pruning, watering },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
       }
-    
-      try {
-        const plant = await Plant.findOneAndDelete({ _id: plantId });
-    
-        if (!plant) {
-          throw new Error('Plant not found'); 
-        }
-    
+      throw AuthenticationError;
+    },
+    removePlant: async (parent, { ID }, context) => {
+      if (context.user) {
+        const plant = await Plant.findOneAndDelete({
+          _id: ID,
+          
+        });
+
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { plants: plant._id } }
         );
-    
+
         return plant;
-      } catch (error) {
-        if (error.name === 'CastError') {
-          throw new Error('Invalid plant ID'); 
-        } else {
-          throw new Error('Failed to remove plant. Please try again later.');
-        }
       }
+      throw AuthenticationError;
     },
-    addTask: async (parent, { 
-      planting,
-      fertilizing,
-      pruning,
-      watering
-    }, context) => {
-      if (!context.user) {
-        throw new AuthenticationError('User not authenticated');
-      }
-    
-      try {
-        const task = await Task.create({
-          planting,
-          fertilizing,
-          pruning,
-          watering
-        });
-    
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { tasks: task._id } }
+    removeTask: async (parent, { ID, taskId }, context) => {
+      if (context.user) {
+        return Plant.findOneAndUpdate(
+          { _id: ID },
+          {
+            $pull: {
+              tasks: {
+                _id: taskId,
+                planting, 
+                fertilizing, 
+                pruning, 
+                watering 
+              },
+            },
+          },
+          { new: true }
         );
-    
-        return task;
-      } catch (error) {
-        if (error.name === 'ValidationError') {
-          throw new Error('Validation error: Please check your input and try again.');
-        } else {
-          throw new Error('Failed to create task. Please try again later.');
-        }
       }
-    },
-    removeTask: async (parent, { taskId }, context) => {
-      if (!context.user) {
-        throw new AuthenticationError('User not authenticated');
-      }
-    
-      try {
-        const task = await Task.findOneAndDelete({ _id: taskId });
-    
-        if (!task) {
-          throw new Error('Task not found'); 
-        }
-    
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { tasks: task._id } }
-        );
-    
-        return task;
-      } catch (error) {
-        if (error.name === 'CastError') {
-          throw new Error('Invalid task ID'); 
-        } else {
-          throw new Error('Failed to remove task. Please try again later.');
-        }
-      }
+      throw AuthenticationError;
     },
   }
 };
