@@ -17,7 +17,7 @@ const resolvers = {
       return await Plant.findOne({ _id }).populate('tasks');  
     },
     task: async (parent, { taskId }) => { 
-       
+
       const plant = await Plant.findOne({ 'tasks._id': taskId });
       if (!plant) {
         throw new Error('Plant not found');
@@ -28,6 +28,15 @@ const resolvers = {
         throw new Error('Task not found');
       }
       return task;
+    },
+    tasks: async (parent, { username }) => { 
+      const user = await User.findOne({ username });
+      if (!user) {
+        throw new Error('User not found');
+      }
+    
+      const tasks = await Plant.find({ userId: user._id }).sort({ createdAt: -1 });
+      return tasks;
     },
     me: async (parent, args, context) => {
       if (context.user) {
