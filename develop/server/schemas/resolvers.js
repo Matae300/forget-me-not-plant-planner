@@ -13,8 +13,8 @@ const resolvers = {
       const params = username ? { username } : {}; 
       return await Plant.find(params).sort({ createdAt: -1 }).populate('tasks');
     },
-    plant: async (parent, { _Id }) => { 
-      return await Plant.findOne({ _Id }).populate('tasks');
+    plant: async (parent, { _id }) => {  
+      return await Plant.findOne({ _id }).populate('tasks');  
     },
     me: async (parent, args, context) => {
       if (context.user) {
@@ -101,7 +101,6 @@ const resolvers = {
       if (context.user) {
         const plant = await Plant.findOneAndDelete({
           _id: plantId,
-          
         });
 
         await User.findOneAndUpdate(
