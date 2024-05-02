@@ -52,10 +52,28 @@ const plantSchema = new Schema({
     required: true,
     trim: true,
   },
-  tasks: [
+  tasks: [ 
     {
-      type: Schema.Types.ObjectId,
-      ref: 'Task',
+      planting: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      fertilizing: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      pruning: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      watering: {
+        type: String,
+        required: true,
+        trim: true,
+      },
     },
   ],
 });
