@@ -35,6 +35,7 @@ export const QUERY_ME = gql`
       spacing
       fertilization
       tasks {
+        _id
         planting
         fertilizing
         pruning
@@ -44,8 +45,8 @@ export const QUERY_ME = gql`
   }`;
 
   export const QUERY_SINGLE_PLANT = gql`
-  query Plant($plantId: ID!) {
-    plant(plantID: $plantId) {
+  query Plant($id: ID!) {
+    plant(_id: $id) {
       _id
       name
       description
@@ -58,6 +59,7 @@ export const QUERY_ME = gql`
       spacing
       fertilization
       tasks {
+        _id
         planting
         fertilizing
         pruning
@@ -69,6 +71,7 @@ export const QUERY_ME = gql`
   export const QUERY_TASKS = gql`
   query Tasks($username: String!) {
     tasks(username: $username) {
+      _id
       planting
       fertilizing
       pruning
@@ -77,8 +80,9 @@ export const QUERY_ME = gql`
   }`;
 
   export const QUERY_SINGLE_TASK = gql`
-  query Task($plantId: ID!) {
-    task(plantID: $plantId) {
+  query Task($taskId: ID!) {
+    task(taskId: $taskId) {
+      _id
       planting
       fertilizing
       pruning

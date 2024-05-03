@@ -4,7 +4,7 @@ type User {
   username: String
   email: String
   password: String
-  plants: [String]!
+  plants: [Plant]!
 }
 
 type Plant {
@@ -23,13 +23,7 @@ type Plant {
 }
 
 type Task {
-  planting: String
-  fertilizing: String
-  pruning: String
-  watering: String
-}
-
-input TaskInput {
+  _id: ID
   planting: String
   fertilizing: String
   pruning: String
@@ -42,11 +36,13 @@ type Auth {
 }
 
 type Query {
-  me: User
+  users: [User]
+  user(username: String!): User
   plants(username: String!): [Plant]
-  plant(plantID: ID!): Plant
-  task(plantID: ID!): Task
-  tasks(username: String!): [Task] 
+  plant(_id: ID!): Plant
+  task(taskId: ID!): Task
+  tasks(username: String!): [Task]
+  me: User
 }
 
 type Mutation {
@@ -62,17 +58,17 @@ type Mutation {
     bloomSeason: String!,
     whenToPlant: String!,
     spacing: String!,
-    fertilization: String!,
-    tasks: [TaskInput]!
+    fertilization: String!
   ): Plant
-  removePlant(plantID: ID!): Plant
+  removePlant(plantId: ID!): Plant
   addTask(
+    plantId: ID!,
     planting: String!, 
     fertilizing: String!, 
     pruning: String!, 
     watering: String!
-  ): Task
-  removeTask(taskId: ID!): Task
+  ): Plant
+  removeTask(taskId: ID!): Plant
 }
 `;
 
