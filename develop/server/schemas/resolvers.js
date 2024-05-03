@@ -34,13 +34,17 @@ const resolvers = {
       return task;
     },
     tasks: async (parent, { username }) => { 
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ username }).populate('plants');
       if (!user) {
-        throw new Error('User not found');
+        throw new Error("User not found");
       }
     
-      const plant = await Plant.find({ userId: user._id }).sort({ createdAt: -1 });
-      return plant.tasks;
+      const tasks = user.plants.reduce((acc, plant) => {
+        acc.push(...plant.tasks);
+        return acc;
+      }, []);
+    
+      return tasks;
     },
     me: async (parent, args, context) => {
       if (context.user) {
