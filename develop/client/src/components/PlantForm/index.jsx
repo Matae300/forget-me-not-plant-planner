@@ -106,71 +106,108 @@ const addPlantForm = ({}) => {
       {Auth.loggedIn() ? (
 
       <form onSubmit={handleFormSubmit}>
-        <input 
-         name="name"
-         placeholder="plant's name here..."
-         value={name}
-         onChange={handleChange}>
-        </input>
-        <input 
-         name="description"
-         placeholder="description."
-         value={description}
-         onChange={handleChange}>
-        </input>
-        <input 
-         name="Watering Frequency"
-         placeholder="Watering Frequency."
-         value={wateringFrequency}
-         onChange={handleChange}>
-        </input>
-        <input 
-         name="Watering Instructions"
-         placeholder="Watering Instructions"
-         value={wateringInstructions}
-         onChange={handleChange}>
-        </input>
-        <input 
-         name="Sun Exposure"
-         placeholder="Sun Exposure"
-         value={sunExposure}
-         onChange={handleChange}>
-        </input>
-        <input 
-         name="Growing Months"
-         placeholder="Growing Months"
-         value={growingMonths}
-         onChange={handleChange}>
-        </input>
-        <input 
-         name="Bloom Season"
-         placeholder="Bloom Season"
-         value={bloomSeason}
-         onChange={handleChange}>
-        </input>
-        <input 
-         name="When To Plant"
-         placeholder="When To Plant"
-         value={whenToPlant}
-         onChange={handleChange}>
-        </input>
-        <input 
-         name="Spacing"
-         placeholder="Spacing"
-         value={spacing}
-         onChange={handleChange}>
-        </input>
-        <input 
-         name="Fertilization"
-         placeholder="fertilization"
-         value={fertilization}
-         onChange={handleChange}>
-        </input>
+      <label htmlFor="name">Plant Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Plant's name here..."
+        value={name}
+        onChange={handleChange}
+      />
 
-        <button>
-          Add Plant
-        </button>
-        
+      <label htmlFor="description">Description</label>
+      <input
+        type="text"
+        id="description"
+        name="description"
+        placeholder="Description"
+        value={description}
+        onChange={handleChange}
+      />
+
+      <label htmlFor="wateringFrequency">Watering Frequency</label>
+      <input
+        type="text"
+        id="wateringFrequency"
+        name="wateringFrequency"
+        placeholder="Watering Frequency"
+        value={wateringFrequency}
+        onChange={handleChange}
+      />
+
+      <label htmlFor="wateringInstructions">Watering Instructions</label>
+      <input
+        type="text"
+        id="wateringInstructions"
+        name="wateringInstructions"
+        placeholder="Watering Instructions"
+        value={wateringInstructions}
+        onChange={handleChange}
+      />
+
+      <label htmlFor="sunExposure">Sun Exposure</label>
+      <input
+        type="text"
+        id="sunExposure"
+        name="sunExposure"
+        placeholder="Sun Exposure"
+        value={sunExposure}
+        onChange={handleChange}
+      />
+
+      <label htmlFor="growingMonths">Growing Months</label>
+      <input
+        type="text"
+        id="growingMonths"
+        name="growingMonths"
+        placeholder="Growing Months"
+        value={growingMonths}
+        onChange={handleChange}
+      />
+
+      <label htmlFor="bloomSeason">Bloom Season</label>
+      <input
+        type="text"
+        id="bloomSeason"
+        name="bloomSeason"
+        placeholder="Bloom Season"
+        value={bloomSeason}
+        onChange={handleChange}
+      />
+
+      <label htmlFor="whenToPlant">When to Plant</label>
+      <input
+        type="text"
+        id="whenToPlant"
+        name="whenToPlant"
+        placeholder="When To Plant"
+        value={whenToPlant}
+        onChange={handleChange}
+      />
+
+      <label htmlFor="spacing">Spacing</label>
+      <input
+        type="text"
+        id="spacing"
+        name="spacing"
+        placeholder="Spacing"
+        value={spacing}
+        onChange={handleChange}
+      />
+
+      <label htmlFor="fertilization">Fertilization</label>
+      <input
+        type="text"
+        id="fertilization"
+        name="fertilization"
+        placeholder="Fertilization"
+        value={fertilization}
+        onChange={handleChange}
+      />
+
+      <button type="submit">Add Plant</button>
+
       </form>
       ) : (
         <p>
