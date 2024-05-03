@@ -9,9 +9,13 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate('plants');
     },
-    plants: async (parent, { username }, context) => { 
-      const params = username ? { username } : {}; 
-      return await Plant.find(params).sort({ createdAt: -1 }).populate('tasks');
+    plants: async (parent, { username }) => { 
+    const user = await User.findOne({ username }).populate('plants');
+      if (!user) {
+      throw new Error('User not found');
+      }
+
+      return user.plants;
     },
     plant: async (parent, { _id }) => {  
       return await Plant.findOne({ _id }).populate('tasks');  
@@ -30,12 +34,16 @@ const resolvers = {
       return task;
     },
     tasks: async (parent, { username }) => { 
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ username }).populate('plants');
       if (!user) {
-        throw new Error('User not found');
+        throw new Error("User not found");
       }
     
-      const tasks = await Plant.find({ userId: user._id }).sort({ createdAt: -1 });
+      const tasks = user.plants.reduce((acc, plant) => {
+        acc.push(...plant.tasks);
+        return acc;
+      }, []);
+    
       return tasks;
     },
     me: async (parent, args, context) => {
