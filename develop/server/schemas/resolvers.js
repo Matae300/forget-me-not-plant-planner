@@ -142,26 +142,20 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    removeTask: async (parent, { plantId, taskId }, context) => {
+    removeTask: async (parent, { taskId }, context) => {
       if (context.user) {
         return Plant.findOneAndUpdate(
-          { _id: plantId },
+          { "tasks._id": taskId }, 
           {
             $pull: {
-              tasks: {
-                _id: taskId,
-                planting, 
-                fertilizing, 
-                pruning, 
-                watering 
-              },
+              tasks: { _id: taskId },
             },
           },
           { new: true }
         );
       }
-      throw AuthenticationError;
-    },
+      throw new AuthenticationError('User not authenticated');
+    }
   }
 };
 
