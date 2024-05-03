@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { useMutation } from '@apollo/client';
 import { ADD_USER } from '../utils/mutations';
-
+import './SignUp.css';
 import Auth from '../utils/auth';
 
 const Signup = () => {
@@ -39,11 +39,12 @@ const Signup = () => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Sign Up</h4>
-          <div className="card-body">
+    <main className="">
+      <div className="signup-container">
+        <div className="">
+          <h4 className="signup-header"><span className='italic'>NEW?</span> START HERE</h4>
+          <h3 className='signup-text'>CREATE AN ACCOUNT</h3>
+          <div className="">
             {data ? (
               <p>
                 Success! You may now head{' '}
@@ -52,7 +53,7 @@ const Signup = () => {
             ) : (
               <form onSubmit={handleFormSubmit}>
                 <input
-                  className="form-input"
+                  className="signup-form-input"
                   placeholder="Your username"
                   name="username"
                   type="text"
@@ -60,7 +61,7 @@ const Signup = () => {
                   onChange={handleChange}
                 />
                 <input
-                  className="form-input"
+                  className="signup-form-input"
                   placeholder="Your email"
                   name="email"
                   type="email"
@@ -68,7 +69,7 @@ const Signup = () => {
                   onChange={handleChange}
                 />
                 <input
-                  className="form-input"
+                  className="signup-form-input"
                   placeholder="******"
                   name="password"
                   type="password"
@@ -76,17 +77,17 @@ const Signup = () => {
                   onChange={handleChange}
                 />
                 <button
-                  className="btn btn-block btn-primary"
+                  className="signup-button"
                   style={{ cursor: 'pointer' }}
                   type="submit"
                 >
-                  Submit
+                  Sign-Up
                 </button>
               </form>
             )}
 
             {error && (
-              <div className="my-3 p-3 bg-danger text-white">
+              <div className="">
                 {error.message}
               </div>
             )}
