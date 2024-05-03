@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import { useNavigate } from 'react-router-dom';
-
+import './Login.css';
 import Auth from '../utils/auth';
 
 const Login = (props) => {
@@ -44,11 +44,11 @@ const Login = (props) => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
-          <div className="card-body">
+    <main className="">
+      <div className="login-container">
+        <div className="">
+          <h4 className="login-header">WELCOME BACK!</h4>
+          <div className="">
             {data ? (
               <p>
                 Success! You are being redirected to the your garden.
@@ -56,7 +56,7 @@ const Login = (props) => {
             ) : (
               <form onSubmit={handleFormSubmit}>
                 <input
-                  className="form-input"
+                  className="login-form-input"
                   placeholder="Your email"
                   name="email"
                   type="email"
@@ -64,7 +64,7 @@ const Login = (props) => {
                   onChange={handleChange}
                 />
                 <input
-                  className="form-input"
+                  className="login-form-input"
                   placeholder="******"
                   name="password"
                   type="password"
@@ -72,17 +72,17 @@ const Login = (props) => {
                   onChange={handleChange}
                 />
                 <button
-                  className="btn btn-block btn-primary"
+                  className="login-button"
                   style={{ cursor: 'pointer' }}
                   type="submit"
                 >
-                  Submit
+                  Log-In
                 </button>
               </form>
             )}
 
             {error && (
-              <div className="my-3 p-3 bg-danger text-white">
+              <div className="">
                 {error.message}
               </div>
             )}

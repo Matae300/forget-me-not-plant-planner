@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import '../App.css'
-
+import './Home.css'
 import Signup from '../components/SignUp';
 import Login from '../components/Login';
 
@@ -21,11 +21,13 @@ function Home() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <div className="flex">
-        <Signup />
-      </div>
-      <div className="flex">
-        <Login />
+      <div className='auth-container'>
+        <div className="auth">
+          <Signup />
+        </div>
+        <div className="auth">
+          <Login />
+        </div>
       </div>
     </>
   )
