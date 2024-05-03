@@ -27,8 +27,8 @@ export const ADD_USER = gql`
     `;
 
     export const ADD_PLANT = gql`
-    mutation addPlant($name: String!, $description: String!, $wateringFrequency: Int!, $wateringInstructions: String!, $sunExposure: String!, $growingMonths: String!, $bloomSeason: String!, $whenToPlant: String!, $spacing: String!, $fertilization: String!, $tasks: [TaskInput]!) {
-      addPlant(name: $name, description: $description, wateringFrequency: $wateringFrequency, wateringInstructions: $wateringInstructions, sunExposure: $sunExposure, growingMonths: $growingMonths, bloomSeason: $bloomSeason, whenToPlant: $whenToPlant, spacing: $spacing, fertilization: $fertilization, tasks: $tasks) {
+    mutation AddPlant($name: String!, $description: String!, $wateringFrequency: Int!, $wateringInstructions: String!, $sunExposure: String!, $growingMonths: String!, $bloomSeason: String!, $whenToPlant: String!, $spacing: String!, $fertilization: String!) {
+      addPlant(name: $name, description: $description, wateringFrequency: $wateringFrequency, wateringInstructions: $wateringInstructions, sunExposure: $sunExposure, growingMonths: $growingMonths, bloomSeason: $bloomSeason, whenToPlant: $whenToPlant, spacing: $spacing, fertilization: $fertilization) {
         _id
         name
         description
@@ -41,6 +41,7 @@ export const ADD_USER = gql`
         spacing
         fertilization
         tasks {
+          _id
           planting
           fertilizing
           pruning
@@ -61,12 +62,26 @@ export const ADD_USER = gql`
 
     
     export const ADD_TASK = gql`
-    mutation addTask($planting: String!, $fertilizing: String!, $pruning: String!, $watering: String!) {
-      addTask(planting: $planting, fertilizing: $fertilizing, pruning: $pruning, watering: $watering) {
-        planting
-        fertilizing
-        pruning
-        watering
+    mutation AddTask($plantId: ID!, $planting: String!, $fertilizing: String!, $pruning: String!, $watering: String!) {
+      addTask(plantId: $plantId, planting: $planting, fertilizing: $fertilizing, pruning: $pruning, watering: $watering) {
+        _id
+        name
+        description
+        wateringFrequency
+        wateringInstructions
+        sunExposure
+        growingMonths
+        bloomSeason
+        whenToPlant
+        spacing
+        fertilization
+        tasks {
+          _id
+          planting
+          fertilizing
+          pruning
+          watering
+        }
       }
     }
     `;
