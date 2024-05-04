@@ -14,7 +14,7 @@
 
 /* Media Queries */
 
- Styles for mobile devices 
+/* Styles for mobile devices */
 @media (max-width: 585px) {
   p {
     font-size: 1em;
@@ -33,11 +33,11 @@
 @media (min-width: 586px) and (max-width: 768px) {
   p {
     font-size: 1.2em;
-  },
+  }
 
   h1 {
     font-size: 2em;
-  },
+  }
 
   h2 {
     font-size: 1.5em;
