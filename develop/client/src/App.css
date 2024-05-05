@@ -1,14 +1,26 @@
 /* Global Styles */
 
 #root {
+  box-sizing: border-box;
   margin: 0 auto;
   padding: 16px;
   text-align: center;
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+  header {
+    margin-bottom: .5em;
+    box-shadow: 0px 10px 8px #CCC;
+  }
+
 .card {
   padding: 2em;
+}
+
+#months div {
+  min-width: 20px;
+  min-height: 20px;
+  margin: .5em;
 }
 
 
