@@ -18,35 +18,40 @@ const resolvers = {
       return user.plants;
     },
     plant: async (parent, { _id }) => {  
-      return await Plant.findOne({ _id }).populate('tasks');  
+      return await Plant.findOne({ _id }).populate('wateringTask');  
     },
-    wateringTask: async () => {
+    wateringTask: async (_, { username }, context) => {
+      if (!context.user || context.user.username !== username) {
+        throw new Error("User not authenticated or unauthorized");
+      }
+    
       const user = await User.findOne({ username }).populate('plants');
       if (!user) {
         throw new Error("User not found");
       }
     
-      const wateringTask = user.wateringTask.reduce((acc, plant) => {
-        acc.push(...plant.wateringTask);
-        return acc;
-      }, []);
+      const plants = await Plant.find({ _id: { $in: user.plants } });
     
-      return wateringTask;
+      if (!plants || plants.length === 0) {
+        throw new Error("No plants found for the user");
+      }
+    
+      const wateringTasks = plants.map(plant => plant.wateringTask);
+      return wateringTasks;
     },
-    singleOtherTasks: async (parent, { otherTasksId }) => { 
-
-      const plant = await Plant.findOne({ 'otherTasksId._id': otherTasksId });
+    singleOtherTask: async (parent, { otherTasksId }) => { 
+      const plant = await Plant.findOne({ 'otherTasks._id': otherTasksId });
       if (!plant) {
         throw new Error('Plant not found');
       }
 
-      const singleOtherTasks = plant.otherTasks.find(task => task._id.toString() === taskId);
-      if (!task) {
+      const singleOtherTasks = plant.otherTasks.find(task => task._id.toString() === otherTasksId);
+      if (!singleOtherTasks) {
         throw new Error('Task not found');
       }
       return singleOtherTasks;
     },
-    OtherTasks: async (parent, { username }) => { 
+    allOtherTasksByUsername: async (parent, { username }) => { 
       const user = await User.findOne({ username }).populate('plants');
       if (!user) {
         throw new Error("User not found");
@@ -90,22 +95,20 @@ const resolvers = {
       return { token, user };
     },
     addPlant: async (parent, {  
-      name,
+      plantName,
       description,
-      wateringFrequency,
-      wateringInstructions,
+      photoUrl,
       sunExposure,
       growingMonths,
       bloomingMonths,
       wateringTask,
-      userNotes 
+      userNotes
     }, context) => {
       if (context.user) {
         const plant = await Plant.create({
-          name,
+          plantName,
           description,
-          wateringFrequency,
-          wateringInstructions,
+          photoUrl,
           sunExposure,
           growingMonths,
           bloomingMonths,
@@ -122,21 +125,13 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    addOtherTask: async (parent, { 
-      plantId,  
-      name,
-      instructions,
-      dates: [Date] 
-    }, context) => {
+    addOtherTask: async (parent, { plantId, name, instructions, dates }, context) => {
       if (context.user) {
-        return Plant.findOneAndUpdate(
+        const updatedPlant = await Plant.findOneAndUpdate(
           { _id: plantId },
           {
             $addToSet: {
-              tasks: {   
-                name,
-                instructions,
-                dates: [Date] },
+              otherTasks: { name, instructions, dates },
             },
           },
           {
@@ -144,8 +139,9 @@ const resolvers = {
             runValidators: true,
           }
         );
+        return updatedPlant;
       }
-      throw AuthenticationError;
+      throw new AuthenticationError('User not authenticated');
     },
     removePlant: async (parent, { plantId }, context) => {
       if (context.user) {
@@ -162,17 +158,18 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    removeTask: async (parent, { otherTasksId }, context) => {
+    removeOtherTask: async (parent, { otherTasksId }, context) => {
       if (context.user) {
-        return Plant.findOneAndUpdate(
-          { "otherTasksId._id": otherTasksId }, 
+        const updatedPlant = await Plant.findOneAndUpdate(
+          { "otherTasks._id": otherTasksId },
           {
             $pull: {
-              tasks: { _id: otherTasksId },
+              otherTasks: { _id: otherTasksId },
             },
           },
           { new: true }
         );
+        return updatedPlant;
       }
       throw new AuthenticationError('User not authenticated');
     }

@@ -27,7 +27,7 @@ const wateringTaskSchema = new Schema({
 });
 
 const plantSchema = new Schema({
-  name: {
+  plantName: {
     type: String,
     required: true,
     unique: true,

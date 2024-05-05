@@ -9,15 +9,22 @@ type User {
 
 type Plant {
   _id: ID
-  name: String!
+  plantName: String!
   description: String
   photoUrl: String
   sunExposure: String
   growingMonths: String
   bloomingMonths: String
-  wateringTask: WateringTaskInput!
-  otherTasks: [OtherTasksInput]
+  wateringTask: WateringTask!
+  otherTasks: [OtherTasks]
   userNotes: String
+}
+
+type WateringTask {
+  instructions: String
+  frequencyCount: Int
+  frequencyUnit: String
+  frequencyInterval: Int
 }
 
 input WateringTaskInput {
@@ -27,10 +34,10 @@ input WateringTaskInput {
   frequencyInterval: Int
 }
 
-input OtherTasksInput {
+type OtherTasks {
   name: String
   instructions: String
-  dates: [Date]
+  dates: [String]
 }
 
 type Auth {
@@ -43,37 +50,33 @@ type Query {
   user(username: String!): User
   plants(username: String!): [Plant]
   plant(_id: ID!): Plant
-  wateringTask(wateringtaskID: ID!): WateringTaskInput
-  singleOtherTasks(otherTasksId: ID!): OtherTasksInput
-  OtherTasks(username: String!): [OtherTasksInput]
+  wateringTask(wateringTaskId: ID!): WateringTask
+  singleOtherTask(otherTasksId: ID!): OtherTasks
+  allOtherTasksByUsername(username: String!): [OtherTasks]
   me: User
 }
 
 type Mutation {
   addUser(username: String!, email: String!, password: String!): Auth
   login(email: String!, password: String!): Auth
-
   addPlant(
-    name: String!,
-    description: String!,
-    wateringFrequency: Int!,
-    wateringInstructions: String!,
-    sunExposure: String!,
-    growingMonths: String!,
-    bloomingMonths: String!,
-    wateringTask: WateringTaskInput!,
+    plantName: String!
+    description: String
+    photoUrl: String
+    sunExposure: String
+    growingMonths: String
+    bloomingMonths: String
+    wateringTask: WateringTaskInput!
     userNotes: String
   ): Plant
-
   removePlant(plantId: ID!): Plant
-
-  addOtherTasks(
+  addOtherTask(
+    plantId: ID!,
     name: String
     instructions: String
-    dates: [Date]
-  ): OtherTasksInput
-
-  removeOtherTask(otherTasksId: ID!): OtherTasksInput
+    dates: [String]
+  ): OtherTasks
+  removeOtherTask(otherTasksId: ID!): OtherTasks
 }
 `;
 
