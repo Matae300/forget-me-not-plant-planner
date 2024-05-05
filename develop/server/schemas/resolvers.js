@@ -20,31 +20,44 @@ const resolvers = {
     plant: async (parent, { _id }) => {  
       return await Plant.findOne({ _id }).populate('tasks');  
     },
-    task: async (parent, { taskId }) => { 
-
-      const plant = await Plant.findOne({ 'tasks._id': taskId });
-      if (!plant) {
-        throw new Error('Plant not found');
-      }
-
-      const task = plant.tasks.find(task => task._id.toString() === taskId);
-      if (!task) {
-        throw new Error('Task not found');
-      }
-      return task;
-    },
-    tasks: async (parent, { username }) => { 
+    wateringTask: async () => {
       const user = await User.findOne({ username }).populate('plants');
       if (!user) {
         throw new Error("User not found");
       }
     
-      const tasks = user.plants.reduce((acc, plant) => {
-        acc.push(...plant.tasks);
+      const wateringTask = user.wateringTask.reduce((acc, plant) => {
+        acc.push(...plant.wateringTask);
         return acc;
       }, []);
     
-      return tasks;
+      return wateringTask;
+    },
+    singleOtherTasks: async (parent, { otherTasksId }) => { 
+
+      const plant = await Plant.findOne({ 'otherTasksId._id': otherTasksId });
+      if (!plant) {
+        throw new Error('Plant not found');
+      }
+
+      const singleOtherTasks = plant.otherTasks.find(task => task._id.toString() === taskId);
+      if (!task) {
+        throw new Error('Task not found');
+      }
+      return singleOtherTasks;
+    },
+    OtherTasks: async (parent, { username }) => { 
+      const user = await User.findOne({ username }).populate('plants');
+      if (!user) {
+        throw new Error("User not found");
+      }
+    
+      const othertasks = user.plants.reduce((acc, plant) => {
+        acc.push(...plant.otherTasks);
+        return acc;
+      }, []);
+    
+      return othertasks;
     },
     me: async (parent, args, context) => {
       if (context.user) {
@@ -77,28 +90,27 @@ const resolvers = {
       return { token, user };
     },
     addPlant: async (parent, {  
-      name, 
+      name,
       description,
       wateringFrequency,
       wateringInstructions,
       sunExposure,
       growingMonths,
-      bloomSeason,
-      whenToPlant,
-      spacing,
-      fertilization  }, context) => {
+      bloomingMonths,
+      wateringTask,
+      userNotes 
+    }, context) => {
       if (context.user) {
         const plant = await Plant.create({
-          name, 
+          name,
           description,
           wateringFrequency,
           wateringInstructions,
           sunExposure,
           growingMonths,
-          bloomSeason,
-          whenToPlant,
-          spacing,
-          fertilization 
+          bloomingMonths,
+          wateringTask,
+          userNotes
         });
 
         await User.findOneAndUpdate(
@@ -110,13 +122,21 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    addTask: async (parent, { plantId, planting, fertilizing, pruning, watering }, context) => {
+    addOtherTask: async (parent, { 
+      plantId,  
+      name,
+      instructions,
+      dates: [Date] 
+    }, context) => {
       if (context.user) {
         return Plant.findOneAndUpdate(
           { _id: plantId },
           {
             $addToSet: {
-              tasks: { planting, fertilizing, pruning, watering },
+              tasks: {   
+                name,
+                instructions,
+                dates: [Date] },
             },
           },
           {
@@ -142,13 +162,13 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    removeTask: async (parent, { taskId }, context) => {
+    removeTask: async (parent, { otherTasksId }, context) => {
       if (context.user) {
         return Plant.findOneAndUpdate(
-          { "tasks._id": taskId }, 
+          { "otherTasksId._id": otherTasksId }, 
           {
             $pull: {
-              tasks: { _id: taskId },
+              tasks: { _id: otherTasksId },
             },
           },
           { new: true }

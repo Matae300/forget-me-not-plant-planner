@@ -9,25 +9,28 @@ type User {
 
 type Plant {
   _id: ID
-  name: String
+  name: String!
   description: String
-  wateringFrequency: Int
-  wateringInstructions: String
+  photoUrl: String
   sunExposure: String
   growingMonths: String
-  bloomSeason: String
-  whenToPlant: String
-  spacing: String
-  fertilization: String
-  tasks: [Task]!
+  bloomingMonths: String
+  wateringTask: WateringTaskInput!
+  otherTasks: [OtherTasksInput]
+  userNotes: String
 }
 
-type Task {
-  _id: ID
-  planting: String
-  fertilizing: String
-  pruning: String
-  watering: String
+input WateringTaskInput {
+  instructions: String
+  frequencyCount: Int
+  frequencyUnit: String
+  frequencyInterval: Int
+}
+
+input OtherTasksInput {
+  name: String
+  instructions: String
+  dates: [Date]
 }
 
 type Auth {
@@ -40,14 +43,16 @@ type Query {
   user(username: String!): User
   plants(username: String!): [Plant]
   plant(_id: ID!): Plant
-  task(taskId: ID!): Task
-  tasks(username: String!): [Task]
+  wateringTask(wateringtaskID: ID!): WateringTaskInput
+  singleOtherTasks(otherTasksId: ID!): OtherTasksInput
+  OtherTasks(username: String!): [OtherTasksInput]
   me: User
 }
 
 type Mutation {
   addUser(username: String!, email: String!, password: String!): Auth
   login(email: String!, password: String!): Auth
+
   addPlant(
     name: String!,
     description: String!,
@@ -55,20 +60,20 @@ type Mutation {
     wateringInstructions: String!,
     sunExposure: String!,
     growingMonths: String!,
-    bloomSeason: String!,
-    whenToPlant: String!,
-    spacing: String!,
-    fertilization: String!
+    bloomingMonths: String!,
+    wateringTask: WateringTaskInput!,
+    userNotes: String
   ): Plant
+
   removePlant(plantId: ID!): Plant
-  addTask(
-    plantId: ID!,
-    planting: String!, 
-    fertilizing: String!, 
-    pruning: String!, 
-    watering: String!
-  ): Plant
-  removeTask(taskId: ID!): Plant
+
+  addOtherTasks(
+    name: String
+    instructions: String
+    dates: [Date]
+  ): OtherTasksInput
+
+  removeOtherTask(otherTasksId: ID!): OtherTasksInput
 }
 `;
 
