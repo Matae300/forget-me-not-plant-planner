@@ -11,22 +11,31 @@ const AddPlantForm = () => {
   const [sunExposure, setSunExposure] = useState('');
   const [growingMonths, setGrowingMonths] = useState('');
   const [bloomingMonths, setBloomingMonths] = useState('');
-  const [wateringTask, setWateringTask] = useState('');
+  const [instructions, setInstructions] = useState('');
+  const [frequencyCount, setFrequencyCount] = useState('');
+  const [frequencyUnit, setFrequencyUnit] = useState('');
+  const [frequencyInterval, setFrequencyInterval] = useState('');
   const [userNotes, setUserNotes] = useState('');
 
-  const [addPlant, {error}] = useMutation
-  (ADD_PLANT, {
+  const [addPlant, { error }] = useMutation(ADD_PLANT, {
     refetchQueries: [
-      QUERY_PLANTS,
-      'getPlants',
-      QUERY_ME,
-      'me'
-    ]
+     QUERY_PLANTS, 
+     'getPlants',
+     QUERY_ME, 
+     'me'
+    ],
   });
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
+      const wateringTaskVariables = {
+        instructions,
+        frequencyCount: parseInt(frequencyCount), // Parse as integer
+        frequencyUnit,
+        frequencyInterval: parseInt(frequencyInterval), // Parse as integer
+      };
+      
       const { data } = await addPlant({
         variables: {
           name,
@@ -35,7 +44,7 @@ const AddPlantForm = () => {
           sunExposure,
           growingMonths,
           bloomingMonths,
-          wateringTask,
+          wateringTask: wateringTaskVariables,
           userNotes,
         },
       });
@@ -46,7 +55,10 @@ const AddPlantForm = () => {
       setSunExposure('');
       setGrowingMonths('');
       setBloomingMonths('');
-      setWateringTask('');
+      setInstructions('');
+      setFrequencyCount('');
+      setFrequencyUnit('');
+      setFrequencyInterval('');
       setUserNotes('');
     } catch (err) {
       console.error(err);
@@ -74,8 +86,17 @@ const AddPlantForm = () => {
       case 'bloomingMonths':
         setBloomingMonths(value);
         break;
-      case 'wateringTask':
-        setWateringTask(value);
+      case 'instructions':
+        setInstructions(value);
+        break;
+      case 'frequencyCount':
+        setFrequencyCount(value);
+        break;
+      case 'frequencyUnit':
+        setFrequencyUnit(value);
+        break;
+      case 'frequencyInterval':
+        setFrequencyInterval(value);
         break;
       case 'userNotes':
         setUserNotes(value);
@@ -88,7 +109,7 @@ const AddPlantForm = () => {
   return (
     <div>
       <h3>Add Plant</h3>
-    
+      {Auth.loggedIn() ? (
         <form onSubmit={handleFormSubmit}>
           <label htmlFor="name">Plant Name:</label>
           <input
@@ -144,12 +165,39 @@ const AddPlantForm = () => {
             onChange={handleChange}
           />
 
-          <label htmlFor="wateringTask">Watering Task:</label>
+          <label htmlFor="instructions">Instructions:</label>
           <input
             type="text"
-            id="wateringTask"
-            name="wateringTask"
-            value={wateringTask}
+            id="instructions"
+            name="instructions"
+            value={instructions}
+            onChange={handleChange}
+          />
+
+          <label htmlFor="frequencyCount">Frequency Count:</label>
+          <input
+            type="text"
+            id="frequencyCount"
+            name="frequencyCount"
+            value={frequencyCount}
+            onChange={handleChange}
+          />
+
+          <label htmlFor="frequencyUnit">Frequency Unit:</label>
+          <input
+            type="text"
+            id="frequencyUnit"
+            name="frequencyUnit"
+            value={frequencyUnit}
+            onChange={handleChange}
+          />
+
+          <label htmlFor="frequencyInterval">Frequency Interval:</label>
+          <input
+            type="text"
+            id="frequencyInterval"
+            name="frequencyInterval"
+            value={frequencyInterval}
             onChange={handleChange}
           />
 
@@ -164,7 +212,11 @@ const AddPlantForm = () => {
 
           <button type="submit">Add Plant</button>
         </form>
-  
+        ) : (
+          <p>
+            You need to be logged in to add your plant. Please login or signup.
+          </p>
+        )}
     </div>
   );
 };
