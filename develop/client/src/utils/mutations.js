@@ -27,26 +27,29 @@ export const ADD_USER = gql`
     `;
 
     export const ADD_PLANT = gql`
-    mutation AddPlant($name: String!, $description: String!, $wateringFrequency: Int!, $wateringInstructions: String!, $sunExposure: String!, $growingMonths: String!, $bloomSeason: String!, $whenToPlant: String!, $spacing: String!, $fertilization: String!) {
-      addPlant(name: $name, description: $description, wateringFrequency: $wateringFrequency, wateringInstructions: $wateringInstructions, sunExposure: $sunExposure, growingMonths: $growingMonths, bloomSeason: $bloomSeason, whenToPlant: $whenToPlant, spacing: $spacing, fertilization: $fertilization) {
+    mutation AddPlant($name: String!, $wateringTask: WateringTaskInput!, $description: String, $photoUrl: String, $sunExposure: String, $growingMonths: String, $bloomingMonths: String, $userNotes: String) {
+      addPlant(name: $name, wateringTask: $wateringTask, description: $description, photoUrl: $photoUrl, sunExposure: $sunExposure, growingMonths: $growingMonths, bloomingMonths: $bloomingMonths, userNotes: $userNotes) {
         _id
         name
         description
-        wateringFrequency
-        wateringInstructions
+        photoUrl
         sunExposure
         growingMonths
-        bloomSeason
-        whenToPlant
-        spacing
-        fertilization
-        tasks {
+        bloomingMonths
+        wateringTask {
           _id
-          planting
-          fertilizing
-          pruning
-          watering
+          instructions
+          frequencyCount
+          frequencyUnit
+          frequencyInterval
         }
+        otherTasks {
+          _id
+          taskName
+          instructions
+          dates
+        }
+        userNotes
       }
     }
     `;
@@ -61,38 +64,24 @@ export const ADD_USER = gql`
     `;
 
     
-    export const ADD_TASK = gql`
-    mutation AddTask($plantId: ID!, $planting: String!, $fertilizing: String!, $pruning: String!, $watering: String!) {
-      addTask(plantId: $plantId, planting: $planting, fertilizing: $fertilizing, pruning: $pruning, watering: $watering) {
+    export const ADD_OTHERTASK = gql`
+    mutation AddOtherTask($plantId: ID!, $name: String, $instructions: String, $dates: [String]) {
+      addOtherTask(plantId: $plantId, taskName: $name, instructions: $instructions, dates: $dates) {
+        taskName
+        instructions
+        dates
         _id
-        name
-        description
-        wateringFrequency
-        wateringInstructions
-        sunExposure
-        growingMonths
-        bloomSeason
-        whenToPlant
-        spacing
-        fertilization
-        tasks {
-          _id
-          planting
-          fertilizing
-          pruning
-          watering
-        }
       }
     }
     `;
 
     export const REMOVE_TASK = gql`
-    mutation removeTask($taskId: ID!) {
-      removeTask(taskId: $taskId) {
-        planting
-        fertilizing
-        pruning
-        watering
+    mutation RemoveOtherTask($otherTasksId: ID!) {
+      removeOtherTask(otherTasksId: $otherTasksId) {
+        _id
+        taskName
+        instructions
+        dates
       }
     }
     `;
