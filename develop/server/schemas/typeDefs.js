@@ -9,25 +9,37 @@ type User {
 
 type Plant {
   _id: ID
-  name: String
+  name: String!
   description: String
-  wateringFrequency: Int
-  wateringInstructions: String
+  photoUrl: String
   sunExposure: String
   growingMonths: String
-  bloomSeason: String
-  whenToPlant: String
-  spacing: String
-  fertilization: String
-  tasks: [Task]!
+  bloomingMonths: String
+  wateringTask: WateringTask!
+  otherTasks: [OtherTasks]
+  userNotes: String
 }
 
-type Task {
+type WateringTask {
   _id: ID
-  planting: String
-  fertilizing: String
-  pruning: String
-  watering: String
+  instructions: String
+  frequencyCount: Int
+  frequencyUnit: String
+  frequencyInterval: Int
+}
+
+input WateringTaskInput {
+  instructions: String
+  frequencyCount: Int
+  frequencyUnit: String
+  frequencyInterval: Int
+}
+
+type OtherTasks {
+  _id: ID
+  taskName: String
+  instructions: String
+  dates: [String]
 }
 
 type Auth {
@@ -40,8 +52,9 @@ type Query {
   user(username: String!): User
   plants(username: String!): [Plant]
   plant(_id: ID!): Plant
-  task(taskId: ID!): Task
-  tasks(username: String!): [Task]
+  wateringTask(wateringTaskId: ID!): WateringTask
+  singleOtherTask(otherTasksId: ID!): OtherTasks
+  allOtherTasksByUsername(username: String!): [OtherTasks]
   me: User
 }
 
@@ -49,26 +62,23 @@ type Mutation {
   addUser(username: String!, email: String!, password: String!): Auth
   login(email: String!, password: String!): Auth
   addPlant(
-    name: String!,
-    description: String!,
-    wateringFrequency: Int!,
-    wateringInstructions: String!,
-    sunExposure: String!,
-    growingMonths: String!,
-    bloomSeason: String!,
-    whenToPlant: String!,
-    spacing: String!,
-    fertilization: String!
+    name: String!
+    description: String
+    photoUrl: String
+    sunExposure: String
+    growingMonths: String
+    bloomingMonths: String
+    wateringTask: WateringTaskInput!
+    userNotes: String
   ): Plant
   removePlant(plantId: ID!): Plant
-  addTask(
+  addOtherTask(
     plantId: ID!,
-    planting: String!, 
-    fertilizing: String!, 
-    pruning: String!, 
-    watering: String!
-  ): Plant
-  removeTask(taskId: ID!): Plant
+    taskName: String
+    instructions: String
+    dates: [String]
+  ): OtherTasks
+  removeOtherTask(otherTasksId: ID!): OtherTasks
 }
 `;
 

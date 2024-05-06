@@ -21,6 +21,8 @@ function Home() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <div>
+      </div>
       <div className='auth-container'>
         <div className="auth">
           <Signup />
