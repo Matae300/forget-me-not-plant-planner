@@ -21,6 +21,7 @@ type Plant {
 }
 
 type WateringTask {
+  _id: ID
   instructions: String
   frequencyCount: Int
   frequencyUnit: String
@@ -35,6 +36,7 @@ input WateringTaskInput {
 }
 
 type OtherTasks {
+  _id: ID
   name: String
   instructions: String
   dates: [String]

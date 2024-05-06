@@ -20,24 +20,16 @@ const resolvers = {
     plant: async (parent, { _id }) => {  
       return await Plant.findOne({ _id }).populate('wateringTask');  
     },
-    wateringTask: async (_, { username }, context) => {
-      if (!context.user || context.user.username !== username) {
-        throw new Error("User not authenticated or unauthorized");
+    wateringTask: async (parent, { wateringTaskId }) => {
+      try {
+        const plant = await Plant.findOne({ 'wateringTask._id': wateringTaskId });
+        if (!plant) {
+          throw new Error('Plant not found');
+        }
+        return plant.wateringTask;
+      } catch (error) {
+        throw new Error(`Error finding watering task: ${error.message}`);
       }
-    
-      const user = await User.findOne({ username }).populate('plants');
-      if (!user) {
-        throw new Error("User not found");
-      }
-    
-      const plants = await Plant.find({ _id: { $in: user.plants } });
-    
-      if (!plants || plants.length === 0) {
-        throw new Error("No plants found for the user");
-      }
-    
-      const wateringTasks = plants.map(plant => plant.wateringTask);
-      return wateringTasks;
     },
     singleOtherTask: async (parent, { otherTasksId }) => { 
       const plant = await Plant.findOne({ 'otherTasks._id': otherTasksId });
@@ -171,7 +163,7 @@ const resolvers = {
         );
         return updatedPlant;
       }
-      throw new AuthenticationError('User not authenticated');
+      throw AuthenticationError;
     }
   }
 };
