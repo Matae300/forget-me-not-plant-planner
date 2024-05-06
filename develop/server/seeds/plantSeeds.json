@@ -1,0 +1,349 @@
+[
+    {
+      "name": "Petunia",
+      "description": "Annual plants that bloom profusely and are great for seasonal color.",
+      "photoUrl": "https://www.provenwinners.com/sites/provenwinners.com/files/imagecache/500x500/ifa_upload/supertunia_giant_pink.jpg",
+      "sunExposure": "Full sun",
+      "growingMonths": "May to September",
+      "bloomingMonths": "June to August",
+      "wateringTask": {
+        "instructions": "Water regularly to keep the soil evenly moist.",
+        "frequencyCount": 1,
+        "frequencyUnit": "week",
+        "frequencyInterval": 1
+      },
+      "otherTasks": [],
+      "userNotes": ""
+    },
+    {
+      "name": "Coneflower",
+      "description": "A native perennial with beautiful purple flowers that blooms in summer.",
+        "photoUrl": "https://www.provenwinners.com/sites/provenwinners.com/files/imagecache/500x500/ifa_upload/echinacea_everythings_rosy_apj23_8.jpg",
+      "sunExposure": "Full sun to part shade",
+      "growingMonths": "June to August",
+      "bloomingMonths": "July to September",
+      "wateringTask": {
+        "instructions": "Water deeply once a week during dry spells.",
+        "frequencyCount": 1,
+        "frequencyUnit": "week",
+        "frequencyInterval": 1
+      },
+      "otherTasks": [
+        {
+          "name": "pruning",
+          "instructions": "Cut back spent flower stems to promote new blooms.",
+          "dates": []
+        }
+      ],
+      "userNotes": "Attracts butterflies and bees."
+    },
+    {
+      "name": "Daffodil",
+      "description": "A classic bulb plant with bright yellow or white flowers that blooms in early spring.",
+      "photoUrl": "https://www.dutchgrown.com/cdn/shop/products/Eight_Weeks_Of_Daffodils-3.jpg?v=1677088943",
+      "sunExposure": "Full sun to part shade",
+      "growingMonths": "March to May",
+      "bloomingMonths": "April",
+      "wateringTask": {
+        "instructions": "Water sparingly when actively growing.",
+        "frequencyCount": 1,
+        "frequencyUnit": "week",
+        "frequencyInterval": 2
+      },
+      "otherTasks": [],
+      "userNotes": "Deer-resistant."
+    },
+    {
+      "name": "Knock Out Rose",
+      "description": "A low-maintenance shrub rose that blooms continuously throughout the growing season.",
+      "photoUrl": "https://images.squarespace-cdn.com/content/v1/59e51767ccc5c5f1c5762e04/1562937536418-1QUH97UG28PM4NIYYTM9/Varieties11.jpg",
+      "sunExposure": "Full sun",
+      "growingMonths": "May to October",
+      "bloomingMonths": "June to September",
+      "wateringTask": {
+        "instructions": "Water deeply once a week, more during hot periods.",
+        "frequencyCount": 1,
+        "frequencyUnit": "week",
+        "frequencyInterval": 1
+      },
+      "otherTasks": [],
+      "userNotes": "Prune in early spring."
+    },
+    {
+      "name": "Boston Fern",
+      "description": "A popular indoor foliage plant known for its graceful, arching fronds.",
+      "photoUrl": "https://www.michlers.com/cdn/shop/products/Boston_Fern_Plant.jpg?v=1560803842&width=2048",
+      "sunExposure": "Bright indirect light",
+      "growingMonths": "Year-round indoors",
+      "bloomingMonths": "",
+      "wateringTask": {
+        "instructions": "Keep soil evenly moist but not waterlogged.",
+        "frequencyCount": 2,
+        "frequencyUnit": "week",
+        "frequencyInterval": 1
+      },
+      "otherTasks": [],
+      "userNotes": "Prefers high humidity."
+    },
+    {
+      "name": "Windmill Palm",
+      "description": "A hardy palm tree that can tolerate New England's climate and adds a tropical touch.",
+      "photoUrl": "https://i.ebayimg.com/images/g/UZgAAOSwaiFith~5/s-l1200.webp",
+      "sunExposure": "Full sun to part shade",
+      "growingMonths": "April to October",
+      "bloomingMonths": "",
+      "wateringTask": {
+        "instructions": "Water regularly to keep soil evenly moist but not waterlogged.",
+        "frequencyCount": 1,
+        "frequencyUnit": "week",
+        "frequencyInterval": 1
+      },
+      "otherTasks": [],
+      "userNotes": "Protect from strong winds."
+    },
+    {
+      "name": "Weeping Fig",
+      "description": "A common indoor tree with glossy leaves that is easy to care for.",
+      "photoUrl": "https://mickeysplants.com/cdn/shop/products/IMG_6892_900x.jpg?v=1599333844",
+      "sunExposure": "Bright indirect light",
+      "growingMonths": "Year-round indoors",
+      "bloomingMonths": "",
+      "wateringTask": {
+        "instructions": "Water when the top inch of soil feels dry.",
+        "frequencyCount": 1,
+        "frequencyUnit": "week",
+        "frequencyInterval": 1
+      },
+      "otherTasks": [],
+      "userNotes": "Mist foliage regularly."
+    },
+    {
+      "name": "Echeveria",
+      "description": "A popular succulent plant with rosette-shaped leaves that store water.",
+      "photoUrl": "https://www.picturethisai.com/image-handle/website_cmsname/image/1080/153653709186793500.jpeg?x-oss-process=image/format,webp",
+      "sunExposure": "Full sun to part shade",
+      "growingMonths": "May to September",
+      "bloomingMonths": "June to August",
+      "wateringTask": {
+        "instructions": "Water sparingly but deeply when soil is dry.",
+        "frequencyCount": 1,
+        "frequencyUnit": "week",
+        "frequencyInterval": 2
+      },
+      "otherTasks": [],
+      "userNotes": "Allow soil to dry out between waterings."
+    },
+    {
+      "name": "Inkberry",
+      "description": "A native evergreen shrub with dark green foliage, ideal for landscaping.",
+      "photoUrl": "https://www.stadlergardencenters.com/wp-content/uploads/2021/08/holly-shamrock.jpeg",
+      "sunExposure": "Full sun to part shade",
+      "growingMonths": "April to October",
+      "bloomingMonths": "",
+      "wateringTask": {
+        "instructions": "Water deeply once a week during dry spells.",
+        "frequencyCount": 1,
+        "frequencyUnit": "week",
+        "frequencyInterval": 1
+      },
+      "otherTasks": [],
+      "userNotes": "Prune in late winter to early spring."
+    },
+    {
+      "name": "New Dawn Rose",
+      "description": "A vigorous climbing rose with pale pink flowers, perfect for trellises or arbors.",
+      "photoUrl": "https://www.pixiesgardens.com/cdn/shop/products/RoseNewdawn-02_Custom.jpg?v=1698419255",
+      "sunExposure": "Full sun",
+      "growingMonths": "May to October",
+      "bloomingMonths": "June to September",
+      "wateringTask": {
+        "instructions": "Water deeply once a week, more during hot periods.",
+        "frequencyCount": 1,
+        "frequencyUnit": "week",
+        "frequencyInterval": 1
+      },
+      "otherTasks": [],
+      "userNotes": "Prune in late winter or early spring."
+    },
+    [
+        {
+          "name": "Marigold",
+          "description": "Annual flowers known for their bright and cheerful blooms.",
+          "photoUrl": "https://www.gardendesign.com/pictures/images/900x705Max/dream-team-s-portland-garden_6/marigold-flowers-orange-pixabay_12708.jpg",
+          "sunExposure": "Full sun",
+          "growingMonths": "May to September",
+          "bloomingMonths": "June to October",
+          "wateringTask": {
+            "instructions": "Water regularly, allowing soil to dry out slightly between waterings.",
+            "frequencyCount": 1,
+            "frequencyUnit": "week",
+            "frequencyInterval": 1
+          },
+          "otherTasks": [],
+          "userNotes": "Attracts beneficial insects."
+        },
+        {
+          "name": "Lavender",
+          "description": "A fragrant perennial herb with aromatic foliage and purple flowers.",
+          "photoUrl": "https://hips.hearstapps.com/hmg-prod/images/how-to-grow-lavender-1622644170.jpg?crop=0.711xw:1.00xh;0.145xw,0&resize=1200:*",
+          "sunExposure": "Full sun",
+          "growingMonths": "May to August",
+          "bloomingMonths": "June to August",
+          "wateringTask": {
+            "instructions": "Water sparingly once established; prefers well-drained soil.",
+            "frequencyCount": 1,
+            "frequencyUnit": "week",
+            "frequencyInterval": 2
+          },
+          "otherTasks": [
+            {
+              "name": "pruning",
+              "instructions": "Trim spent flower stems to promote bushy growth.",
+              "dates": []
+            }
+          ],
+          "userNotes": "Attracts bees and butterflies."
+        },
+        {
+          "name": "Tulip",
+          "description": "A classic bulb flower available in a variety of colors.",
+          "photoUrl": "https://www.1800flowers.com/blog/wp-content/uploads/2017/03/Colorful-Tulips.jpg",
+          "sunExposure": "Full sun to part shade",
+          "growingMonths": "March to May",
+          "bloomingMonths": "April",
+          "wateringTask": {
+            "instructions": "Water sparingly while actively growing; allow soil to dry out between waterings.",
+            "frequencyCount": 1,
+            "frequencyUnit": "week",
+            "frequencyInterval": 2
+          },
+          "otherTasks": [],
+          "userNotes": "Ideal for spring garden displays."
+        },
+        {
+          "name": "Hydrangea",
+          "description": "A popular flowering shrub with large, showy blooms that change color with soil pH.",
+          "photoUrl": "https://www.plantingtree.com/cdn/shop/products/3855_grande.jpg?v=1614090633",
+          "sunExposure": "Part shade",
+          "growingMonths": "May to September",
+          "bloomingMonths": "July to September",
+          "wateringTask": {
+            "instructions": "Keep soil consistently moist, especially during hot weather.",
+            "frequencyCount": 2,
+            "frequencyUnit": "week",
+            "frequencyInterval": 1
+          },
+          "otherTasks": [
+            {
+              "name": "pruning",
+              "instructions": "Prune in late winter to early spring to encourage new growth.",
+              "dates": []
+            }
+          ],
+          "userNotes": "Choose varieties based on desired flower color."
+        },
+        {
+          "name": "Snake Plant",
+          "description": "A popular indoor succulent with upright leaves that resemble snakeskin.",
+          "photoUrl": "https://asset.bloomnation.com/c_pad,d_vendor:global:catalog:product:image.png,f_auto,fl_preserve_transparency,q_auto/v1714435626/vendor/8469/catalog/product/2/0/20200304122155_file_5e5ef4a3ccb60_5e5ef7b7cd5fa_64306f77e15a0.jpg",
+          "sunExposure": "Bright indirect light",
+          "growingMonths": "Year-round indoors",
+          "bloomingMonths": "",
+          "wateringTask": {
+            "instructions": "Water sparingly; allow soil to dry out between waterings.",
+            "frequencyCount": 1,
+            "frequencyUnit": "week",
+            "frequencyInterval": 2
+          },
+          "otherTasks": [],
+          "userNotes": "Low-maintenance and tolerant of neglect."
+        },
+        {
+          "name": "Peace Lily",
+          "description": "A popular indoor plant with glossy green leaves and white spathe-like flowers.",
+          "photoUrl": "https://cdn.shopify.com/s/files/1/0507/3754/5401/files/P4102_MAC_preset_ftd-mx-hero-lv-new.jpg?v=1689850055&width=1920",
+          "sunExposure": "Low to moderate indirect light",
+          "growingMonths": "Year-round indoors",
+          "bloomingMonths": "",
+          "wateringTask": {
+            "instructions": "Keep soil consistently moist but not waterlogged.",
+            "frequencyCount": 1,
+            "frequencyUnit": "week",
+            "frequencyInterval": 1
+          },
+          "otherTasks": [],
+          "userNotes": "Effective air purifier."
+        },
+        {
+          "name": "Blueberry",
+          "description": "A deciduous shrub that produces edible berries in summer.",
+          "photoUrl": "https://hgtvhome.sndimg.com/content/dam/images/hgtv/fullset/2018/5/23/0/shutterstock_298286450-Studio-Barcelona_blueberries.jpg.rend.hgtvcom.616.462.suffix/1518122785407.jpeg",
+          "sunExposure": "Full sun to part shade",
+          "growingMonths": "April to September",
+          "bloomingMonths": "May to June",
+          "wateringTask": {
+            "instructions": "Keep soil evenly moist, especially during fruit development.",
+            "frequencyCount": 2,
+            "frequencyUnit": "week",
+            "frequencyInterval": 1
+          },
+          "otherTasks": [
+            {
+              "name": "pruning",
+              "instructions": "Prune in late winter to early spring to shape and encourage fruiting.",
+              "dates": []
+            }
+          ],
+          "userNotes": "Requires acidic soil."
+        },
+        {
+          "name": "Morning Glory",
+          "description": "A fast-growing annual vine with colorful trumpet-shaped flowers.",
+          "photoUrl": "https://www.mainscape.com/wp-content/uploads/2022/04/Morning-Glory-plant-profile.jpg",
+          "sunExposure": "Full sun",
+          "growingMonths": "May to September",
+          "bloomingMonths": "June to August",
+          "wateringTask": {
+            "instructions": "Water regularly to promote growth and flowering.",
+            "frequencyCount": 1,
+            "frequencyUnit": "week",
+            "frequencyInterval": 1
+          },
+          "otherTasks": [],
+          "userNotes": "Train on trellises or fences for vertical interest."
+        },
+        {
+          "name": "Basil",
+          "description": "A popular culinary herb used in a variety of dishes.",
+          "photoUrl": "https://www.gardening4joy.com/wp-content/uploads/2022/02/supermarket-basil.jpg",
+          "sunExposure": "Full sun",
+          "growingMonths": "May to September",
+          "bloomingMonths": "June to August",
+          "wateringTask": {
+            "instructions": "Water consistently; avoid overhead watering to prevent fungal issues.",
+            "frequencyCount": 1,
+            "frequencyUnit": "week",
+            "frequencyInterval": 1
+          },
+          "otherTasks": [],
+          "userNotes": "Pinch off flower buds to promote leaf production."
+        },
+        {
+          "name": "Tomato",
+          "description": "A popular vegetable plant grown for its juicy fruits.",
+          "photoUrl": "https://contentgrid.homedepot-static.com/hdus/en_US/DTCCOMNEW/Articles/how-to-grow-tomatoes-hero.jpg",
+          "sunExposure": "Full sun",
+          "growingMonths": "May to September",
+          "bloomingMonths": "June to August",
+          "wateringTask": {
+            "instructions": "Water consistently to keep soil evenly moist.",
+            "frequencyCount": 2,
+            "frequencyUnit": "week",
+            "frequencyInterval": 1
+          },
+          "otherTasks": [],
+          "userNotes": "Support with stakes or cages for upright growth."
+        }
+      ]
+  ]
+  
