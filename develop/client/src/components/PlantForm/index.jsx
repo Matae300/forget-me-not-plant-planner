@@ -88,7 +88,7 @@ const AddPlantForm = () => {
   return (
     <div>
       <h3>Add Plant</h3>
-      {Auth.loggedIn() ? (
+    
         <form onSubmit={handleFormSubmit}>
           <label htmlFor="name">Plant Name:</label>
           <input
@@ -164,9 +164,7 @@ const AddPlantForm = () => {
 
           <button type="submit">Add Plant</button>
         </form>
-      ) : (
-        <p>You need to be logged in to add your plant. Please login or signup.</p>
-      )}
+  
     </div>
   );
 };
