@@ -9,7 +9,7 @@ type User {
 
 type Plant {
   _id: ID
-  plantName: String!
+  name: String!
   description: String
   photoUrl: String
   sunExposure: String
@@ -37,7 +37,7 @@ input WateringTaskInput {
 
 type OtherTasks {
   _id: ID
-  name: String
+  taskName: String
   instructions: String
   dates: [String]
 }
@@ -62,7 +62,7 @@ type Mutation {
   addUser(username: String!, email: String!, password: String!): Auth
   login(email: String!, password: String!): Auth
   addPlant(
-    plantName: String!
+    name: String!
     description: String
     photoUrl: String
     sunExposure: String
@@ -74,7 +74,7 @@ type Mutation {
   removePlant(plantId: ID!): Plant
   addOtherTask(
     plantId: ID!,
-    name: String
+    taskName: String
     instructions: String
     dates: [String]
   ): OtherTasks
