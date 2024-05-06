@@ -87,7 +87,7 @@ const resolvers = {
       return { token, user };
     },
     addPlant: async (parent, {  
-      plantName,
+      name,
       description,
       photoUrl,
       sunExposure,
@@ -98,7 +98,7 @@ const resolvers = {
     }, context) => {
       if (context.user) {
         const plant = await Plant.create({
-          plantName,
+          name,
           description,
           photoUrl,
           sunExposure,
