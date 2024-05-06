@@ -44,7 +44,8 @@ export const QUERY_ME = gql`
   }`;
 
   export const QUERY_PLANTS = gql`
-  user(username: $username) {
+  query plants($username: String!) {
+    user(username: $username) {
     plants {
       _id
       name
@@ -72,7 +73,8 @@ export const QUERY_ME = gql`
 }`;
 
   export const QUERY_SINGLE_PLANT = gql`
-  plant(_id: $id) {
+  query singlePlant($id: ID!) {
+    plant(_id: $id) {
     _id
     name
     description

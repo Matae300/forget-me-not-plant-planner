@@ -3,6 +3,7 @@ import '../App.css'
 import './Home.css'
 import Signup from '../components/SignUp';
 import Login from '../components/Login';
+import PlantForm from '../components/PlantForm';
 
 function Home() {
   const [count, setCount] = useState(0)
@@ -21,6 +22,9 @@ function Home() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <div>
+        <PlantForm />
+      </div>
       <div className='auth-container'>
         <div className="auth">
           <Signup />

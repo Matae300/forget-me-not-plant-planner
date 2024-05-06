@@ -1,61 +1,65 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-
 import { ADD_PLANT } from '../../utils/mutations';
 import { QUERY_PLANTS, QUERY_ME } from '../../utils/queries';
-
 import Auth from '../../utils/auth';
 
-const addPlantForm = ({}) => {
-  const [name, setPlantName] = useState('');
+const AddPlantForm = () => {
+  const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [wateringFrequency, setWateringFrequency] = useState('');
-  const [wateringInstructions, setWateringInstructions] = useState('');
+  const [photoUrl, setPhotoUrl] = useState('');
   const [sunExposure, setSunExposure] = useState('');
   const [growingMonths, setGrowingMonths] = useState('');
-  const [bloomSeason, setBloomSeason] = useState('');
-  const [whenToPlant, setWhenToPlant] = useState('');
-  const [spacing, setSpacing] = useState('');
-  const [fertilization, setFertilization] = useState('');
+  const [bloomingMonths, setBloomingMonths] = useState('');
+  const [instructions, setInstructions] = useState('');
+  const [frequencyCount, setFrequencyCount] = useState('');
+  const [frequencyUnit, setFrequencyUnit] = useState('');
+  const [frequencyInterval, setFrequencyInterval] = useState('');
+  const [userNotes, setUserNotes] = useState('');
 
-  const [addPlant, {error}] = useMutation
-  (ADD_PLANT, {
+  const [addPlant, { error }] = useMutation(ADD_PLANT, {
     refetchQueries: [
-      QUERY_PLANTS,
-      'getPlants',
-      QUERY_ME,
-      'me'
-    ]
+     QUERY_PLANTS, 
+     'getPlants',
+     QUERY_ME, 
+     'me'
+    ],
   });
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
+      const wateringTaskVariables = {
+        instructions,
+        frequencyCount: parseInt(frequencyCount), // Parse as integer
+        frequencyUnit,
+        frequencyInterval: parseInt(frequencyInterval), // Parse as integer
+      };
+      
       const { data } = await addPlant({
         variables: {
-          name, 
+          name,
           description,
-          wateringFrequency,
-          wateringInstructions,
+          photoUrl,
           sunExposure,
           growingMonths,
-          bloomSeason,
-          whenToPlant,
-          spacing,
-          fertilization 
+          bloomingMonths,
+          wateringTask: wateringTaskVariables,
+          userNotes,
         },
       });
 
-      setPlantName('');
+      setName('');
       setDescription('');
-      setWateringFrequency('');
-      setWateringInstructions('');
+      setPhotoUrl('');
       setSunExposure('');
       setGrowingMonths('');
-      setBloomSeason('');
-      setWhenToPlant('');
-      setSpacing('');
-      setFertilization('');
+      setBloomingMonths('');
+      setInstructions('');
+      setFrequencyCount('');
+      setFrequencyUnit('');
+      setFrequencyInterval('');
+      setUserNotes('');
     } catch (err) {
       console.error(err);
     }
@@ -64,35 +68,38 @@ const addPlantForm = ({}) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     switch (name) {
-      case 'Name':
-        setPlantName(value);
+      case 'name':
+        setName(value);
         break;
-      case 'Description':
+      case 'description':
         setDescription(value);
         break;
-      case 'Watering Frequency':
-        setWateringFrequency(value);
+      case 'photoUrl':
+        setPhotoUrl(value);
         break;
-      case 'Watering Instructions':
-        setWateringInstructions(value);
-        break;
-      case 'Sun Exposure':
+      case 'sunExposure':
         setSunExposure(value);
         break;
-      case 'Growing Months':
+      case 'growingMonths':
         setGrowingMonths(value);
         break;
-      case 'Bloom Season':
-        setBloomSeason(value);
+      case 'bloomingMonths':
+        setBloomingMonths(value);
         break;
-      case 'When To Plant':
-        setWhenToPlant(value);
+      case 'instructions':
+        setInstructions(value);
         break;
-      case 'Spacing':
-        setSpacing(value);
+      case 'frequencyCount':
+        setFrequencyCount(value);
         break;
-      case 'Fertilization':
-        setFertilization(value);
+      case 'frequencyUnit':
+        setFrequencyUnit(value);
+        break;
+      case 'frequencyInterval':
+        setFrequencyInterval(value);
+        break;
+      case 'userNotes':
+        setUserNotes(value);
         break;
       default:
         break;
@@ -102,120 +109,116 @@ const addPlantForm = ({}) => {
   return (
     <div>
       <h3>Add Plant</h3>
-
       {Auth.loggedIn() ? (
+        <form onSubmit={handleFormSubmit}>
+          <label htmlFor="name">Plant Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={name}
+            onChange={handleChange}
+          />
 
-      <form onSubmit={handleFormSubmit}>
-      <label htmlFor="name">Plant Name</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        placeholder="Plant's name here..."
-        value={name}
-        onChange={handleChange}
-      />
+          <label htmlFor="description">Description:</label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            value={description}
+            onChange={handleChange}
+          />
 
-      <label htmlFor="description">Description</label>
-      <input
-        type="text"
-        id="description"
-        name="description"
-        placeholder="Description"
-        value={description}
-        onChange={handleChange}
-      />
+          <label htmlFor="photoUrl">Photo URL:</label>
+          <input
+            type="url"
+            id="photoUrl"
+            name="photoUrl"
+            value={photoUrl}
+            onChange={handleChange}
+          />
 
-      <label htmlFor="wateringFrequency">Watering Frequency</label>
-      <input
-        type="text"
-        id="wateringFrequency"
-        name="wateringFrequency"
-        placeholder="Watering Frequency"
-        value={wateringFrequency}
-        onChange={handleChange}
-      />
+          <label htmlFor="sunExposure">Sun Exposure:</label>
+          <input
+            type="text"
+            id="sunExposure"
+            name="sunExposure"
+            value={sunExposure}
+            onChange={handleChange}
+          />
 
-      <label htmlFor="wateringInstructions">Watering Instructions</label>
-      <input
-        type="text"
-        id="wateringInstructions"
-        name="wateringInstructions"
-        placeholder="Watering Instructions"
-        value={wateringInstructions}
-        onChange={handleChange}
-      />
+          <label htmlFor="growingMonths">Growing Months:</label>
+          <input
+            type="text"
+            id="growingMonths"
+            name="growingMonths"
+            value={growingMonths}
+            onChange={handleChange}
+          />
 
-      <label htmlFor="sunExposure">Sun Exposure</label>
-      <input
-        type="text"
-        id="sunExposure"
-        name="sunExposure"
-        placeholder="Sun Exposure"
-        value={sunExposure}
-        onChange={handleChange}
-      />
+          <label htmlFor="bloomingMonths">Blooming Months:</label>
+          <input
+            type="text"
+            id="bloomingMonths"
+            name="bloomingMonths"
+            value={bloomingMonths}
+            onChange={handleChange}
+          />
 
-      <label htmlFor="growingMonths">Growing Months</label>
-      <input
-        type="text"
-        id="growingMonths"
-        name="growingMonths"
-        placeholder="Growing Months"
-        value={growingMonths}
-        onChange={handleChange}
-      />
+          <label htmlFor="instructions">Instructions:</label>
+          <input
+            type="text"
+            id="instructions"
+            name="instructions"
+            value={instructions}
+            onChange={handleChange}
+          />
 
-      <label htmlFor="bloomSeason">Bloom Season</label>
-      <input
-        type="text"
-        id="bloomSeason"
-        name="bloomSeason"
-        placeholder="Bloom Season"
-        value={bloomSeason}
-        onChange={handleChange}
-      />
+          <label htmlFor="frequencyCount">Frequency Count:</label>
+          <input
+            type="text"
+            id="frequencyCount"
+            name="frequencyCount"
+            value={frequencyCount}
+            onChange={handleChange}
+          />
 
-      <label htmlFor="whenToPlant">When to Plant</label>
-      <input
-        type="text"
-        id="whenToPlant"
-        name="whenToPlant"
-        placeholder="When To Plant"
-        value={whenToPlant}
-        onChange={handleChange}
-      />
+          <label htmlFor="frequencyUnit">Frequency Unit:</label>
+          <input
+            type="text"
+            id="frequencyUnit"
+            name="frequencyUnit"
+            value={frequencyUnit}
+            onChange={handleChange}
+          />
 
-      <label htmlFor="spacing">Spacing</label>
-      <input
-        type="text"
-        id="spacing"
-        name="spacing"
-        placeholder="Spacing"
-        value={spacing}
-        onChange={handleChange}
-      />
+          <label htmlFor="frequencyInterval">Frequency Interval:</label>
+          <input
+            type="text"
+            id="frequencyInterval"
+            name="frequencyInterval"
+            value={frequencyInterval}
+            onChange={handleChange}
+          />
 
-      <label htmlFor="fertilization">Fertilization</label>
-      <input
-        type="text"
-        id="fertilization"
-        name="fertilization"
-        placeholder="Fertilization"
-        value={fertilization}
-        onChange={handleChange}
-      />
+          <label htmlFor="userNotes">User Notes:</label>
+          <input
+            type="text"
+            id="userNotes"
+            name="userNotes"
+            value={userNotes}
+            onChange={handleChange}
+          />
 
-      <button type="submit">Add Plant</button>
-
-      </form>
-      ) : (
-        <p>
-          You need to be logged in to add your plant. Please login or signup.
-        </p>
-      )}
+          <button type="submit">Add Plant</button>
+        </form>
+        ) : (
+          <p>
+            You need to be logged in to add your plant. Please login or signup.
+          </p>
+        )}
     </div>
   );
 };
 
-export default addPlantForm;
+export default AddPlantForm;
