@@ -1,23 +1,10 @@
 const typeDefs = `
-input WateringTaskInput {
-  instructions: String
-  frequencyCount: Int
-  frequencyUnit: String
-  frequencyInterval: Int
-}
-
-input OtherTasksInput {
-  name: String
-  instructions: String
-  dates: [Date]
-}
-
 type User {
   _id: ID
   username: String
   email: String
   password: String
-  plants: [String]!
+  plants: [Plant]!
 }
 
 type Plant {
@@ -28,9 +15,31 @@ type Plant {
   sunExposure: String
   growingMonths: String
   bloomingMonths: String
-  wateringTask: WateringTaskInput!
-  otherTasks: [OtherTasksInput]
+  wateringTask: WateringTask!
+  otherTasks: [OtherTasks]
   userNotes: String
+}
+
+type WateringTask {
+  _id: ID
+  instructions: String
+  frequencyCount: Int
+  frequencyUnit: String
+  frequencyInterval: Int
+}
+
+input WateringTaskInput {
+  instructions: String
+  frequencyCount: Int
+  frequencyUnit: String
+  frequencyInterval: Int
+}
+
+type OtherTasks {
+  _id: ID
+  taskName: String
+  instructions: String
+  dates: [String]
 }
 
 type Auth {
@@ -39,39 +48,37 @@ type Auth {
 }
 
 type Query {
-  me: User
+  users: [User]
+  user(username: String!): User
   plants(username: String!): [Plant]
-  plant(plantID: ID!): Plant
-  wateringTask(wateringtaskID: ID!): WateringTaskInput
-  tasks(username: String!, plantID: ID!): [Task]
+  plant(_id: ID!): Plant
+  wateringTask(wateringTaskId: ID!): WateringTask
+  singleOtherTask(otherTasksId: ID!): OtherTasks
+  allOtherTasksByUsername(username: String!): [OtherTasks]
+  me: User
 }
 
 type Mutation {
   addUser(username: String!, email: String!, password: String!): Auth
   login(email: String!, password: String!): Auth
   addPlant(
-    plant: PlantInput!
+    name: String!
+    description: String
+    photoUrl: String
+    sunExposure: String
+    growingMonths: String
+    bloomingMonths: String
+    wateringTask: WateringTaskInput!
+    userNotes: String
   ): Plant
-  removePlant(plantID: ID!): Plant
-  addOtherTasks(
-    name: String
+  removePlant(plantId: ID!): Plant
+  addOtherTask(
+    plantId: ID!,
+    taskName: String
     instructions: String
-    dates: [Date]
-  ): OtherTasksInput
-  removeOtherTask(otherTasksId: ID!): OtherTasksInput
-}
-
-input PlantInput {
-  _id: ID
-  name: String!
-  description: String
-  photoUrl: String
-  sunExposure: String
-  growingMonths: String
-  bloomingMonths: String
-  wateringTask: WateringTaskInput!
-  otherTasks: [OtherTasksInput]
-  userNotes: String
+    dates: [String]
+  ): OtherTasks
+  removeOtherTask(otherTasksId: ID!): OtherTasks
 }
 `;
 

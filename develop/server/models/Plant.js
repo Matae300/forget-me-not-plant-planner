@@ -1,4 +1,3 @@
-// Plant.js in [models]
 const { Schema, model } = require('mongoose');
 
 const wateringTaskSchema = new Schema({
@@ -7,19 +6,19 @@ const wateringTaskSchema = new Schema({
     required: false,
     trim: true,
   },
-  // The frequencyCount represents how many times the task should be performed
+   // The frequencyCount represents how many times the task should be performed
   frequencyCount: {
     type: Number,
     required: true,
     trim: true,
   },
-  // The frequencyUnit represents the time unit for the frequency
+   // The frequencyUnit represents the time unit for the frequency
   frequencyUnit: {
     type: String,
     required: true,
     trim: true,
   },
-  // The frequencyInterval represents the number of time units that should pass between each task
+    // The frequencyInterval represents the number of time units that should pass between each task
   frequencyInterval: {
     type: Number,
     required: true,
@@ -27,33 +26,8 @@ const wateringTaskSchema = new Schema({
   },
 });
 
-const otherTaskSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true,
-    validate: {
-      validator: function(value) {
-        // Allow either predefined task names or any custom string
-        return (value === 'planting' || value === 'pruning' || value === 'fertilizing' || value.trim().length > 0);
-      },
-      message: props => `${props.value} is not a valid task name`
-    },
-  },
-  instructions: {     // This could include spacing details
-    type: String,
-    required: false,
-    trim: true,
-  },
-  // Set up for a single date for a one-time task but could be adapted for multiple dates with frequency variables as in wateringTaskSchema
-  dates: [{
-    type: Date,
-    required: false,
-  }],
-});
-
 const plantSchema = new Schema({
-   name: {
+  name: {
     type: String,
     required: true,
     unique: true,
@@ -70,30 +44,46 @@ const plantSchema = new Schema({
     trim: true,
   },
   sunExposure: {
-      type: String,
-     required: false,
+    type: String, 
+    required: false,
     trim: true,
   },
   growingMonths: {
-      type: String,
-      required: false,
-      trim: true,
+    type: String, 
+    required: false,
+    trim: true,
   },
   bloomingMonths: {
-      type: String,
-      required: false,
-      trim: true,
+    type: String,
+    required: false,
+    trim: true,
   },
   wateringTask: {
     type: wateringTaskSchema,
     required: true,
   },
-  otherTasks: [otherTaskSchema],
-  userNotes: {
+  otherTasks: [{
+    taskName: {
       type: String,
-     required: false,
-     trim: true,
-  }
+      required: true,
+      trim: true,
+      enum: ['planting', 'pruning', 'fertilizing'], 
+    },
+    instructions: {
+      type: String,
+      required: false,
+      trim: true,
+    },
+    dates: [{
+      type: Date,
+      required: false,
+    }],
+  }],
+  userNotes: {
+    type: String,
+    required: false,
+    trim: true,
+  },
 });
 
 const Plant = model('Plant', plantSchema);
