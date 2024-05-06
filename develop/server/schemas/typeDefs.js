@@ -37,7 +37,7 @@ input WateringTaskInput {
 
 type OtherTasks {
   _id: ID
-  name: String
+  taskName: String
   instructions: String
   dates: [String]
 }
@@ -74,7 +74,7 @@ type Mutation {
   removePlant(plantId: ID!): Plant
   addOtherTask(
     plantId: ID!,
-    name: String
+    taskName: String
     instructions: String
     dates: [String]
   ): OtherTasks

@@ -117,13 +117,13 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    addOtherTask: async (parent, { plantId, name, instructions, dates }, context) => {
+    addOtherTask: async (parent, { plantId, taskName, instructions, dates }, context) => {
       if (context.user) {
         const updatedPlant = await Plant.findOneAndUpdate(
           { _id: plantId },
           {
             $addToSet: {
-              otherTasks: { name, instructions, dates },
+              otherTasks: { taskName, instructions, dates },
             },
           },
           {

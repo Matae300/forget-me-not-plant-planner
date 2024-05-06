@@ -63,7 +63,7 @@ const plantSchema = new Schema({
     required: true,
   },
   otherTasks: [{
-    name: {
+    taskName: {
       type: String,
       required: true,
       trim: true,
