@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { ADD_TASK } from '../../utils/mutations';
+import { ADD_OTHERTASK } from '../../utils/mutations';
 import Auth from '../../utils/auth';
 
-const AddTaskForm = ({ plantId }) => {
+const AddTaskForm = ({}) => {
+  const [plantId, setPlantId] = useState('');
   const [taskName, setTaskName] = useState('');
   const [instructions, setInstructions] = useState('');
   const [dates, setDates] = useState('');
 
-  const [addTask, { error }] = useMutation(ADD_TASK);
+  const [addTask, { error }] = useMutation(ADD_OTHERTASK);
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -23,6 +24,7 @@ const AddTaskForm = ({ plantId }) => {
         },
       });
 
+      setPlantId('');
       setTaskName('');
       setInstructions('');
       setDates('');
@@ -34,6 +36,9 @@ const AddTaskForm = ({ plantId }) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     switch (name) {
+      case 'plantId':
+        setPlantId(value);
+        break;
       case 'taskName':
         setTaskName(value);
         break;
@@ -53,15 +58,28 @@ const AddTaskForm = ({ plantId }) => {
       <h3>Add Task</h3>
       {Auth.loggedIn() ? (
         <form onSubmit={handleFormSubmit}>
-          <label htmlFor="taskName">Task Name:</label>
+
+          <label htmlFor="plantId">plantId:</label>
           <input
             type="text"
-            id="taskName"
-            name="taskName"
-            placeholder="Enter task name"
-            value={taskName}
+            id="plantId"
+            name="plantId"
+            placeholder="Enter plantId"
+            value={plantId}
             onChange={handleChange}
           />
+
+          <select
+            id="taskName"
+            name="taskName"
+            value={taskName}
+            onChange={handleChange}
+          >
+            <option value="">Select Task</option>
+            <option value="planting">Planting</option>
+            <option value="pruning">Pruning</option>
+            <option value="fertilizing">Fertilizing</option>
+          </select>
 
           <label htmlFor="instructions">Instructions:</label>
           <input
