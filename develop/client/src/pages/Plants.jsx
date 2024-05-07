@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useApolloClient } from '@apollo/client';
 import { QUERY_MYPLANTS, QUERY_MYTASKS, QUERY_SINGLE_PLANT } from '../utils/queries';
 
 import PlantForm from '../components/PlantForm';
@@ -12,7 +12,6 @@ import SinglePlant from '../components/SinglePlant';
 import './Plants.css';
 
 const Plants = ({ authToken }) => {
-  
   const { loading: plantsLoading, error: plantsError, data: plantsData } = useQuery(QUERY_MYPLANTS, {
     context: { headers: { Authorization: `Bearer ${authToken}` } }, 
   });
@@ -20,6 +19,25 @@ const Plants = ({ authToken }) => {
   const { loading: tasksLoading, error: tasksError, data: tasksData } = useQuery(QUERY_MYTASKS, {
     context: { headers: { Authorization: `Bearer ${authToken}` } }, 
   });
+
+  const [selectedPlant, setSelectedPlant] = useState(null);
+  const client = useApolloClient();
+  
+  const fetchPlantData = async (id) => {
+    try {
+      const { data } = await client.query({
+        query: QUERY_SINGLE_PLANT,
+        variables: { id: id._id }, // Pass the string ID here, assuming id._id is the correct ID field
+      });
+      setSelectedPlant(data.plant); // Set the plant data in state
+    } catch (error) {
+      console.error('Error fetching plant data:', error);
+    }
+  };
+
+  const handlePlantClick = (plantId) => {
+    fetchPlantData(plantId);
+  };
 
   const [showPlants, setShowPlants] = useState(true);
 
@@ -38,7 +56,7 @@ const Plants = ({ authToken }) => {
         {showPlants ? (
           <div className="list-container">
             <h3>My Plants</h3>
-            <PlantList plants={plantsData?.myPlants || []} />
+            <PlantList plants={plantsData?.myPlants || []} onClick={handlePlantClick} />
           </div>
         ) : (
           <div className="list-container">
@@ -53,6 +71,9 @@ const Plants = ({ authToken }) => {
         </div>
         <div className="form-container">
           <TaskForm />
+        </div>
+        <div className="form-container">
+          <SinglePlant plant={selectedPlant} />
         </div>
       </div>
     </div>
