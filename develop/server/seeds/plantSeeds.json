@@ -30,7 +30,7 @@
       },
       "otherTasks": [
         {
-          "name": "pruning",
+          "taskName": "pruning",
           "instructions": "Cut back spent flower stems to promote new blooms.",
           "dates": []
         }
@@ -165,7 +165,7 @@
       "otherTasks": [],
       "userNotes": "Prune in late winter or early spring."
     },
-    [
+    
         {
           "name": "Marigold",
           "description": "Annual flowers known for their bright and cheerful blooms.",
@@ -197,7 +197,7 @@
           },
           "otherTasks": [
             {
-              "name": "pruning",
+              "taskName": "pruning",
               "instructions": "Trim spent flower stems to promote bushy growth.",
               "dates": []
             }
@@ -235,7 +235,7 @@
           },
           "otherTasks": [
             {
-              "name": "pruning",
+              "taskName": "pruning",
               "instructions": "Prune in late winter to early spring to encourage new growth.",
               "dates": []
             }
@@ -289,7 +289,7 @@
           },
           "otherTasks": [
             {
-              "name": "pruning",
+              "taskName": "pruning",
               "instructions": "Prune in late winter to early spring to shape and encourage fruiting.",
               "dates": []
             }
@@ -344,6 +344,6 @@
           "otherTasks": [],
           "userNotes": "Support with stakes or cages for upright growth."
         }
-      ]
-  ]
+]
+  
   
