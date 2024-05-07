@@ -65,12 +65,12 @@ export const ADD_USER = gql`
 
     
     export const ADD_OTHERTASK = gql`
-    mutation AddOtherTask($plantId: ID!, $name: String, $instructions: String, $dates: [String]) {
-      addOtherTask(plantId: $plantId, taskName: $name, instructions: $instructions, dates: $dates) {
+    mutation AddOtherTask($plantId: ID!, $taskName: String, $dates: [String], $instructions: String) {
+      addOtherTask(plantId: $plantId, taskName: $taskName, dates: $dates, instructions: $instructions) {
+        _id
         taskName
         instructions
         dates
-        _id
       }
     }
     `;
