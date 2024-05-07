@@ -184,13 +184,17 @@ const AddPlantForm = () => {
           />
 
           <label htmlFor="frequencyUnit">Frequency Unit:</label>
-          <input
-            type="text"
+          <select
             id="frequencyUnit"
             name="frequencyUnit"
             value={frequencyUnit}
             onChange={handleChange}
-          />
+          >
+            <option value="">Select Frequency Unit</option>
+            <option value="days">Days</option>
+            <option value="weeks">Weeks</option>
+            <option value="months">Months</option>
+          </select>
 
           <label htmlFor="frequencyInterval">Frequency Interval:</label>
           <input
