@@ -1,0 +1,30 @@
+/* Plants.css */
+.card {
+  border: 10px solid #ccc;
+}
+.plants-container {
+  display: flex;
+  height: 100vh; /* Make the container fill the entire viewport height */
+}
+
+.plants-sidebar {
+  width: 60%; /* Adjust the width of the list container */
+  padding: 20px;
+  border-right: 1px solid #ccc; /* Add a border to separate sidebar and content */
+}
+
+.plants-content {
+  width: 30%; /* Adjust the width of the content area */
+  padding: 20px;
+}
+
+.form-container {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px; /* Add margin at the bottom to separate the forms */
+}
+
+.list-container {
+  padding: 20px;
+  height: 60vh; /* Set the height of the list container */
+}

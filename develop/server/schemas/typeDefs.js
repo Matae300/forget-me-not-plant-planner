@@ -50,12 +50,12 @@ type Auth {
 type Query {
   users: [User]
   user(username: String!): User
-  plants(username: String!): [Plant]
   plant(_id: ID!): Plant
   wateringTask(wateringTaskId: ID!): WateringTask
   singleOtherTask(otherTasksId: ID!): OtherTasks
-  allOtherTasksByUsername(username: String!): [OtherTasks]
   me: User
+  myPlants: [Plant]
+  myTasks: [OtherTasks]
 }
 
 type Mutation {

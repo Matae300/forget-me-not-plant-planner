@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_PLANT } from '../../utils/mutations';
-import { QUERY_PLANTS, QUERY_ME } from '../../utils/queries';
+import { QUERY_MYPLANTS, QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
 const AddPlantForm = () => {
@@ -19,7 +19,7 @@ const AddPlantForm = () => {
 
   const [addPlant, { error }] = useMutation(ADD_PLANT, {
     refetchQueries: [
-     QUERY_PLANTS, 
+     QUERY_MYPLANTS, 
      'getPlants',
      QUERY_ME, 
      'me'
@@ -119,7 +119,7 @@ const AddPlantForm = () => {
             value={name}
             onChange={handleChange}
           />
-
+          <br/>
           <label htmlFor="description">Description:</label>
           <input
             type="text"
@@ -128,7 +128,7 @@ const AddPlantForm = () => {
             value={description}
             onChange={handleChange}
           />
-
+          <br/>
           <label htmlFor="photoUrl">Photo URL:</label>
           <input
             type="url"
@@ -137,7 +137,7 @@ const AddPlantForm = () => {
             value={photoUrl}
             onChange={handleChange}
           />
-
+          <br/>
           <label htmlFor="sunExposure">Sun Exposure:</label>
           <input
             type="text"
@@ -146,7 +146,7 @@ const AddPlantForm = () => {
             value={sunExposure}
             onChange={handleChange}
           />
-
+          <br/>
           <label htmlFor="growingMonths">Growing Months:</label>
           <input
             type="text"
@@ -155,7 +155,7 @@ const AddPlantForm = () => {
             value={growingMonths}
             onChange={handleChange}
           />
-
+          <br/>
           <label htmlFor="bloomingMonths">Blooming Months:</label>
           <input
             type="text"
@@ -164,7 +164,7 @@ const AddPlantForm = () => {
             value={bloomingMonths}
             onChange={handleChange}
           />
-
+          <br/>
           <label htmlFor="instructions">Instructions:</label>
           <input
             type="text"
@@ -173,7 +173,7 @@ const AddPlantForm = () => {
             value={instructions}
             onChange={handleChange}
           />
-
+          <br/>
           <label htmlFor="frequencyCount">Frequency Count:</label>
           <input
             type="text"
@@ -182,7 +182,7 @@ const AddPlantForm = () => {
             value={frequencyCount}
             onChange={handleChange}
           />
-
+          <br/>
           <label htmlFor="frequencyUnit">Frequency Unit:</label>
           <select
             id="frequencyUnit"
@@ -195,7 +195,7 @@ const AddPlantForm = () => {
             <option value="weeks">Weeks</option>
             <option value="months">Months</option>
           </select>
-
+          <br/>
           <label htmlFor="frequencyInterval">Frequency Interval:</label>
           <input
             type="text"
@@ -204,7 +204,7 @@ const AddPlantForm = () => {
             value={frequencyInterval}
             onChange={handleChange}
           />
-
+          <br/>
           <label htmlFor="userNotes">User Notes:</label>
           <input
             type="text"
@@ -213,7 +213,7 @@ const AddPlantForm = () => {
             value={userNotes}
             onChange={handleChange}
           />
-
+          <br/>
           <button type="submit">Add Plant</button>
         </form>
         ) : (

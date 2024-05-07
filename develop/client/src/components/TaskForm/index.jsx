@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_OTHERTASK } from '../../utils/mutations';
+import { QUERY_MYTASKS, QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
 const AddTaskForm = ({}) => {
@@ -9,7 +10,14 @@ const AddTaskForm = ({}) => {
   const [instructions, setInstructions] = useState('');
   const [dates, setDates] = useState('');
 
-  const [addTask, { error }] = useMutation(ADD_OTHERTASK);
+  const [addTask, { error }] = useMutation(ADD_OTHERTASK, {
+    refetchQueries: [
+     QUERY_MYTASKS, 
+     'getTasks',
+     QUERY_ME, 
+     'me'
+    ],
+  }); ;
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -68,7 +76,7 @@ const AddTaskForm = ({}) => {
             value={plantId}
             onChange={handleChange}
           />
-
+          <br/>
           <select
             id="taskName"
             name="taskName"
@@ -80,7 +88,7 @@ const AddTaskForm = ({}) => {
             <option value="pruning">Pruning</option>
             <option value="fertilizing">Fertilizing</option>
           </select>
-
+          <br/>
           <label htmlFor="instructions">Instructions:</label>
           <input
             type="text"
@@ -90,7 +98,7 @@ const AddTaskForm = ({}) => {
             value={instructions}
             onChange={handleChange}
           />
-
+          <br/>
           <label htmlFor="dates">Dates:</label>
           <input
             type="text"
@@ -100,7 +108,7 @@ const AddTaskForm = ({}) => {
             value={dates}
             onChange={handleChange}
           />
-
+          <br/>
           <button type="submit">Add Task</button>
         </form>
       ) : (
