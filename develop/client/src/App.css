@@ -16,6 +16,16 @@
   color: #4CAF50;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: start; 
+  justify-content: flex-start; 
+  min-height: 100vh; 
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
 
 
 /* Backgrounds */
@@ -35,7 +45,7 @@
 
 }
 
-.auth { /* temp styling for visibility */
+.auth {
   margin: auto;
   background-color: white;
   color: green;
@@ -45,7 +55,7 @@
   cursor: pointer;
   vertical-align: middle;
   box-shadow: 0px 10px 8px #CCC;
-}
+} 
 
 
 header {
