@@ -1,13 +1,9 @@
-.auth-container {
-    position: fixed;
-    top: 20px;
-    right: 20px; 
-    display: flex;
-    flex-direction: column; 
-    align-items: flex-start; 
-    gap: 10px; 
-  }
-  
-  .auth {
-    width: auto; 
-  }
+.landing-logo {
+    max-width: 400px !important;
+    overflow: hidden;
+}
+
+.promo-blurb h2, p, li {
+    text-align: left;
+    line-height: 120%;
+}
