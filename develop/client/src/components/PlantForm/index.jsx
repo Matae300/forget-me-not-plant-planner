@@ -7,7 +7,6 @@ import Auth from '../../utils/auth';
 const AddPlantForm = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [photoUrl, setPhotoUrl] = useState('');
   const [sunExposure, setSunExposure] = useState('');
   const [growingMonths, setGrowingMonths] = useState('');
   const [bloomingMonths, setBloomingMonths] = useState('');
@@ -40,7 +39,6 @@ const AddPlantForm = () => {
         variables: {
           name,
           description,
-          photoUrl,
           sunExposure,
           growingMonths,
           bloomingMonths,
@@ -51,7 +49,6 @@ const AddPlantForm = () => {
 
       setName('');
       setDescription('');
-      setPhotoUrl('');
       setSunExposure('');
       setGrowingMonths('');
       setBloomingMonths('');
@@ -73,9 +70,6 @@ const AddPlantForm = () => {
         break;
       case 'description':
         setDescription(value);
-        break;
-      case 'photoUrl':
-        setPhotoUrl(value);
         break;
       case 'sunExposure':
         setSunExposure(value);
@@ -126,15 +120,6 @@ const AddPlantForm = () => {
             id="description"
             name="description"
             value={description}
-            onChange={handleChange}
-          />
-          <br/>
-          <label htmlFor="photoUrl">Photo URL:</label>
-          <input
-            type="url"
-            id="photoUrl"
-            name="photoUrl"
-            value={photoUrl}
             onChange={handleChange}
           />
           <br/>

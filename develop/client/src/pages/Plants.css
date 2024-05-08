@@ -28,3 +28,10 @@
   padding: 20px;
   height: 60vh; /* Set the height of the list container */
 }
+
+img {
+  max-width: 100px; /* Adjust the max-width as needed */
+  max-height: 100px; /* Adjust the max-height as needed */
+  border: 7px solid green;
+  border-radius: 50%;
+}

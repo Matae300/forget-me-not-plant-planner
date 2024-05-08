@@ -22,7 +22,7 @@ const Plants = ({ authToken }) => {
 
   const [selectedPlant, setSelectedPlant] = useState(null);
   const client = useApolloClient();
-  
+
   const fetchPlantData = async (id) => {
     try {
       const { data } = await client.query({
@@ -51,6 +51,9 @@ const Plants = ({ authToken }) => {
   return (
     <div className="plants-container">
       <div className="plants-sidebar">
+      <div>
+        <button>ADD PLANT</button>
+      </div>
         <button onClick={() => toggleDisplay(true)}>Show Plants</button>
         <button onClick={() => toggleDisplay(false)}>Show Tasks</button>
         {showPlants ? (

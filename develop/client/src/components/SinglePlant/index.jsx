@@ -1,4 +1,5 @@
 import React from 'react';
+import Plants from '../../assets/images/plant.jpg'
 
 const SinglePlant = ({ plant }) => {
   if (!plant) {
@@ -29,7 +30,7 @@ const SinglePlant = ({ plant }) => {
         <div className="card-body bg-light p-2">
           <p>Name: {plant.name}</p>
           <p>Id: {plant._id}</p>
-          <img src={plant.photoUrl} alt={plant.name} />
+          <img src={Plants} alt={plant.name} />
           <p>Description: {plant.description || 'N/A'}</p>
           <p>Sun Exposure: {plant.sunExposure || 'N/A'}</p>
           <p>Growing Months: {plant.growingMonths || 'N/A'}</p>
