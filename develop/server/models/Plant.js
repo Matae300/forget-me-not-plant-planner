@@ -24,6 +24,11 @@ const wateringTaskSchema = new Schema({
     required: true,
     trim: true,
   },
+  
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const plantSchema = new Schema({

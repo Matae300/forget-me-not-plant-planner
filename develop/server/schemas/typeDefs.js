@@ -26,6 +26,7 @@ type WateringTask {
   frequencyCount: Int
   frequencyUnit: String
   frequencyInterval: Int
+  createdAt: String
 }
 
 input WateringTaskInput {
