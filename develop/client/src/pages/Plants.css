@@ -8,13 +8,13 @@
 }
 
 .plants-sidebar {
-  width: 60%; /* Adjust the width of the list container */
+  width: 90%; /* Adjust the width of the list container */
   padding: 20px;
   border-right: 1px solid #ccc; /* Add a border to separate sidebar and content */
 }
 
 .plants-content {
-  width: 30%; /* Adjust the width of the content area */
+  width: 70%; /* Adjust the width of the content area */
   padding: 20px;
 }
 

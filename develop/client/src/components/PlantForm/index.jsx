@@ -15,18 +15,42 @@ const AddPlantForm = () => {
   const [frequencyUnit, setFrequencyUnit] = useState('');
   const [frequencyInterval, setFrequencyInterval] = useState('');
   const [userNotes, setUserNotes] = useState('');
+  const [error, setError] = useState('');
 
-  const [addPlant, { error }] = useMutation(ADD_PLANT, {
+  const [addPlant] = useMutation(ADD_PLANT, {
     refetchQueries: [
      QUERY_MYPLANTS, 
      'getPlants',
      QUERY_ME, 
      'me'
     ],
+    errorPolicy: 'all',
   });
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    if (!name.trim()) {
+      setError('Please enter your name.');
+      return;
+    }
+    if (!instructions.trim()) {
+      setError('Please enter instructions');
+      return;
+    }
+    if (!frequencyCount.trim()) {
+      setError('Please enter count.');
+      return;
+    }
+    if (!frequencyUnit.trim()) {
+      setError('Please enter Unit.');
+      return;
+    }
+    if (!frequencyInterval.trim()) {
+      setError('Please enter interval.');
+      return;
+    }
+    
     try {
       const wateringTaskVariables = {
         instructions,
@@ -58,7 +82,8 @@ const AddPlantForm = () => {
       setFrequencyInterval('');
       setUserNotes('');
     } catch (err) {
-      console.error(err);
+      console.error('Error adding plant:', err);
+      setError('Failed to add plant. Please try again.');
     }
   };
 
@@ -105,6 +130,8 @@ const AddPlantForm = () => {
       <h3>Add Plant</h3>
       {Auth.loggedIn() ? (
         <form onSubmit={handleFormSubmit}>
+          {error && <div className="error-message">{error}</div>}
+          <h4>Required</h4>
           <label htmlFor="name">Plant Name:</label>
           <input
             type="text"
@@ -114,6 +141,46 @@ const AddPlantForm = () => {
             onChange={handleChange}
           />
           <br/>
+          <label htmlFor="instructions">Instructions:</label>
+          <input
+            type="text"
+            id="instructions"
+            name="instructions"
+            value={instructions}
+            onChange={handleChange}
+          />
+          <br/>
+          <label htmlFor="frequencyCount">Frequency Count:</label>
+          <input
+            type="text"
+            id="frequencyCount"
+            name="frequencyCount"
+            value={frequencyCount}
+            onChange={handleChange}
+          />
+          <br/>
+          <label htmlFor="frequencyUnit">Frequency Unit:</label>
+          <select
+            id="frequencyUnit"
+            name="frequencyUnit"
+            value={frequencyUnit}
+            onChange={handleChange}
+          >
+            <option value="">Select Frequency Unit</option>
+            <option value="weeks">Weeks</option>
+            <option value="months">Months</option>
+          </select>
+          <br/>
+          <label htmlFor="frequencyInterval">Frequency Interval:</label>
+          <input
+            type="text"
+            id="frequencyInterval"
+            name="frequencyInterval"
+            value={frequencyInterval}
+            onChange={handleChange}
+          />
+          <br/>
+          <h4>Optional</h4>
           <label htmlFor="description">Description:</label>
           <input
             type="text"
@@ -147,46 +214,6 @@ const AddPlantForm = () => {
             id="bloomingMonths"
             name="bloomingMonths"
             value={bloomingMonths}
-            onChange={handleChange}
-          />
-          <br/>
-          <label htmlFor="instructions">Instructions:</label>
-          <input
-            type="text"
-            id="instructions"
-            name="instructions"
-            value={instructions}
-            onChange={handleChange}
-          />
-          <br/>
-          <label htmlFor="frequencyCount">Frequency Count:</label>
-          <input
-            type="text"
-            id="frequencyCount"
-            name="frequencyCount"
-            value={frequencyCount}
-            onChange={handleChange}
-          />
-          <br/>
-          <label htmlFor="frequencyUnit">Frequency Unit:</label>
-          <select
-            id="frequencyUnit"
-            name="frequencyUnit"
-            value={frequencyUnit}
-            onChange={handleChange}
-          >
-            <option value="">Select Frequency Unit</option>
-            <option value="days">Days</option>
-            <option value="weeks">Weeks</option>
-            <option value="months">Months</option>
-          </select>
-          <br/>
-          <label htmlFor="frequencyInterval">Frequency Interval:</label>
-          <input
-            type="text"
-            id="frequencyInterval"
-            name="frequencyInterval"
-            value={frequencyInterval}
             onChange={handleChange}
           />
           <br/>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useApolloClient } from '@apollo/client'; // Import useApolloClient
 import { QUERY_SINGLE_PLANT } from '../../utils/queries';
 import { REMOVE_PLANT } from '../../utils/mutations';

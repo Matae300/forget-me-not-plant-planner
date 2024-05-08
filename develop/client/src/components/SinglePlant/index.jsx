@@ -1,4 +1,3 @@
-import React from 'react';
 import Plants from '../../assets/images/plant.jpg'
 
 const SinglePlant = ({ plant }) => {

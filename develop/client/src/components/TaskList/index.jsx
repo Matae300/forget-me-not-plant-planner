@@ -1,4 +1,3 @@
-import React from 'react';
 import { REMOVE_TASK } from '../../utils/mutations';
 
 const TaskList = ({ tasks }) => {

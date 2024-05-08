@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useQuery, useApolloClient } from '@apollo/client';
 import { QUERY_MYPLANTS, QUERY_MYTASKS, QUERY_SINGLE_PLANT } from '../utils/queries';
 
@@ -72,7 +72,7 @@ const Plants = ({ authToken }) => {
         <div className="form-container">
           <TaskForm />
         </div>
-        <div className="form-container">
+        <div className="single-container">
           <SinglePlant plant={selectedPlant} />
         </div>
       </div>
