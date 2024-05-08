@@ -54,7 +54,7 @@ function Home() {
           </ul>
         </div>
 
-        <div className="landing-logo w3-col l8 m6 test">
+        <div className="landing-logo w3-col l9 m6 test">
           <div className="w3-center"> 
             <img src={logo} alt="Forget-Me-Not Plant Planner" />
           </div>
