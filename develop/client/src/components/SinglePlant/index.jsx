@@ -29,7 +29,6 @@ const SinglePlant = ({ plant }) => {
       <div key={plant._id} className="card mb-3">
         <div className="card-body bg-light p-2">
           <p>Name: {plant.name}</p>
-          <p>Id: {plant._id}</p>
           <img src={Plants} alt={plant.name} />
           <p>Description: {plant.description || 'N/A'}</p>
           <p>Sun Exposure: {plant.sunExposure || 'N/A'}</p>

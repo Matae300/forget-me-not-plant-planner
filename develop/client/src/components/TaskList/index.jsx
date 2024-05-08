@@ -1,4 +1,5 @@
 import React from 'react';
+import { REMOVE_TASK } from '../../utils/mutations';
 
 const TaskList = ({ tasks }) => {
   if (!tasks.length) {
@@ -14,6 +15,7 @@ const TaskList = ({ tasks }) => {
             <p>Task Name: {task.taskName}</p>
             <p>Instructions: {task.instructions}</p>
             <p>Dates: {task.dates}</p>
+            <button>DELETE TASK</button>
           </div>
         </div>
       ))}

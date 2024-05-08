@@ -27,9 +27,9 @@ const Plants = ({ authToken }) => {
     try {
       const { data } = await client.query({
         query: QUERY_SINGLE_PLANT,
-        variables: { id: id._id }, // Pass the string ID here, assuming id._id is the correct ID field
+        variables: { id: id._id }, 
       });
-      setSelectedPlant(data.plant); // Set the plant data in state
+      setSelectedPlant(data.plant); 
     } catch (error) {
       console.error('Error fetching plant data:', error);
     }
@@ -51,9 +51,6 @@ const Plants = ({ authToken }) => {
   return (
     <div className="plants-container">
       <div className="plants-sidebar">
-      <div>
-        <button>ADD PLANT</button>
-      </div>
         <button onClick={() => toggleDisplay(true)}>Show Plants</button>
         <button onClick={() => toggleDisplay(false)}>Show Tasks</button>
         {showPlants ? (
