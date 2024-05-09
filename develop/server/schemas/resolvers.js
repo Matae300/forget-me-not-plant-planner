@@ -62,6 +62,9 @@ const resolvers = {
       }
       throw new AuthenticationError('User not authenticated');
     },
+    allPlants: async () => {
+      return await Plant.find({});
+    }
   },  
 
   Mutation: {

@@ -52,6 +52,7 @@ type Query {
   user(username: String!): User
   plants(username: String!): [Plant]
   plant(_id: ID!): Plant
+  allPlants: [Plant]
   wateringTask(wateringTaskId: ID!): WateringTask
   singleOtherTask(otherTasksId: ID!): OtherTasks
   allOtherTasksByUsername(username: String!): [OtherTasks]
