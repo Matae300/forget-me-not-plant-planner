@@ -1,6 +1,6 @@
 /* Global Styles */
 
-#root {
+* {
   box-sizing: border-box;
   margin: 0 auto;
   padding: 16px;
@@ -8,7 +8,21 @@
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+span, b {
+  margin: 0;
+  padding: 0;
+  line-height: inherit;
+}
+
 /* Typography */
+
+li {
+  text-align: left;
+  font-size: 1.25em;
+  line-height: 50%;
+  list-style-type: disc;
+
+}
 
 .pop {
   font-weight: bold;
@@ -27,35 +41,14 @@ body {
   box-sizing: border-box;
 }
 
-
-/* Backgrounds */
-
-#landing-container {
-  background-image: url(/develop/client/src/assets/images/plant-planner-landingBG.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top;
+.headline {
+  margin-bottom: .5em;
+  text-align: left;
 }
 
-#headline {
-  margin-bottom: 1em;
+.test {
+  border: 2px solid gray;
 }
-
-#landing-logo img{
-
-}
-
-.auth {
-  margin: auto;
-  background-color: white;
-  color: green;
-  border: none;
-  padding: 1em;
-  margin: 1em;
-  cursor: pointer;
-  vertical-align: middle;
-  box-shadow: 0px 10px 8px #CCC;
-} 
 
 
 header {
@@ -67,10 +60,58 @@ header {
   padding: 2em;
 }
 
-#months div {
+.months div {
   min-width: 20px;
   min-height: 20px;
   margin: .5em;
+}
+
+/* Plant Tag Styles */
+
+.plantContainerStyle {
+  margin: 0;
+  padding: 0;
+  width: 201px;
+  height: 664px;
+  align-items: center;
+}
+
+.plantTagStyle {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 0;
+}
+
+.plantTagTextStyle {
+  max-width: 180px;
+  max-height: 160px;
+  text-align: center;
+  top: 40px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.plantTagPhotoStyle {
+  width: 200px;
+  height: 200px;
+  top: 220px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.plantTagStateStyle {
+  width: 160px;
+  height: 160px;
+  top: 400px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 3;
 }
 
 
@@ -105,15 +146,15 @@ header {
     font-size: 2em;
   }
 
-  #headline {
+  .headline {
     font-size: 2em;
   }
 
-  #headline-container {
+  .headline-container {
     display: none;
   }
 
-  #promo-blurb h2, p, li{
+  .promo-blurb h2, p, li{
     text-align: center;
   }
 }
@@ -125,34 +166,34 @@ header {
   }
 
   h1 {
-    font-size: 2.5em;
+    font-size: 2.25em;
   }
 
   h2 {
     font-size: 2em;
   }
 
-  #headline {
-    font-size: 2.5em;
+  .headline {
+    font-size: 2.25em;
   }
 }
 
 /* Styles for large desktops */
 @media (min-width: 1600px) {
   p {
-    font-size: 2em;
+    font-size: 1.25em;
   }
 
   h1 {
-    font-size: 3em;
-  }
-
-  h2 {
     font-size: 2.5em;
   }
 
-  #headline {
-    font-size: 3.5em;
+  h2 {
+    font-size: 2em;
+  }
+
+  .headline {
+    font-size: 2.5em;
   }
 }
 
