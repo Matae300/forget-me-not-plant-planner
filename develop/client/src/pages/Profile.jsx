@@ -6,6 +6,16 @@ import Dropdown from '../components/Dropdown';
 import Auth from '../utils/auth';
 
 const Profile = () => {
+  if (!Auth.loggedIn()) {
+    console.log('No username available, user might not be logged in');
+    return (
+      <h4>
+        You need to be logged in to see this. Use the navigation links above to
+        sign up or log in!
+      </h4>
+    );
+  }
+  
   const { loading, error, data } = useQuery(QUERY_ME);
 
   const user = data?.me || {};
@@ -31,15 +41,7 @@ const Profile = () => {
     return <p>Error loading profile.</p>;
   }
 
-  if (!user?.username) {
-    console.log('No username available, user might not be logged in');
-    return (
-      <h4>
-        You need to be logged in to see this. Use the navigation links above to
-        sign up or log in!
-      </h4>
-    );
-  }
+
 
   console.log('Rendering profile page', user.username);
   return (
