@@ -17,7 +17,6 @@ type Plant {
   bloomingMonths: String
   wateringTask: WateringTask!
   otherTasks: [OtherTasks]
-  userNotes: String
 }
 
 type WateringTask {

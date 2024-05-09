@@ -96,7 +96,8 @@ export const QUERY_ME = gql`
           instructions
           dates
           _id
-      
+        }
+      }  
     }
   }`;
 
