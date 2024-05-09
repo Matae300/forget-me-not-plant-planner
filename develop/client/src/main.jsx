@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import App from './App.jsx'
 import Home from './pages/Home.jsx'
+import Plants from './pages/Plants.jsx'
 
 import Profile from './pages/Profile.jsx'
 
@@ -18,6 +19,9 @@ const router = createBrowserRouter([
       }, {
         path: '/me',
         element: <Profile />
+      }, {
+        path: '/plants',
+        element: <Plants />
       }
     ]
   }

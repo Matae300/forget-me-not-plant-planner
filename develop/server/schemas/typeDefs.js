@@ -1,14 +1,14 @@
 const typeDefs = `
 type User {
-  _id: ID
-  username: String
-  email: String
-  password: String
+  _id: ID!
+  username: String!
+  email: String!
+  password: String!
   plants: [Plant]!
 }
 
 type Plant {
-  _id: ID
+  _id: ID!
   name: String!
   description: String
   photoUrl: String
@@ -16,16 +16,16 @@ type Plant {
   growingMonths: String
   bloomingMonths: String
   wateringTask: WateringTask!
-  otherTasks: [OtherTasks]
-  userNotes: String
+  userNotes: [UserNotes]
 }
 
 type WateringTask {
-  _id: ID
+  _id: ID!
   instructions: String
   frequencyCount: Int
   frequencyUnit: String
   frequencyInterval: Int
+  createdAt: String
 }
 
 input WateringTaskInput {
@@ -35,11 +35,10 @@ input WateringTaskInput {
   frequencyInterval: Int
 }
 
-type OtherTasks {
+type UserNotes {
   _id: ID
-  taskName: String
-  instructions: String
-  dates: [String]
+  noteName: String
+  noteText: String
 }
 
 type Auth {
@@ -50,12 +49,12 @@ type Auth {
 type Query {
   users: [User]
   user(username: String!): User
-  plants(username: String!): [Plant]
   plant(_id: ID!): Plant
   wateringTask(wateringTaskId: ID!): WateringTask
-  singleOtherTask(otherTasksId: ID!): OtherTasks
-  allOtherTasksByUsername(username: String!): [OtherTasks]
+  singleUserNotes(userNotesId: ID!): UserNotes
   me: User
+  myPlants: [Plant]
+  myNotes: [UserNotes]
 }
 
 type Mutation {
@@ -69,16 +68,14 @@ type Mutation {
     growingMonths: String
     bloomingMonths: String
     wateringTask: WateringTaskInput!
-    userNotes: String
   ): Plant
   removePlant(plantId: ID!): Plant
-  addOtherTask(
-    plantId: ID!,
-    taskName: String
-    instructions: String
-    dates: [String]
-  ): OtherTasks
-  removeOtherTask(otherTasksId: ID!): OtherTasks
+  addUserNotes(
+    plantId: ID!
+    noteName: String!
+    noteText: String!
+  ): UserNotes
+  removeUserNotes(userNotesId: ID!): UserNotes
 }
 `;
 

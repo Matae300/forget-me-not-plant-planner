@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_PLANT } from '../../utils/mutations';
-import { QUERY_PLANTS, QUERY_ME } from '../../utils/queries';
+import { QUERY_MYPLANTS, QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
 const AddPlantForm = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [photoUrl, setPhotoUrl] = useState('');
   const [sunExposure, setSunExposure] = useState('');
   const [growingMonths, setGrowingMonths] = useState('');
   const [bloomingMonths, setBloomingMonths] = useState('');
@@ -15,19 +14,42 @@ const AddPlantForm = () => {
   const [frequencyCount, setFrequencyCount] = useState('');
   const [frequencyUnit, setFrequencyUnit] = useState('');
   const [frequencyInterval, setFrequencyInterval] = useState('');
-  const [userNotes, setUserNotes] = useState('');
+  const [error, setError] = useState('');
 
-  const [addPlant, { error }] = useMutation(ADD_PLANT, {
+  const [addPlant] = useMutation(ADD_PLANT, {
     refetchQueries: [
-     QUERY_PLANTS, 
+     QUERY_MYPLANTS, 
      'getPlants',
      QUERY_ME, 
      'me'
     ],
+    errorPolicy: 'all',
   });
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    if (!name.trim()) {
+      setError('Please enter your name.');
+      return;
+    }
+    if (!instructions.trim()) {
+      setError('Please enter instructions');
+      return;
+    }
+    if (!frequencyCount.trim()) {
+      setError('Please enter count.');
+      return;
+    }
+    if (!frequencyUnit.trim()) {
+      setError('Please enter Unit.');
+      return;
+    }
+    if (!frequencyInterval.trim()) {
+      setError('Please enter interval.');
+      return;
+    }
+    
     try {
       const wateringTaskVariables = {
         instructions,
@@ -40,18 +62,15 @@ const AddPlantForm = () => {
         variables: {
           name,
           description,
-          photoUrl,
           sunExposure,
           growingMonths,
           bloomingMonths,
           wateringTask: wateringTaskVariables,
-          userNotes,
         },
       });
 
       setName('');
       setDescription('');
-      setPhotoUrl('');
       setSunExposure('');
       setGrowingMonths('');
       setBloomingMonths('');
@@ -59,9 +78,9 @@ const AddPlantForm = () => {
       setFrequencyCount('');
       setFrequencyUnit('');
       setFrequencyInterval('');
-      setUserNotes('');
     } catch (err) {
-      console.error(err);
+      console.error('Error adding plant:', err);
+      setError('Failed to add plant. Please try again.');
     }
   };
 
@@ -73,9 +92,6 @@ const AddPlantForm = () => {
         break;
       case 'description':
         setDescription(value);
-        break;
-      case 'photoUrl':
-        setPhotoUrl(value);
         break;
       case 'sunExposure':
         setSunExposure(value);
@@ -98,9 +114,6 @@ const AddPlantForm = () => {
       case 'frequencyInterval':
         setFrequencyInterval(value);
         break;
-      case 'userNotes':
-        setUserNotes(value);
-        break;
       default:
         break;
     }
@@ -111,6 +124,8 @@ const AddPlantForm = () => {
       <h3>Add Plant</h3>
       {Auth.loggedIn() ? (
         <form onSubmit={handleFormSubmit}>
+          {error && <div className="error-message">{error}</div>}
+          <h4>Required</h4>
           <label htmlFor="name">Plant Name:</label>
           <input
             type="text"
@@ -119,52 +134,7 @@ const AddPlantForm = () => {
             value={name}
             onChange={handleChange}
           />
-
-          <label htmlFor="description">Description:</label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            value={description}
-            onChange={handleChange}
-          />
-
-          <label htmlFor="photoUrl">Photo URL:</label>
-          <input
-            type="url"
-            id="photoUrl"
-            name="photoUrl"
-            value={photoUrl}
-            onChange={handleChange}
-          />
-
-          <label htmlFor="sunExposure">Sun Exposure:</label>
-          <input
-            type="text"
-            id="sunExposure"
-            name="sunExposure"
-            value={sunExposure}
-            onChange={handleChange}
-          />
-
-          <label htmlFor="growingMonths">Growing Months:</label>
-          <input
-            type="text"
-            id="growingMonths"
-            name="growingMonths"
-            value={growingMonths}
-            onChange={handleChange}
-          />
-
-          <label htmlFor="bloomingMonths">Blooming Months:</label>
-          <input
-            type="text"
-            id="bloomingMonths"
-            name="bloomingMonths"
-            value={bloomingMonths}
-            onChange={handleChange}
-          />
-
+          <br/>
           <label htmlFor="instructions">Instructions:</label>
           <input
             type="text"
@@ -173,7 +143,7 @@ const AddPlantForm = () => {
             value={instructions}
             onChange={handleChange}
           />
-
+          <br/>
           <label htmlFor="frequencyCount">Frequency Count:</label>
           <input
             type="text"
@@ -182,7 +152,7 @@ const AddPlantForm = () => {
             value={frequencyCount}
             onChange={handleChange}
           />
-
+          <br/>
           <label htmlFor="frequencyUnit">Frequency Unit:</label>
           <select
             id="frequencyUnit"
@@ -191,11 +161,10 @@ const AddPlantForm = () => {
             onChange={handleChange}
           >
             <option value="">Select Frequency Unit</option>
-            <option value="days">Days</option>
             <option value="weeks">Weeks</option>
             <option value="months">Months</option>
           </select>
-
+          <br/>
           <label htmlFor="frequencyInterval">Frequency Interval:</label>
           <input
             type="text"
@@ -204,16 +173,44 @@ const AddPlantForm = () => {
             value={frequencyInterval}
             onChange={handleChange}
           />
-
-          <label htmlFor="userNotes">User Notes:</label>
+          <br/>
+          <h4>Optional</h4>
+          <label htmlFor="description">Description:</label>
           <input
             type="text"
-            id="userNotes"
-            name="userNotes"
-            value={userNotes}
+            id="description"
+            name="description"
+            value={description}
             onChange={handleChange}
           />
-
+          <br/>
+          <label htmlFor="sunExposure">Sun Exposure:</label>
+          <input
+            type="text"
+            id="sunExposure"
+            name="sunExposure"
+            value={sunExposure}
+            onChange={handleChange}
+          />
+          <br/>
+          <label htmlFor="growingMonths">Growing Months:</label>
+          <input
+            type="text"
+            id="growingMonths"
+            name="growingMonths"
+            value={growingMonths}
+            onChange={handleChange}
+          />
+          <br/>
+          <label htmlFor="bloomingMonths">Blooming Months:</label>
+          <input
+            type="text"
+            id="bloomingMonths"
+            name="bloomingMonths"
+            value={bloomingMonths}
+            onChange={handleChange}
+          />
+          <br/>
           <button type="submit">Add Plant</button>
         </form>
         ) : (
