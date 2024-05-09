@@ -28,27 +28,25 @@ export const QUERY_ME = gql`
         frequencyUnit
         frequencyInterval
       }
-      otherTasks {
+      userNotes {
         _id
-        taskName
-        instructions
-        dates
+        noteName
+        noteText
       }
     }
   }`;
 
-  export const QUERY_MYTASKS = gql`
-  query MyTasks {
-    myTasks {
+  export const QUERY_MYNOTES = gql`
+  query MyNotes {
+    myNotes {
       _id
-      taskName
-      instructions
-      dates
+      noteName
+      noteText
     }
   }`;
 
   export const QUERY_USER = gql`
-  query User($username: String!) {
+  query Query($username: String!) {
     user(username: $username) {
       _id
       username
@@ -63,19 +61,18 @@ export const QUERY_ME = gql`
         growingMonths
         bloomingMonths
         wateringTask {
+          _id
           instructions
           frequencyCount
           frequencyUnit
           frequencyInterval
-          _id
+          createdAt
         }
-        otherTasks {
-          taskName
-          instructions
-          dates
+        userNotes {
           _id
+          noteName
+          noteText
         }
-        userNotes
       }
     }
   }`;
@@ -97,13 +94,11 @@ export const QUERY_ME = gql`
       frequencyInterval
       _id
     }
-    otherTasks {
-      taskName
-      instructions
-      dates
+    userNotes {
       _id
+      noteName
+      noteText
     }
-    userNotes
   }
 }`;
 

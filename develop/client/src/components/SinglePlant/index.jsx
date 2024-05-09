@@ -5,17 +5,16 @@ const SinglePlant = ({ plant }) => {
     return <h3>No Plant Selected</h3>;
   }
 
-  const renderTaskList = (tasks) => {
-    if (!tasks || tasks.length === 0) {
+  const renderNotesList = (userNotes) => {
+    if (!userNotes || userNotes.length === 0) {
       return <p>N/A</p>;
     }
     return (
       <ul>
-        {tasks.map((task) => (
-          <li key={task._id}>
-            <p>Task Name: {task.taskName}</p>
-            <p>Instructions: {task.instructions}</p>
-            <p>Dates: {task.dates}</p>
+        {userNotes.map((userNotes) => (
+          <li key={userNotes._id}>
+            <p>Note Name: {userNotes.noteName}</p>
+            <p>Text: {userNotes.noteText}</p>
           </li>
         ))}
       </ul>
@@ -36,9 +35,8 @@ const SinglePlant = ({ plant }) => {
           <p>Watering Instructions: {plant.wateringTask.instructions || 'N/A'}</p>
           <div>
             <h2>Other Tasks:</h2>
-            {renderTaskList(plant.otherTasks)}
+            {renderNotesList(plant.userNotes)}
           </div>
-          <p>User Notes: {plant.userNotes || 'N/A'}</p>
         </div>
       </div>
     </div>

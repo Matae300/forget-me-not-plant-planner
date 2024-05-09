@@ -27,8 +27,8 @@ export const ADD_USER = gql`
     `;
 
     export const ADD_PLANT = gql`
-    mutation AddPlant($name: String!, $wateringTask: WateringTaskInput!, $description: String, $photoUrl: String, $sunExposure: String, $growingMonths: String, $bloomingMonths: String, $userNotes: String) {
-      addPlant(name: $name, wateringTask: $wateringTask, description: $description, photoUrl: $photoUrl, sunExposure: $sunExposure, growingMonths: $growingMonths, bloomingMonths: $bloomingMonths, userNotes: $userNotes) {
+    mutation AddPlant($name: String!, $wateringTask: WateringTaskInput!, $description: String, $photoUrl: String, $sunExposure: String, $growingMonths: String, $bloomingMonths: String) {
+      addPlant(name: $name, wateringTask: $wateringTask, description: $description, photoUrl: $photoUrl, sunExposure: $sunExposure, growingMonths: $growingMonths, bloomingMonths: $bloomingMonths) {
         _id
         name
         description
@@ -42,14 +42,13 @@ export const ADD_USER = gql`
           frequencyCount
           frequencyUnit
           frequencyInterval
+          createdAt
         }
-        otherTasks {
+        userNotes {
           _id
-          taskName
-          instructions
-          dates
+          noteName
+          noteText
         }
-        userNotes
       }
     }
     `;
@@ -64,24 +63,22 @@ export const ADD_USER = gql`
     `;
 
     
-    export const ADD_OTHERTASK = gql`
-    mutation AddOtherTask($plantId: ID!, $taskName: String, $dates: [String], $instructions: String) {
-      addOtherTask(plantId: $plantId, taskName: $taskName, dates: $dates, instructions: $instructions) {
+    export const ADD_USERNOTES = gql`
+    mutation AddUserNotes($plantId: ID!, $noteName: String!, $noteText: String!) {
+      addUserNotes(plantId: $plantId, noteName: $noteName, noteText: $noteText) {
         _id
-        taskName
-        instructions
-        dates
+        noteText
+        noteName
       }
     }
     `;
 
-    export const REMOVE_TASK = gql`
-    mutation RemoveOtherTask($otherTasksId: ID!) {
-      removeOtherTask(otherTasksId: $otherTasksId) {
+    export const REMOVE_NOTE = gql`
+    mutation RemoveUserNotes($userNotesId: ID!) {
+      removeUserNotes(userNotesId: $userNotesId) {
         _id
-        taskName
-        instructions
-        dates
+        noteName
+        noteText
       }
     }
     `;
