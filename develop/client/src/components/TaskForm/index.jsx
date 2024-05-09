@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_OTHERTASK } from '../../utils/mutations';
+import { QUERY_MYTASKS, QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
 const AddTaskForm = ({}) => {
@@ -8,12 +9,38 @@ const AddTaskForm = ({}) => {
   const [taskName, setTaskName] = useState('');
   const [instructions, setInstructions] = useState('');
   const [dates, setDates] = useState('');
+  const [error, setError] = useState('');
 
-  const [addTask, { error }] = useMutation(ADD_OTHERTASK);
+  const [addTask] = useMutation(ADD_OTHERTASK, {
+    refetchQueries: [
+     QUERY_MYTASKS, 
+     'getTasks',
+     QUERY_ME, 
+     'me'
+    ],
+    errorPolicy: 'all',
+  }); ;
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    if (!plantId.trim()) {
+      setError('Please enter your plantId.');
+      return;
+    }
+    if (!taskName.trim()) {
+      setError('Please select task.');
+      return;
+    }
+    if (!instructions.trim()) {
+      setError('Please enter instructions');
+      return;
+    }
+    if (!dates.trim()) {
+      setError('Please enter date.');
+      return;
+    }
+    
     try {
       const { data } = await addTask({
         variables: {
@@ -29,7 +56,8 @@ const AddTaskForm = ({}) => {
       setInstructions('');
       setDates('');
     } catch (err) {
-      console.error(err);
+      console.error('Error adding plant:', err);
+      setError('Failed to add task. Please try again.');
     }
   };
 
@@ -58,7 +86,7 @@ const AddTaskForm = ({}) => {
       <h3>Add Task</h3>
       {Auth.loggedIn() ? (
         <form onSubmit={handleFormSubmit}>
-
+           {error && <div className="error-message">{error}</div>}
           <label htmlFor="plantId">plantId:</label>
           <input
             type="text"
@@ -68,7 +96,7 @@ const AddTaskForm = ({}) => {
             value={plantId}
             onChange={handleChange}
           />
-
+          <br/>
           <select
             id="taskName"
             name="taskName"
@@ -80,7 +108,7 @@ const AddTaskForm = ({}) => {
             <option value="pruning">Pruning</option>
             <option value="fertilizing">Fertilizing</option>
           </select>
-
+          <br/>
           <label htmlFor="instructions">Instructions:</label>
           <input
             type="text"
@@ -90,8 +118,8 @@ const AddTaskForm = ({}) => {
             value={instructions}
             onChange={handleChange}
           />
-
-          <label htmlFor="dates">Dates:</label>
+          <br/>
+          <label htmlFor="dates">Date:</label>
           <input
             type="text"
             id="dates"
@@ -100,7 +128,7 @@ const AddTaskForm = ({}) => {
             value={dates}
             onChange={handleChange}
           />
-
+          <br/>
           <button type="submit">Add Task</button>
         </form>
       ) : (

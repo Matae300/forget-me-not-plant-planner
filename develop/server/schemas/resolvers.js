@@ -9,14 +9,6 @@ const resolvers = {
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate('plants');
     },
-    plants: async (parent, { username }) => { 
-    const user = await User.findOne({ username }).populate('plants');
-      if (!user) {
-      throw new Error('User not found');
-      }
-
-      return user.plants;
-    },
     plant: async (parent, { _id }) => {  
       return await Plant.findOne({ _id }).populate('wateringTask');  
     },
@@ -43,8 +35,12 @@ const resolvers = {
       }
       return singleOtherTasks;
     },
-    allOtherTasksByUsername: async (parent, { username }) => { 
-      const user = await User.findOne({ username }).populate('plants');
+    myTasks: async (parent, args, context) => {
+      if (!context.user) {
+        throw new Error('You must be logged in to access your plants.');
+      }
+
+      const user = await User.findOne({  _id: context.user._id }).populate('plants');
       if (!user) {
         throw new Error("User not found");
       }
@@ -56,11 +52,27 @@ const resolvers = {
     
       return othertasks;
     },
+    myPlants: async (parent, args, context) => {
+      if (!context.user) {
+        throw new Error('You must be logged in to access your plants.');
+      }
+
+      try {
+        const user = await User.findOne({ _id: context.user._id }).populate('plants');
+        if (!user) {
+          throw new Error('User not found.');
+        }
+
+        return user.plants;
+      } catch (error) {
+        throw new Error(`Error fetching plants: ${error.message}`);
+      }
+    },
     me: async (parent, args, context) => {
       if (context.user) {
         return User.findOne({ _id: context.user._id }).populate('plants');
       }
-      throw new AuthenticationError('User not authenticated');
+      throw new Error('You must be logged in to access this data.');;
     },
     allPlants: async () => {
       return await Plant.find({});
@@ -77,13 +89,13 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw AuthenticationError('Invalid email or password');
+        throw new Error('Invalid email or password');
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Invalid email or password');
+        throw new Error('Invalid email or password');
       }
 
       const token = signToken(user);
