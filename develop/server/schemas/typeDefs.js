@@ -17,6 +17,7 @@ type Plant {
   bloomingMonths: String
   wateringTask: WateringTask!
   otherTasks: [OtherTasks]
+  userNotes: String
 }
 
 type WateringTask {
@@ -70,6 +71,17 @@ type Mutation {
     growingMonths: String
     bloomingMonths: String
     wateringTask: WateringTaskInput!
+    userNotes: String
+  ): Plant
+  addPlantToUser(
+    userId: ID!,
+    name: String!,
+    description: String,
+    photoUrl: String,
+    sunExposure: String,
+    growingMonths: String,
+    bloomingMonths: String,
+    wateringTask: WateringTaskInput!,
     userNotes: String
   ): Plant
   removePlant(plantId: ID!): Plant

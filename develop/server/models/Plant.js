@@ -35,7 +35,7 @@ const plantSchema = new Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
+    unique: false,
     trim: true,
   },
   description: {

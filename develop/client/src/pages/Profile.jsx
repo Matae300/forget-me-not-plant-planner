@@ -21,15 +21,7 @@ const Profile = () => {
   const user = data?.me || {};
   console.log('User data:', user);
 
-  // if (
-  //   Auth.loggedIn() 
-  //   /* TODO: Check if the user's username is strictly equal to the userParam variable's value */
-    
-  // )  {
-  //   console.log('Redirecting because user is logged in and username matches parameter');
-  //   return <Navigate to="/me" />;
-    
-  // }
+
 
   if (loading) {
     console.log('Still loading data');
@@ -53,7 +45,7 @@ const Profile = () => {
         
       </div>
       <div>
-      <Dropdown />
+      <Dropdown userId={user._id}/>
       </div>
     </div>
   );

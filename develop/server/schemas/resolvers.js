@@ -132,6 +132,38 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    addPlantToUser: async (parent, {
+      userId,
+      name,
+      description,
+      photoUrl,
+      sunExposure,
+      growingMonths,
+      bloomingMonths,
+      wateringTask,
+      userNotes
+    }, context) => {
+      if (context.user) {
+        const plant = await Plant.create({
+          name,
+          description,
+          photoUrl,
+          sunExposure,
+          growingMonths,
+          bloomingMonths,
+          wateringTask,
+          userNotes
+        });
+
+        await User.findOneAndUpdate(
+          { _id: userId },
+          { $addToSet: { plants: plant._id } }
+        );
+
+        return plant;
+      }
+      throw AuthenticationError;
+    },
     addOtherTask: async (parent, { plantId, taskName, instructions, dates }, context) => {
       if (context.user) {
         const updatedPlant = await Plant.findOneAndUpdate(
