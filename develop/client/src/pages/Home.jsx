@@ -35,7 +35,7 @@ function Home() {
     <>
   <main style={landingContainerStyle} className="w3-container">
 
-    <div className="larger w3-col l9 m12 w3-row w3-padding test">
+    <div className="larger w3-col l9 m12 w3-row test">
 
         <div className="headline-container w3-col l12 w3-left-align w3-padding test">
           <h1 className="headline">The secret to a happy and healthy garden?<span className="pop">Remembering&nbsp;to&nbsp;take&nbsp;care&nbsp;of&nbsp;your&nbsp;plants!</span></h1>
@@ -46,18 +46,16 @@ function Home() {
         <div className="promo-blurb w3-left-align w3-col l4 m12 w3-padding test">
           <h2>Turn your <b>black thumb</b> <span className="pop">green</span> with Forget-Me-Not Plant Planner</h2> 
           <p>Keep all the information for your indoor and outdoor plants in one place:</p>
-          <ul className="w3-ul">
+          <ul className="w3-ul ulPadding">
             <li>Plant names and photos</li>
             <li>Watering schedules</li>
-            <li>Single and recurring care tasks</li>
+            <li>Notes about your plants</li>
             <li>And more!</li>
           </ul>
         </div>
 
         <div className="landing-logo w3-col l9 m6 test">
-          <div className="w3-center"> 
             <img src={logo} alt="Forget-Me-Not Plant Planner" />
-          </div>
         </div>
 
       </div>

@@ -1,9 +1,16 @@
 .landing-logo {
-    max-width: 400px !important;
     overflow: hidden;
 }
 
 .promo-blurb h2, p, li {
     text-align: left;
     line-height: 120%;
+}
+
+li {
+  padding-bottom: 50%;
+}
+
+.ulPadding {
+  padding-left: 1.75rem;
 }
