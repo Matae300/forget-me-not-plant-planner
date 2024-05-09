@@ -23,34 +23,34 @@ const resolvers = {
         throw new Error(`Error finding watering task: ${error.message}`);
       }
     },
-    singleOtherTask: async (parent, { otherTasksId }) => { 
-      const plant = await Plant.findOne({ 'otherTasks._id': otherTasksId });
+    singleUserNotes: async (parent, { userNotesId }) => { 
+      const plant = await Plant.findOne({ 'userNotes._id': userNotesId });
       if (!plant) {
         throw new Error('Plant not found');
       }
 
-      const singleOtherTasks = plant.otherTasks.find(task => task._id.toString() === otherTasksId);
-      if (!singleOtherTasks) {
-        throw new Error('Task not found');
+      const singleuserNotes = plant.userNotes.find(userNotes => userNotes._id.toString() === userNotesId);
+      if (!singleuserNotes) {
+        throw new Error('note not found');
       }
-      return singleOtherTasks;
+      return singleuserNotes;
     },
-    myTasks: async (parent, args, context) => {
+    myNotes: async (parent, args, context) => {
       if (!context.user) {
         throw new Error('You must be logged in to access your plants.');
       }
-
-      const user = await User.findOne({  _id: context.user._id }).populate('plants');
+    
+      const user = await User.findOne({ _id: context.user._id }).populate('plants');
       if (!user) {
-        throw new Error("User not found");
+        throw new Error('User not found.');
       }
     
-      const othertasks = user.plants.reduce((acc, plant) => {
-        acc.push(...plant.otherTasks);
+      const allUserNotes = user.plants.reduce((acc, plant) => {
+        acc.push(...plant.userNotes);
         return acc;
       }, []);
     
-      return othertasks;
+      return allUserNotes;
     },
     myPlants: async (parent, args, context) => {
       if (!context.user) {
@@ -106,7 +106,6 @@ const resolvers = {
       growingMonths,
       bloomingMonths,
       wateringTask,
-      userNotes
     }, context) => {
       if (context.user) {
         const plant = await Plant.create({
@@ -117,7 +116,6 @@ const resolvers = {
           growingMonths,
           bloomingMonths,
           wateringTask,
-          userNotes
         });
 
         await User.findOneAndUpdate(
@@ -129,13 +127,13 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    addOtherTask: async (parent, { plantId, taskName, instructions, dates }, context) => {
+    addUserNotes: async (parent, { plantId, noteName, noteText}, context) => {
       if (context.user) {
         const updatedPlant = await Plant.findOneAndUpdate(
           { _id: plantId },
           {
             $addToSet: {
-              otherTasks: { taskName, instructions, dates },
+              userNotes: { noteName, noteText },
             },
           },
           {
@@ -145,7 +143,7 @@ const resolvers = {
         );
         return updatedPlant;
       }
-      throw new AuthenticationError('User not authenticated');
+      throw AuthenticationError;
     },
     removePlant: async (parent, { plantId }, context) => {
       if (context.user) {
@@ -162,13 +160,13 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    removeOtherTask: async (parent, { otherTasksId }, context) => {
+    removeUserNotes: async (parent, { userNotesId }, context) => {
       if (context.user) {
         const updatedPlant = await Plant.findOneAndUpdate(
-          { "otherTasks._id": otherTasksId },
+          { "userNotes._id": userNotesId },
           {
             $pull: {
-              otherTasks: { _id: otherTasksId },
+              userNotes: { _id: userNotesId },
             },
           },
           { new: true }
