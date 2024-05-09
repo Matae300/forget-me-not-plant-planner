@@ -46,7 +46,8 @@ const Plants = ({ authToken }) => {
   };
 
   if (plantsLoading || notesLoading) return <p>Loading...</p>;
-  if (plantsError || notesError) return <p>Error fetching data</p>;
+  if (plantsError) return <p>Error fetching plants</p>;
+  if (notesError) return <p>Error fetching notes</p>;
 
   return (
     <div className="plants-container">

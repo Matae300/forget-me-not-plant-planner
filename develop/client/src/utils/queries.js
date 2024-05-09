@@ -20,13 +20,13 @@ export const QUERY_ME = gql`
       sunExposure
       growingMonths
       bloomingMonths
-      userNotes
       wateringTask {
         _id
         instructions
         frequencyCount
         frequencyUnit
         frequencyInterval
+        createdAt
       }
       userNotes {
         _id

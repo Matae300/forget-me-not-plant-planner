@@ -41,7 +41,7 @@ const AddNoteForm = ({}) => {
         variables: {
           plantId,
           noteName,
-          noteText
+          noteText,
         },
       });
 
@@ -73,7 +73,7 @@ const AddNoteForm = ({}) => {
 
   return (
     <div>
-      <h3>Add Task</h3>
+      <h3>Add Note</h3>
       {Auth.loggedIn() ? (
         <form onSubmit={handleFormSubmit}>
            {error && <div className="error-message">{error}</div>}

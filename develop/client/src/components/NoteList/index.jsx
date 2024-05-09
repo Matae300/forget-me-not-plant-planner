@@ -1,17 +1,16 @@
-const NotesList = ({ userNotes }) => {
-  if (!userNotes.length) {
-    return <h3>No Tasks Yet</h3>;
+const NotesList = ({ notes }) => {
+  if (!notes.length) {
+    return <h3>No Notes Yet</h3>;
   }
 
   return (
     <div>
       <h3>Notes</h3>
-      {userNotes.map((userNotes) => (
-        <div key={userNotes._id} className="card mb-3">
+      {notes.map((notes) => (
+        <div key={notes._id} className="card mb-3">
           <div className="card-body bg-light p-2">
-            <p>Name: {userNotes.noteName}</p>
-            <p>Text: {userNotes.noteText}</p>
-            <button>DELETE NOTE</button>
+            <p>Name: {notes.noteName}</p>
+            <p>Text: {notes.noteText}</p>
           </div>
         </div>
       ))}
