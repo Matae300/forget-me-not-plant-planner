@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
-import NavTabs from './components/Navbar';
 import Header from './components/Header';
 import Auth from './utils/auth';
 
@@ -36,7 +35,6 @@ function App() {
     <ApolloProvider client={client}>
       <div>
         {Auth.loggedIn() && <Header />}
-        <NavTabs />
         <Outlet />
       </div>
     </ApolloProvider>
