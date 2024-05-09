@@ -30,6 +30,16 @@ li {
   color: #4CAF50;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: start; 
+  justify-content: flex-start; 
+  min-height: 100vh; 
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
 
 .headline {
   margin-bottom: .5em;
