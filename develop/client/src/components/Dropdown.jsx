@@ -7,21 +7,29 @@ import { ADD_PLANT_TO_USER } from '../utils/mutations';
 function Dropdown({ userId }) {
   const { loading, error, data } = useQuery(QUERY_ALL_PLANTS);
   const [selectedItem, setSelectedItem] = useState('');
+  const [confirm, setConfirm] = useState(false);
   const [addPlantToUser] = useMutation(ADD_PLANT_TO_USER);
 
-  const handleChange = async (event) => {
-    const plantId = event.target.value;
-  
-    if (plantId) {
+  const handleSelect = (event) => {
+    setSelectedItem(event.target.value);
+    setConfirm(false); 
+  };
+
+  const handleConfirm = async () => {
+    if (selectedItem) {
       try {
         await addPlantToUser({
           variables: {
             userId: userId,
-            plantId: plantId
+            plantId: selectedItem
           }
         });
+        alert("Plant successfully linked to your profile!");
+        setSelectedItem(''); 
+        setConfirm(false);   
       } catch (err) {
         console.error("Error linking plant:", err);
+        alert("Failed to link plant: " + err.message);
       }
     }
   };
@@ -32,7 +40,7 @@ function Dropdown({ userId }) {
 
   return (
     <div>
-      <select value={selectedItem} onChange={handleChange}>
+      <select value={selectedItem} onChange={handleSelect}>
         <option value="">Select a plant</option>
         {data.allPlants.map((plant) => (
           <option key={plant._id} value={plant._id}>
@@ -40,6 +48,11 @@ function Dropdown({ userId }) {
           </option>
         ))}
       </select>
+      {selectedItem && (
+        <button onClick={handleConfirm} disabled={confirm}>
+          Confirm
+        </button>
+      )}
     </div>
   );
 }
