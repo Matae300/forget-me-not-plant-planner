@@ -65,11 +65,12 @@ export const ADD_USER = gql`
 
     
     export const ADD_USERNOTES = gql`
-    mutation AddUserNotes($plantId: ID!, $noteName: String!, $noteText: String!) {
-      addUserNotes(plantId: $plantId, noteName: $noteName, noteText: $noteText) {
+    mutation AddUserNotes($name: String!, $noteName: String!, $noteText: String!) {
+      addUserNotes(name: $name, noteName: $noteName, noteText: $noteText) {
         _id
-        noteText
+        name
         noteName
+        noteText
       }
     }
     `;

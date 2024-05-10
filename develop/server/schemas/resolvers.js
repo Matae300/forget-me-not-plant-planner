@@ -127,13 +127,13 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    addUserNotes: async (parent, { plantId, noteName, noteText}, context) => {
+    addUserNotes: async (parent, { name, noteName, noteText}, context) => {
       if (context.user) {
         const updatedPlant = await Plant.findOneAndUpdate(
-          { _id: plantId },
+          { name: name },
           {
             $addToSet: {
-              userNotes: { noteName, noteText },
+              userNotes: { name, noteName, noteText },
             },
           },
           {

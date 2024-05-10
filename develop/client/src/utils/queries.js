@@ -40,6 +40,7 @@ export const QUERY_ME = gql`
   query MyNotes {
     myNotes {
       _id
+      name
       noteName
       noteText
     }

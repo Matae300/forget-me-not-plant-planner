@@ -37,6 +37,7 @@ input WateringTaskInput {
 
 type UserNotes {
   _id: ID
+  name: String
   noteName: String
   noteText: String
 }
@@ -71,7 +72,7 @@ type Mutation {
   ): Plant
   removePlant(plantId: ID!): Plant
   addUserNotes(
-    plantId: ID!
+    name: String!
     noteName: String!
     noteText: String!
   ): UserNotes

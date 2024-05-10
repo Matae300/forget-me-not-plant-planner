@@ -4,14 +4,14 @@ import { REMOVE_NOTE } from '../../utils/mutations';
 import { QUERY_MYNOTES } from '../../utils/queries';
 
 const NotesList = ({ notes }) => {
-  const [notesList, setNotesList] = useState(notes); // State to store notes list
+  const [notesList, setNotesList] = useState(notes);
   const { refetch: refetchNotes } = useQuery(QUERY_MYNOTES);
   const [removeNoteMutation] = useMutation(REMOVE_NOTE);
 
   const handleDeleteNote = async (userNotesId) => {
     try {
       await removeNoteMutation({ variables: { userNotesId } });
-      setNotesList(notesList.filter((note) => note._id !== userNotesId)); // Update notes list in state
+      setNotesList(notesList.filter((note) => note._id !== userNotesId));
     } catch (error) {
       console.error('Error deleting note:', error);
     }
@@ -20,28 +20,37 @@ const NotesList = ({ notes }) => {
   useEffect(() => {
     const updateNotesList = async () => {
       try {
-        const { data } = await refetchNotes(); // Refetch notes data
-        setNotesList(data.myNotes); // Update notes list in state with refetched data
+        const { data } = await refetchNotes();
+        setNotesList(data.myNotes);
       } catch (error) {
         console.error('Error refetching notes:', error);
       }
     };
 
-    updateNotesList(); // Call the update function on component mount
+    updateNotesList();
   }, [refetchNotes]);
 
   if (!notesList.length) {
     return <h3>No Notes Yet</h3>;
   }
+  
+  // Sort notesList by plant name before rendering
+  const sortedNotesList = [...notesList].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
+
+  if (!sortedNotesList.length) {
+    return <h3>No Notes Yet</h3>;
+  }
 
   return (
     <div>
-      <h3>Notes</h3>
-      {notesList.map((note) => (
+      {sortedNotesList.map((note) => (
         <div key={note._id} className="card mb-3">
           <div className="card-body bg-light p-2">
-            <p>Name: {note.noteName}</p>
-            <p>Text: {note.noteText}</p>
+            <p>Plant: {note.name}</p>
+            <p>Note: {note.noteName}</p>
+            <p>{note.noteText}</p>
             <button
               className="btn btn-danger"
               onClick={() => handleDeleteNote(note._id)}

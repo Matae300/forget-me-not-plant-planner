@@ -5,7 +5,7 @@ import { QUERY_MYNOTES, QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
 const AddNoteForm = ({}) => {
-  const [plantId, setPlantId] = useState('');
+  const [name, setName] = useState('');
   const [noteName, setNoteName] = useState('');
   const [noteText, setNoteText] = useState('');
   const [error, setError] = useState('');
@@ -23,12 +23,12 @@ const AddNoteForm = ({}) => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    if (!plantId.trim()) {
-      setError('Please enter your plantId.');
+    if (!name.trim()) {
+      setError('Please enter your plant name.');
       return;
     }
     if (!noteName.trim()) {
-      setError('Please select name.');
+      setError('Please select note name.');
       return;
     }
     if (!noteText.trim()) {
@@ -39,13 +39,13 @@ const AddNoteForm = ({}) => {
     try {
       const { data } = await addNote({
         variables: {
-          plantId,
+          name,
           noteName,
           noteText,
         },
       });
 
-      setPlantId('');
+      setName('');
       setNoteName('');
       setNoteText('');
     } catch (err) {
@@ -57,8 +57,8 @@ const AddNoteForm = ({}) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     switch (name) {
-      case 'plantId':
-        setPlantId(value);
+      case 'name':
+        setName(value);
         break;
       case 'noteName':
         setNoteName(value);
@@ -77,13 +77,13 @@ const AddNoteForm = ({}) => {
       {Auth.loggedIn() ? (
         <form onSubmit={handleFormSubmit}>
            {error && <div className="error-message">{error}</div>}
-          <label htmlFor="plantId">plantId:</label>
+          <label htmlFor="name">Plant's Name:</label>
           <input
             type="text"
-            id="plantId"
-            name="plantId"
-            placeholder="Enter plantId"
-            value={plantId}
+            id="name"
+            name="name"
+            placeholder="Enter name"
+            value={name}
             onChange={handleChange}
           />
           <br/>
