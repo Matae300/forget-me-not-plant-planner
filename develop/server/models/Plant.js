@@ -35,7 +35,7 @@ const plantSchema = new Schema({
   name: {
     type: String,
     required: true,
-    unique: true,
+    unique: false,
     trim: true,
   },
   description: {
@@ -70,7 +70,7 @@ const plantSchema = new Schema({
   userNotes: [{
     noteName: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
     noteText: {
