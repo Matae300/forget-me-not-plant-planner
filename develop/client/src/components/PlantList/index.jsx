@@ -4,7 +4,6 @@ import { QUERY_SINGLE_PLANT } from '../../utils/queries';
 import { REMOVE_PLANT } from '../../utils/mutations';
 import { QUERY_MYPLANTS, QUERY_ME } from '../../utils/queries';
 import Plants from '../../assets/images/plant.jpg'
-import NoteForm from '../NotesForm'
 
 const PlantList = ({ plants, onClick }) => {
   const client = useApolloClient(); // Initialize Apollo Client
@@ -49,14 +48,11 @@ const PlantList = ({ plants, onClick }) => {
         <div key={plant._id} className="card" onClick={() => handlePlantClick(plant._id)}>
           <div className="card-body bg-light p-2">
             <p>Name: {plant.name}</p>
-            <p>Id: {plant._id}</p>
             <img src={Plants} alt={plant.name} />
             <p>Instructions: {plant.wateringTask.instructions}</p>
             <button className="btn btn-danger" onClick={() => handleDeletePlant(plant._id)}>
               DELETE PLANT
             </button>
-            <br/>
-            <button className="btn btn-primary">ADD Note</button>
           </div>
         </div>
       ))}

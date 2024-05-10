@@ -68,6 +68,10 @@ const plantSchema = new Schema({
     required: true,
   },
   userNotes: [{
+    name: {
+      type: String,
+      required: true,
+    },
     noteName: {
       type: String,
       required: false,

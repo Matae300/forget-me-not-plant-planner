@@ -23,6 +23,7 @@ export const QUERY_ME = gql`
         }
         userNotes {
           _id
+          name
           noteName
           noteText
         }
@@ -50,6 +51,7 @@ export const QUERY_ME = gql`
       }
       userNotes {
         _id
+        name
         noteName
         noteText
       }
@@ -60,6 +62,7 @@ export const QUERY_ME = gql`
   query MyNotes {
     myNotes {
       _id
+      name
       noteName
       noteText
     }

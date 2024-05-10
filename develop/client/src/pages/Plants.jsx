@@ -15,7 +15,7 @@ const Plants = ({ authToken }) => {
   const { loading: plantsLoading, error: plantsError, data: plantsData } = useQuery(QUERY_MYPLANTS, {
     context: { headers: { Authorization: `Bearer ${authToken}` } }, 
   });
-  
+
   const { loading: notesLoading, error: notesError, data: notesData } = useQuery(QUERY_MYNOTES, {
     context: { headers: { Authorization: `Bearer ${authToken}` } }, 
   });
@@ -47,7 +47,7 @@ const Plants = ({ authToken }) => {
 
   if (plantsLoading || notesLoading) return <p>Loading...</p>;
   if (plantsError) return <p>Error fetching plants</p>;
-  if (notesError) return <p>Error fetching notes</p>;
+
 
   return (
     <div className="plants-container">
@@ -62,7 +62,7 @@ const Plants = ({ authToken }) => {
         ) : (
           <div className="list-container">
             <h3>My Notes</h3>
-            <NoteList notes={notesData?.myNotes || []} />
+             <NoteList notes={notesData?.myNotes || []} plants={plantsData?.myPlants || []} />
           </div>
         )}
       </div>
