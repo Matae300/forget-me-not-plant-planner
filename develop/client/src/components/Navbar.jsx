@@ -1,11 +1,20 @@
 import { Link, useLocation } from 'react-router-dom';
+import navLogo from '../assets/images/plantplanner-hot-0.5x.png';
+
 
 
 function NavTabs() {
   const currentPage = useLocation().pathname;
 
   return (
-    <ul className="navbar">
+<div className="navbarStyles w3-container w3-row">
+  
+  <div className="w3-cell">
+    <img className="w3-display-left" src={navLogo} alt='Forget-Me-Not Plant Planner' />
+  </div> 
+
+  <div className="w3-cell">
+    <ul className="navbar w3-display-right">
       <li className="nav-item">
         <Link
           to="/"
@@ -31,6 +40,10 @@ function NavTabs() {
         </Link>
       </li>
     </ul>
+  </div>
+
+</div>
+
   );
 }
 

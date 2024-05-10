@@ -74,6 +74,9 @@ const resolvers = {
       }
       throw new Error('You must be logged in to access this data.');;
     },
+    allPlants: async () => {
+      return await Plant.find({});
+    }
   },  
 
   Mutation: {
@@ -126,6 +129,27 @@ const resolvers = {
         return plant;
       }
       throw AuthenticationError;
+    },
+    addPlantToUser: async (_, { userId, plantId }, context) => {
+      if (!context.user) throw new AuthenticationError('Not authenticated');
+    
+      const user = await User.findById(userId);
+      if (!user) throw new Error('User not found');
+    
+      
+      const alreadyAdded = user.plants.some(pid => pid.equals(plantId));
+      if (alreadyAdded) {
+        throw new Error('Plant already added to the user');
+      }
+    
+      const plant = await Plant.findById(plantId);
+      if (!plant) throw new Error('Plant not found');
+    
+      
+      user.plants.push(plant._id);
+      await user.save();
+    
+      return plant;  
     },
     addUserNotes: async (parent, { name, noteName, noteText}, context) => {
       if (context.user) {
