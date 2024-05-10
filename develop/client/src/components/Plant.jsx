@@ -24,7 +24,9 @@ const Plant = ({ plantId }) => {
                 <Link to={`/plants/${plant.id}`}>
 
                     <div className="plantContainerStyle">
-                        <h2 className='plantTagTextStyle'>{plant.name}</h2>
+                        {/* Replace the test plant with a dynamic plant name */}
+                        {/* <h2 className='plantTagTextStyle'>{plant.name}</h2> */}
+                        <h2 className='plantTagTextStyle'>Testing PlantName Here</h2>
                         <div className="plantTagPhotoStyle">
                             {/* Replace the generic plant image with a dynamic plant photo image */}
                             {/* <img src={plant.photoUrl} alt={plant.name} /> */}

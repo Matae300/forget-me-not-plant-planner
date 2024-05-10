@@ -67,28 +67,18 @@ const plantSchema = new Schema({
     type: wateringTaskSchema,
     required: true,
   },
-  otherTasks: [{
-    taskName: {
+  userNotes: [{
+    noteName: {
       type: String,
       required: true,
       trim: true,
-      enum: ['planting', 'pruning', 'fertilizing'], 
     },
-    instructions: {
+    noteText: {
       type: String,
       required: false,
       trim: true,
     },
-    dates: [{
-      type: Date,
-      required: false,
-    }],
   }],
-  userNotes: {
-    type: String,
-    required: false,
-    trim: true,
-  },
 });
 
 const Plant = model('Plant', plantSchema);

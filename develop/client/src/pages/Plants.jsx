@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useQuery, useApolloClient } from '@apollo/client';
-import { QUERY_MYPLANTS, QUERY_MYTASKS, QUERY_SINGLE_PLANT } from '../utils/queries';
+import { QUERY_MYPLANTS, QUERY_MYNOTES, QUERY_SINGLE_PLANT } from '../utils/queries';
 
 import PlantForm from '../components/PlantForm';
-import TaskForm from '../components/TaskForm';
+import NotesForm from '../components/NotesForm'
 
 import PlantList from '../components/PlantList';
-import TaskList from '../components/TaskList';
+import NoteList from '../components/NoteList';
 import SinglePlant from '../components/SinglePlant';
 
 import './Plants.css';
@@ -15,8 +15,8 @@ const Plants = ({ authToken }) => {
   const { loading: plantsLoading, error: plantsError, data: plantsData } = useQuery(QUERY_MYPLANTS, {
     context: { headers: { Authorization: `Bearer ${authToken}` } }, 
   });
-
-  const { loading: tasksLoading, error: tasksError, data: tasksData } = useQuery(QUERY_MYTASKS, {
+  
+  const { loading: notesLoading, error: notesError, data: notesData } = useQuery(QUERY_MYNOTES, {
     context: { headers: { Authorization: `Bearer ${authToken}` } }, 
   });
 
@@ -45,14 +45,15 @@ const Plants = ({ authToken }) => {
     setShowPlants(isPlants);
   };
 
-  if (plantsLoading || tasksLoading) return <p>Loading...</p>;
-  if (plantsError || tasksError) return <p>Error fetching data</p>;
+  if (plantsLoading || notesLoading) return <p>Loading...</p>;
+  if (plantsError) return <p>Error fetching plants</p>;
+  if (notesError) return <p>Error fetching notes</p>;
 
   return (
     <div className="plants-container">
       <div className="plants-sidebar">
         <button onClick={() => toggleDisplay(true)}>Show Plants</button>
-        <button onClick={() => toggleDisplay(false)}>Show Tasks</button>
+        <button onClick={() => toggleDisplay(false)}>Show Notes</button>
         {showPlants ? (
           <div className="list-container">
             <h3>My Plants</h3>
@@ -60,8 +61,8 @@ const Plants = ({ authToken }) => {
           </div>
         ) : (
           <div className="list-container">
-            <h3>My Tasks</h3>
-            <TaskList tasks={tasksData?.myTasks || []} />
+            <h3>My Notes</h3>
+            <NoteList notes={notesData?.myNotes || []} />
           </div>
         )}
       </div>
@@ -70,7 +71,7 @@ const Plants = ({ authToken }) => {
           <PlantForm />
         </div>
         <div className="form-container">
-          <TaskForm />
+          <NotesForm />
         </div>
         <div className="single-container">
           <SinglePlant plant={selectedPlant} />

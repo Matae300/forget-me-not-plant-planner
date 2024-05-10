@@ -14,7 +14,6 @@ const AddPlantForm = () => {
   const [frequencyCount, setFrequencyCount] = useState('');
   const [frequencyUnit, setFrequencyUnit] = useState('');
   const [frequencyInterval, setFrequencyInterval] = useState('');
-  const [userNotes, setUserNotes] = useState('');
   const [error, setError] = useState('');
 
   const [addPlant] = useMutation(ADD_PLANT, {
@@ -67,7 +66,6 @@ const AddPlantForm = () => {
           growingMonths,
           bloomingMonths,
           wateringTask: wateringTaskVariables,
-          userNotes,
         },
       });
 
@@ -80,7 +78,6 @@ const AddPlantForm = () => {
       setFrequencyCount('');
       setFrequencyUnit('');
       setFrequencyInterval('');
-      setUserNotes('');
     } catch (err) {
       console.error('Error adding plant:', err);
       setError('Failed to add plant. Please try again.');
@@ -116,9 +113,6 @@ const AddPlantForm = () => {
         break;
       case 'frequencyInterval':
         setFrequencyInterval(value);
-        break;
-      case 'userNotes':
-        setUserNotes(value);
         break;
       default:
         break;
@@ -214,15 +208,6 @@ const AddPlantForm = () => {
             id="bloomingMonths"
             name="bloomingMonths"
             value={bloomingMonths}
-            onChange={handleChange}
-          />
-          <br/>
-          <label htmlFor="userNotes">User Notes:</label>
-          <input
-            type="text"
-            id="userNotes"
-            name="userNotes"
-            value={userNotes}
             onChange={handleChange}
           />
           <br/>
