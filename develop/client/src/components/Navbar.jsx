@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import navLogo from '../assets/images/plantplanner-hot-0.5x.png';
+import navLogo from '../assets/images/plantplanner-hor-0.5x.png';
 
 
 
