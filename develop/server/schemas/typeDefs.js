@@ -75,14 +75,7 @@ type Mutation {
   ): Plant
   addPlantToUser(
     userId: ID!,
-    name: String!,
-    description: String,
-    photoUrl: String,
-    sunExposure: String,
-    growingMonths: String,
-    bloomingMonths: String,
-    wateringTask: WateringTaskInput!,
-    userNotes: String
+    plantId: ID!
   ): Plant
   removePlant(plantId: ID!): Plant
   addOtherTask(

@@ -132,38 +132,31 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    addPlantToUser: async (parent, {
-      userId,
-      name,
-      description,
-      photoUrl,
-      sunExposure,
-      growingMonths,
-      bloomingMonths,
-      wateringTask,
-      userNotes
-    }, context) => {
-      if (context.user) {
-        const plant = await Plant.create({
-          name,
-          description,
-          photoUrl,
-          sunExposure,
-          growingMonths,
-          bloomingMonths,
-          wateringTask,
-          userNotes
-        });
-
-        await User.findOneAndUpdate(
-          { _id: userId },
-          { $addToSet: { plants: plant._id } }
-        );
-
-        return plant;
+    addPlantToUser: async (_, { userId, plantId }, context) => {
+      if (!context.user) throw new AuthenticationError('Not authenticated');
+    
+      const user = await User.findById(userId);
+      if (!user) throw new Error('User not found');
+    
+      
+      const alreadyAdded = user.plants.some(pid => pid.equals(plantId));
+      if (alreadyAdded) {
+        throw new Error('Plant already added to the user');
       }
-      throw AuthenticationError;
+    
+      const plant = await Plant.findById(plantId);
+      if (!plant) throw new Error('Plant not found');
+    
+      
+      user.plants.push(plant._id);
+      await user.save();
+    
+      return plant;  
     },
+    
+      
+       
+    
     addOtherTask: async (parent, { plantId, taskName, instructions, dates }, context) => {
       if (context.user) {
         const updatedPlant = await Plant.findOneAndUpdate(

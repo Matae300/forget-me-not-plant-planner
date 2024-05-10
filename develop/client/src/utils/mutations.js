@@ -55,26 +55,32 @@ export const ADD_USER = gql`
     `;
 
     export const ADD_PLANT_TO_USER = gql`
-    mutation AddPlantToUser($userId: ID!, $name: String!, $wateringTask: WateringTaskInput!, $description: String, $photoUrl: String, $sunExposure: String, $growingMonths: String, $bloomingMonths: String, $userNotes: String) {
-      addPlantToUser(userId: $userId, name: $name, wateringTask: $wateringTask, description: $description, photoUrl: $photoUrl, sunExposure: $sunExposure, growingMonths: $growingMonths, bloomingMonths: $bloomingMonths, userNotes: $userNotes) {
+  mutation AddPlantToUser(
+    $userId: ID!,
+    $plantId: ID!,
+  ) {
+    addPlantToUser(
+      userId: $userId,
+      plantId: $plantId,
+    ) {
+      _id
+      name
+      description
+      photoUrl
+      sunExposure
+      growingMonths
+      bloomingMonths
+      wateringTask {
         _id
-        name
-        description
-        photoUrl
-        sunExposure
-        growingMonths
-        bloomingMonths
-        wateringTask {
-          _id
-          instructions
-          frequencyCount
-          frequencyUnit
-          frequencyInterval
-        }
-        userNotes
+        instructions
+        frequencyCount
+        frequencyUnit
+        frequencyInterval
       }
+      userNotes
     }
-    `;
+  }
+`;
 
 
     export const REMOVE_PLANT = gql`
