@@ -55,12 +55,13 @@ export const ADD_USER = gql`
 
     export const REMOVE_PLANT = gql`
     mutation removePlant($plantId: ID!) {
-      removePlant(plantID: $plantId) {
+      removePlant(plantId: $plantId) {
         _id
         name
       }
     }
-    `;
+  `;
+  
 
     
     export const ADD_USERNOTES = gql`

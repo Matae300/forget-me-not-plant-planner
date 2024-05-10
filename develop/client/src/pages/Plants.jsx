@@ -15,7 +15,7 @@ const Plants = ({ authToken }) => {
   const { loading: plantsLoading, error: plantsError, data: plantsData } = useQuery(QUERY_MYPLANTS, {
     context: { headers: { Authorization: `Bearer ${authToken}` } }, 
   });
-
+  
   const { loading: notesLoading, error: notesError, data: notesData } = useQuery(QUERY_MYNOTES, {
     context: { headers: { Authorization: `Bearer ${authToken}` } }, 
   });
