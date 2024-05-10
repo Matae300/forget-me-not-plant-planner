@@ -27,6 +27,7 @@ function Dropdown({ userId }) {
         alert("Plant successfully linked to your profile!");
         setSelectedItem(''); 
         setConfirm(false);   
+        window.location.reload();
       } catch (err) {
         console.error("Error linking plant:", err);
         alert("Failed to link plant: " + err.message);
