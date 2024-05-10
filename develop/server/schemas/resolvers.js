@@ -40,7 +40,7 @@ const resolvers = {
         throw new Error('You must be logged in to access your plants.');
       }
     
-      const user = await User.findOne({ _id: context.user._id }).populate('plants');
+      const user = await User.findById({ _id: context.user._id }).populate('plants');
       if (!user) {
         throw new Error('User not found.');
       }
@@ -58,7 +58,7 @@ const resolvers = {
       }
 
       try {
-        const user = await User.findOne({ _id: context.user._id }).populate('plants');
+        const user = await User.findById({ _id: context.user._id }).populate('plants');
         if (!user) {
           throw new Error('User not found.');
         }
