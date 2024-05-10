@@ -21,13 +21,11 @@ export const QUERY_ME = gql`
           frequencyInterval
           _id
         }
-        otherTasks {
-          taskName
-          instructions
-          dates
+        userNotes {
           _id
+          noteName
+          noteText
         }
-        userNotes
       }
     }
   }`;
@@ -171,13 +169,11 @@ export const QUERY_ALL_PLANTS = gql`
         frequencyUnit
         frequencyInterval
       }
-      otherTasks {
+      userNotes {
         _id
-        taskName
-        instructions
-        dates
+        noteName
+        noteText
       }
-      userNotes
     }
   }`;
 

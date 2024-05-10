@@ -76,7 +76,11 @@ export const ADD_USER = gql`
         frequencyUnit
         frequencyInterval
       }
-      userNotes
+      userNotes {
+        _id
+        noteName
+        noteText
+      }
     }
   }
 `;

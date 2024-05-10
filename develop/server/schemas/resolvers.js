@@ -73,6 +73,9 @@ const resolvers = {
         return User.findOne({ _id: context.user._id }).populate('plants');
       }
       throw new Error('You must be logged in to access this data.');;
+    },
+    allPlants: async () => {
+      return await Plant.find({});
     }
   },  
 
