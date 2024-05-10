@@ -1,16 +1,14 @@
 import React from "react";
+import Plant from "../Plant";
 
-const Garden = ({ plants}) => {
+const Garden = ({ plants }) => {
     return (
         <div>
-            <div>
+            <div className="gardenStyle">
                 {plants.map((plant) => (
-                    <div key={plant._id}>
-                        <h2>{plant.name}</h2>
-                        <img src={plant.photoUrl} alt={plant.name} />
-                    </div>
+                    <Plant key={plant._id} plant={plant} />
                 ))}
             </div>
         </div>
     );
-    )
+}
