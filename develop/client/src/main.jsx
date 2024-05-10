@@ -20,10 +20,10 @@ const router = createBrowserRouter([
         path: '/me',
         element: <Profile />
       }
-      // , {
-      //   path: '/plants',
-      //   element: <Plants />
-      // }
+      , {
+        path: '/plants',
+         element: <Plants />
+       }
     ]
   }
 ])
