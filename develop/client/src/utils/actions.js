@@ -1,1 +1,1 @@
-export const UPDATE_PLANTS = "UPDATE_PRODUCTS";
+export const UPDATE_PLANTS = "UPDATE_PLANTS";

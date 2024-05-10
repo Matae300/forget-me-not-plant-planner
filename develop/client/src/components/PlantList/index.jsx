@@ -14,9 +14,13 @@ const PlantList = ({ plants, onClick }) => {
   const [removePlantMutation] = useMutation(REMOVE_PLANT);
   const { plantsColor, setPlantsColor } = usePlant(); // Use usePlant hook from PlantContext
 
+  const [plantsList, setPlantsList] = useState(plants); // State to manage the list of plants
+
   const handleDeletePlant = async (plantId) => {
     try {
       await removePlantMutation({ variables: { plantId } });
+      // Optimistic UI update: Remove plant immediately from the list
+      setPlantsList(plantsList.filter(plant => plant._id !== plantId));
       refetchPlants();
       refetchMe();
     } catch (error) {
@@ -37,8 +41,13 @@ const PlantList = ({ plants, onClick }) => {
   };
 
   useEffect(() => {
+    setPlantsList(plants); // Update plantsList when the plants prop changes
+  }, [plants]);
+
+  useEffect(() => {
     const timeout = setTimeout(() => {
       setPlantsColor(false); // Change to false after 10 seconds
+      localStorage.setItem('plantsColor', 'false'); // Save to local storage
     }, 10000);
 
     return () => clearTimeout(timeout);
@@ -47,7 +56,7 @@ const PlantList = ({ plants, onClick }) => {
   return (
     <div>
       <h3>Plants</h3>
-      {plants.map((plant) => (
+      {plantsList.map((plant) => (
         <div
           key={plant._id}
           className="card"
@@ -60,7 +69,9 @@ const PlantList = ({ plants, onClick }) => {
               alt={plant.name}
               style={{ border: `7px solid ${plantsColor ? 'green' : 'orange'}` }}
             />
-            <p>Instructions: {plant.wateringTask.instructions}</p>
+            {plant.wateringTask && plant.wateringTask.instructions && (
+              <p>Instructions: {plant.wateringTask.instructions}</p>
+            )}
             <button className="btn btn-danger" onClick={() => handleDeletePlant(plant._id)}>
               DELETE PLANT
             </button>
