@@ -47,6 +47,29 @@ const Profile = () => {
       <div>
       <Dropdown userId={user._id}/>
       </div>
+      {/* below could be the garden component, would just need to pass it the user data,  ex. <Garden data={user} /> */}
+      <div className="plants-list">
+        <h3>{user.username}'s Plants:</h3>
+        {user.plants && user.plants.length > 0 ? (
+          <ul>
+            {user.plants.map((plant, index) => (
+              <li key={index}>
+                <strong>{plant.name}</strong> - {plant.description}<br/>
+                Sun Exposure: {plant.sunExposure}<br/>
+                Growing Months: {plant.growingMonths}<br/>
+                Blooming Months: {plant.bloomingMonths}<br/>
+                Watering Instructions: {plant.wateringTask.instructions}<br/>
+                Watering Frequency: {plant.wateringTask.frequencyCount} time(s) a {plant.wateringTask.frequencyUnit} every {plant.wateringTask.frequencyInterval} day(s).
+                <div>
+                  <img src={plant.photoUrl} alt={`Image of ${plant.name}`}  />
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No plants to display.</p>
+        )}
+      </div>
     </div>
   );
 };
