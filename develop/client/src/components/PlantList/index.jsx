@@ -5,22 +5,21 @@ import { QUERY_SINGLE_PLANT } from '../../utils/queries';
 import { REMOVE_PLANT } from '../../utils/mutations';
 import { QUERY_MYPLANTS, QUERY_ME } from '../../utils/queries';
 import Plants from '../../assets/images/plant.jpg';
-import { usePlant } from '../../utils/GlobalState'; // Import usePlant hook from correct context (PlantContext)
+import { usePlant } from '../../utils/GlobalState'; 
 
 const PlantList = ({ plants, onClick }) => {
   const client = useApolloClient();
   const { refetch: refetchPlants } = useQuery(QUERY_MYPLANTS);
   const { refetch: refetchMe } = useQuery(QUERY_ME);
   const [removePlantMutation] = useMutation(REMOVE_PLANT);
-  const { plantsColor, setPlantsColor } = usePlant(); // Use usePlant hook from PlantContext
 
-  const [plantsList, setPlantsList] = useState(plants); // State to manage the list of plants
+  const { plantsColor, setPlantsColor } = usePlant();
+
+  const [plantsList, setPlantsList] = useState(plants); 
 
   const handleDeletePlant = async (plantId) => {
     try {
       await removePlantMutation({ variables: { plantId } });
-      // Optimistic UI update: Remove plant immediately from the list
-      setPlantsList(plantsList.filter(plant => plant._id !== plantId));
       refetchPlants();
       refetchMe();
     } catch (error) {
@@ -41,13 +40,12 @@ const PlantList = ({ plants, onClick }) => {
   };
 
   useEffect(() => {
-    setPlantsList(plants); // Update plantsList when the plants prop changes
+    setPlantsList(plants); 
   }, [plants]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setPlantsColor(false); // Change to false after 10 seconds
-      localStorage.setItem('plantsColor', 'false'); // Save to local storage
     }, 10000);
 
     return () => clearTimeout(timeout);
@@ -56,7 +54,7 @@ const PlantList = ({ plants, onClick }) => {
   return (
     <div>
       <h3>Plants</h3>
-      {plantsList.map((plant) => (
+      {plantsList.map((plant) => ( 
         <div
           key={plant._id}
           className="card"
@@ -69,9 +67,7 @@ const PlantList = ({ plants, onClick }) => {
               alt={plant.name}
               style={{ border: `7px solid ${plantsColor ? 'green' : 'orange'}` }}
             />
-            {plant.wateringTask && plant.wateringTask.instructions && (
-              <p>Instructions: {plant.wateringTask.instructions}</p>
-            )}
+            <p>Instructions: {plant.wateringTask.instructions}</p>
             <button className="btn btn-danger" onClick={() => handleDeletePlant(plant._id)}>
               DELETE PLANT
             </button>
