@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
+import { PlantProvider } from './utils/GlobalState';
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Auth from './utils/auth';
@@ -34,10 +35,12 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <div>
-        {Auth.loggedIn() && <Header />}
-        <Outlet />
-      </div>
+      <PlantProvider> 
+        <div>
+          {Auth.loggedIn() && <Header />}
+          <Outlet />
+        </div>
+      </PlantProvider>
     </ApolloProvider>
   );
 }

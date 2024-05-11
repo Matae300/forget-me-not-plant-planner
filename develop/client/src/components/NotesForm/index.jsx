@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_USERNOTES } from '../../utils/mutations';
-import { QUERY_MYNOTES, QUERY_ME } from '../../utils/queries';
+import { QUERY_MYPLANTS, QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
-const AddNoteForm = ({}) => {
+const AddNoteForm = () => {
   const [name, setName] = useState('');
   const [noteName, setNoteName] = useState('');
   const [noteText, setNoteText] = useState('');
@@ -12,8 +12,8 @@ const AddNoteForm = ({}) => {
 
   const [addNote] = useMutation(ADD_USERNOTES, {
     refetchQueries: [
-     QUERY_MYNOTES, 
-     'getNotes',
+    QUERY_MYPLANTS, 
+     'getPlants',
      QUERY_ME, 
      'me'
     ],

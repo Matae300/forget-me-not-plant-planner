@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useApolloClient } from '@apollo/client';
-import { QUERY_MYPLANTS, QUERY_MYNOTES, QUERY_SINGLE_PLANT } from '../utils/queries';
+import { QUERY_MYPLANTS, QUERY_SINGLE_PLANT } from '../utils/queries';
+import Auth from '../utils/auth';
 
 import PlantForm from '../components/PlantForm';
 import NotesForm from '../components/NotesForm'
@@ -16,9 +17,6 @@ const Plants = ({ authToken }) => {
     context: { headers: { Authorization: `Bearer ${authToken}` } }, 
   });
 
-  const { loading: notesLoading, error: notesError, data: notesData } = useQuery(QUERY_MYNOTES, {
-    context: { headers: { Authorization: `Bearer ${authToken}` } }, 
-  });
 
   const [selectedPlant, setSelectedPlant] = useState(null);
   const client = useApolloClient();
@@ -45,27 +43,31 @@ const Plants = ({ authToken }) => {
     setShowPlants(isPlants);
   };
 
-  if (plantsLoading || notesLoading) return <p>Loading...</p>;
-  if (plantsError) return <p>Error fetching plants</p>;
+  if (plantsLoading) return <p>Loading...</p>;
+
 
 
   return (
     <div className="plants-container">
-      <div className="plants-sidebar">
-        <button onClick={() => toggleDisplay(true)}>Show Plants</button>
-        <button onClick={() => toggleDisplay(false)}>Show Notes</button>
-        {showPlants ? (
-          <div className="list-container">
-            <h3>My Plants</h3>
-            <PlantList plants={plantsData?.myPlants || []} onClick={handlePlantClick} />
-          </div>
-        ) : (
-          <div className="list-container">
-            <h3>My Notes</h3>
-             <NoteList notes={notesData?.myNotes || []} plants={plantsData?.myPlants || []} />
-          </div>
-        )}
-      </div>
+      {Auth.loggedIn() ? (
+        <div className="plants-sidebar">
+          <button onClick={() => toggleDisplay(true)}>Show Plants</button>
+          <button onClick={() => toggleDisplay(false)}>Show Notes</button>
+          {showPlants ? (
+            <div className="list-container">
+              <h3>My Plants</h3>
+              <PlantList plants={plantsData?.myPlants || []} onClick={handlePlantClick} />
+            </div>
+          ) : (
+            <div className="list-container">
+              <h3>My Notes</h3>
+              <NoteList plants={plantsData?.myPlants || []} />
+            </div>
+          )}
+        </div>
+      ) : (
+        <p>You need to be logged in. Please log in or sign up.</p>
+      )}
       <div className="plants-content">
         <div className="form-container">
           <PlantForm />
@@ -79,6 +81,6 @@ const Plants = ({ authToken }) => {
       </div>
     </div>
   );
-};
+};  
 
 export default Plants;

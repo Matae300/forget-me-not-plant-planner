@@ -14,7 +14,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Petunia",
       "noteName": "Deadheading",
       "noteText": "Remove spent flowers to encourage new blooms."
     }
@@ -34,7 +33,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Coneflower",
       "noteName": "Summer Star",
       "noteText": "Watch these purple beauties paint the summer sky."
     }
@@ -54,7 +52,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Coneflower",
       "noteName": "Spring Song",
       "noteText": "Daffodils: the cheerful trumpets of spring!"
     }
@@ -74,7 +71,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Knock Out Rose",
       "noteName": "Bloom Boon",
       "noteText": "Prepare for knockout performances all season long."
     }
@@ -94,7 +90,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Boston Fern",
       "noteName": "Fern-tastic Care",
       "noteText": "Boston Fern: where elegance meets resilience."
     }
@@ -114,7 +109,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Windmill Palm",
       "noteName": "Palm Passion",
       "noteText": "Feel the tropical vibes sway with every breeze."
     }
@@ -134,7 +128,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Weeping Fig",
       "noteName": "Figured Out",
       "noteText": "Easy-going Weeping Fig: green thumb approved."
     }
@@ -154,7 +147,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Echeveria",
       "noteName": "Succulent Success",
       "noteText": "Echeveria: thrives on a little neglect."
     }
@@ -174,7 +166,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Inkberry",
       "noteName": "Evergreen Essentials",
       "noteText": "Inkberry: the dark horse of the garden."
     }
@@ -194,7 +185,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "New Dawn Rose",
       "noteName": "Climbing Cheers",
       "noteText": "New Dawn Rose: reaching new heights of grace."
     }
@@ -214,7 +204,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Marigold",
       "noteName": "Golden Greetings",
       "noteText": "Marigold: spreading sunshine wherever they go."
     }
@@ -234,7 +223,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Lavender",
       "noteName": "",
       "noteText": ""
     }
@@ -254,7 +242,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Tulip",
       "noteName": "Spring Fling",
       "noteText": "Tulips: the stars of a colorful spring show."
     }
@@ -274,7 +261,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Hydrangea",
       "noteName": "",
       "noteText": ""
     }
@@ -294,7 +280,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Snake Plant",
       "noteName": "",
       "noteText": ""
     }
@@ -314,7 +299,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Peace Lily",
       "noteName": "",
       "noteText": ""
     }
@@ -334,7 +318,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Blueberry",
       "noteName": "Berry Bonanza",
       "noteText": "Blueberries: nature's summer jewels."
     }
@@ -354,7 +337,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Morning Glory",
       "noteName": "Morning Marvel",
       "noteText": "Rise and shine with these vibrant trumpeters!"
     }
@@ -374,7 +356,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Basil",
       "noteName": "Herb Harmony",
       "noteText": "Basil: the secret ingredient to culinary bliss."
     }
@@ -394,7 +375,6 @@
       "createdAt": ""
     },
     "userNotes": {
-      "name": "Tomato",
       "noteName": "Juicy Gems",
       "noteText": "Tomatoes: the crown jewels of the vegetable patch."
     }
