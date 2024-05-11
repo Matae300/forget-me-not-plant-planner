@@ -5,8 +5,8 @@ import { QUERY_MYPLANTS } from '../../utils/queries';
 
 const NotesList = ({ plants }) => {
   const [notesList, setNotesList] = useState(plants);
-  const { refetch: refetchNotes } = useQuery(QUERY_MYPLANTS);
   const [removeNoteMutation] = useMutation(REMOVE_NOTE);
+  const { data: myPlantsData } = useQuery(QUERY_MYPLANTS);
 
   const handleDeleteNote = async (userNotesId) => {
     try {
@@ -23,17 +23,10 @@ const NotesList = ({ plants }) => {
   };
 
   useEffect(() => {
-    const updateNotesList = async () => {
-      try {
-        const { data } = await refetchNotes();
-        setNotesList(data.myPlants);
-      } catch (error) {
-        console.error('Error refetching notes:', error);
-      }
-    };
-
-    updateNotesList();
-  }, [refetchNotes]);
+    if (myPlantsData) {
+      setNotesList(myPlantsData.myPlants);
+    }
+  }, [myPlantsData]);
 
   if (!notesList.length) {
     return <h3>No Notes Yet</h3>;
