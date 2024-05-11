@@ -25,15 +25,15 @@ const Plant = ({ plantId }) => {
 
                     <div className="plantContainerStyle">
                         {/* Replace the test plant with a dynamic plant name */}
-                        {/* <h2 className='plantTagTextStyle'>{plant.name}</h2> */}
-                        <h2 className='plantTagTextStyle'>Testing PlantName Here</h2>
+                        <h2 className='plantTagTextStyle'>{plant.name}</h2>
+                        {/* <h2 className='plantTagTextStyle'>Testing PlantName Here</h2> */}
                         <div className="plantTagPhotoStyle">
                             {/* Replace the generic plant image with a dynamic plant photo image */}
-                            {/* <img src={plant.photoUrl} alt={plant.name} /> */}
-                            <img src= { miscPlant } alt="miscellaneous plant" />
+                            <img src={plant.photoUrl} alt={plant.name} />
+                            {/* <img src= { miscPlant } alt="miscellaneous plant" /> */}
                         </div>
                         <div className="plantTagStateStyle">
-                             {/* Replace the static stateless image with a dynamic state image */}
+                             {/* !!!!!! Replace the static stateless image with a dynamic state image */}
                             <img src= { stateless } alt="stateless" />
                         </div>
                         <div className="plantTagStyle">

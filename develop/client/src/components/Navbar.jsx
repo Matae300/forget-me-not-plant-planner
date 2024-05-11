@@ -40,6 +40,7 @@ function NavTabs() {
         </Link>
       </li>
     </ul>
+    
   </div>
 
 </div>

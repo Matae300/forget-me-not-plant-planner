@@ -35,7 +35,8 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div>
-        {Auth.loggedIn() && <Header />}
+        {Auth.loggedIn()}
+        {/* {Auth.loggedIn() && <Header />} */}
         <Outlet />
       </div>
     </ApolloProvider>
