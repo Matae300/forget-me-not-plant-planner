@@ -62,7 +62,7 @@ const Plants = ({ authToken }) => {
         ) : (
           <div className="list-container">
             <h3>My Notes</h3>
-             <NoteList notes={notesData?.myNotes || []} plants={plantsData?.myPlants || []} />
+             <NoteList plants={plantsData?.myPlants || []} />
           </div>
         )}
       </div>

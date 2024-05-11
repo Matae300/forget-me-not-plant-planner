@@ -51,7 +51,7 @@ const PlantList = ({ plants, onClick }) => {
             <img src={Plants} alt={plant.name} />
             <p>Instructions: {plant.wateringTask.instructions}</p>
             <button className="btn btn-danger" onClick={() => handleDeletePlant(plant._id)}>
-              DELETE PLANT
+            🗑️
             </button>
           </div>
         </div>

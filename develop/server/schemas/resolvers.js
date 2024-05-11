@@ -157,7 +157,7 @@ const resolvers = {
           { name: name },
           {
             $addToSet: {
-              userNotes: { name, noteName, noteText },
+              userNotes: { noteName, noteText },
             },
           },
           {
