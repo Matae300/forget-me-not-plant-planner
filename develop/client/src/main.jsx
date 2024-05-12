@@ -3,9 +3,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import App from './App.jsx'
 import Home from './pages/Home.jsx'
-import Plants from './pages/Plants.jsx'
 
 import Profile from './pages/Profile.jsx'
+import PlantPage from './pages/PlantForm.jsx'
+import TaskPage from './pages/TaskList.jsx'
 
 const router = createBrowserRouter([
   {
@@ -16,14 +17,19 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />
-      }, {
+      }, 
+      {
         path: '/me',
         element: <Profile />
+      },
+      {
+        path: '/plantform',
+        element: <PlantPage />
+      },
+      {
+        path: '/tasklist',
+        element: <TaskPage />
       }
-      , {
-        path: '/plants',
-         element: <Plants />
-       }
     ]
   }
 ])

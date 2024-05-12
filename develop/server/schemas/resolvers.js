@@ -1,15 +1,19 @@
-const { User, Plant } = require('../models');
+const { User, Plant, WateringTask } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('plants');
+      return await User.find().populate('plants');
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('plants');
+      return await User.findOne({ username }).populate('plants');
     },
+    allPlants: async () => {
+      return await Plant.find();
+ },
     plant: async (parent, { _id }) => {  
+      console.log("This is the id", _id);
       return await Plant.findOne({ _id }).populate('wateringTask');  
     },
     wateringTask: async (parent, { wateringTaskId }) => {
@@ -53,12 +57,9 @@ const resolvers = {
       return allUserNotes;
     },
     myPlants: async (parent, args, context) => {
-      if (!context.user) {
-        throw new Error('You must be logged in to access your plants.');
-      }
-
+      if (context.user) {
       try {
-        const user = await User.findById({ _id: context.user._id }).populate('plants');
+        const user = await User.findById(context.user._id).populate('plants');
         if (!user) {
           throw new Error('User not found.');
         }
@@ -67,16 +68,18 @@ const resolvers = {
       } catch (error) {
         throw new Error(`Error fetching plants: ${error.message}`);
       }
+    }
+    throw AuthenticationError
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('plants');
+       let userinfo =  await User.findOne({ _id: context.user._id }).populate('plants');
+        console.log("This is the user info", userinfo );
+        return userinfo;
       }
+
       throw new Error('You must be logged in to access this data.');;
     },
-    allPlants: async () => {
-      return await Plant.find({});
-    }
   },  
 
   Mutation: {
@@ -143,6 +146,7 @@ const resolvers = {
       }
     
       const plant = await Plant.findById(plantId);
+      console.log("This iis the plant!!! = ", plant)
       if (!plant) throw new Error('Plant not found');
     
       
@@ -151,10 +155,30 @@ const resolvers = {
     
       return plant;  
     },
-    addUserNotes: async (parent, { name, noteName, noteText}, context) => {
+    updateWateringTask: async (parent, { taskId, isChecked }, context) => {
+      if (context.user) {
+        console.log(taskId, isChecked)
+        const wateringTask = await Plant.findOneAndUpdate(
+          { 
+            'wateringTask.createdDates._id': taskId
+          },
+          {
+            $set: {
+              'wateringTask.createdDates.$.isChecked': isChecked,
+            }
+          },
+          {
+            new: true
+          }
+          );
+        return wateringTask;
+
+      }
+    },
+    addUserNotes: async (parent, { plantId, noteName, noteText}, context) => {
       if (context.user) {
         const updatedPlant = await Plant.findOneAndUpdate(
-          { name: name },
+          { _id: plantId },
           {
             $addToSet: {
               userNotes: { noteName, noteText },
