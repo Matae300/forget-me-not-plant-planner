@@ -12,8 +12,8 @@ const Header = () => {
   };
   return (
     <>
-    <div className="w3-container w3-row">
-      <div className="w3-cell">
+    <div className="w3-container w3-row no-padding">
+      <div className="w3-cell no-padding">
         <Navbar />
       </div>
       <div className="w3-cell">

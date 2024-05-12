@@ -2,19 +2,19 @@ import { Link, useLocation } from 'react-router-dom';
 import navLogo from '../assets/images/plantplanner-hor-0.5x.png';
 
 
-
 function NavTabs() {
   const currentPage = useLocation().pathname;
 
   return (
-<div className="navbarStyles w3-container w3-row">
-  
-  <div className="w3-cell">
-    <img className="w3-display-left" src={navLogo} alt='Forget-Me-Not Plant Planner' />
+    <>
+<div className="navbarStyles w3-container">
+
+  <div className="w3-col s12 m6 l6 no-padding test">
+    <img src={navLogo} className="navLogo" alt='Forget-Me-Not Plant Planner' />
   </div> 
 
-  <div className="w3-cell">
-    <ul className="navbar w3-display-right">
+  <div className="w3-col s12 m6 l6 nav-links test">
+    <ul className="navbar">
       <li className="nav-item">
         <Link
           to="/"
@@ -28,7 +28,16 @@ function NavTabs() {
           to="/plants"
           className={currentPage === '/plants' ? 'nav-link active' : 'nav-link'}
         >
-          plants
+          My Garden
+        </Link>
+      </li>
+      <li className="nav-item">
+        {/* <!--Replace '/' with route to the task list and calendar--> */}
+        <Link
+          to="/"
+          className={currentPage === '/me' ? 'nav-link active' : 'nav-link'}
+        >
+          My Tasks
         </Link>
       </li>
       <li className="nav-item">
@@ -36,15 +45,14 @@ function NavTabs() {
           to="/me"
           className={currentPage === '/me' ? 'nav-link active' : 'nav-link'}
         >
-          profile
+          My Profile
         </Link>
       </li>
     </ul>
-    
+    </div>
+
   </div>
-
-</div>
-
+</>
   );
 }
 
