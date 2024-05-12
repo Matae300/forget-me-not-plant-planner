@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { ADD_NEWPLANT } from '../../utils/actions';
+
 import { useMutation } from '@apollo/client';
 import { ADD_PLANT } from '../../utils/mutations';
 import { QUERY_MYPLANTS, QUERY_ME } from '../../utils/queries';
+
 import Auth from '../../utils/auth';
 
 const AddPlantForm = () => {
@@ -15,13 +20,15 @@ const AddPlantForm = () => {
   const [frequencyUnit, setFrequencyUnit] = useState('');
   const [frequencyInterval, setFrequencyInterval] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false); 
+
+  const dispatch = useDispatch();
+  const plants = useSelector((state) => state.stateplants); 
 
   const [addPlant] = useMutation(ADD_PLANT, {
     refetchQueries: [
-     QUERY_MYPLANTS, 
-     'getPlants',
-     QUERY_ME, 
-     'me'
+      QUERY_MYPLANTS, 
+      QUERY_ME
     ],
     errorPolicy: 'all',
   });
@@ -49,16 +56,16 @@ const AddPlantForm = () => {
       setError('Please enter interval.');
       return;
     }
-    
+
     try {
       const wateringTaskVariables = {
         instructions,
-        frequencyCount: parseInt(frequencyCount), // Parse as integer
+        frequencyCount: parseInt(frequencyCount),
         frequencyUnit,
-        frequencyInterval: parseInt(frequencyInterval), // Parse as integer
+        frequencyInterval: parseInt(frequencyInterval),
       };
-      
-      const { data } = await addPlant({
+
+      await addPlant({
         variables: {
           name,
           description,
@@ -69,6 +76,7 @@ const AddPlantForm = () => {
         },
       });
 
+  
       setName('');
       setDescription('');
       setSunExposure('');
@@ -78,6 +86,22 @@ const AddPlantForm = () => {
       setFrequencyCount('');
       setFrequencyUnit('');
       setFrequencyInterval('');
+      setSuccess(true); 
+      setError(''); 
+
+      dispatch({ type: ADD_NEWPLANT, payload: 
+        {
+        plantName: name,
+        description: description,
+        sunExposure: sunExposure,
+        growingMonths: growingMonths,
+        bloomingMonths: bloomingMonths,
+        wateringTask: wateringTaskVariables
+       } 
+      });
+
+      console.log(plants)
+
     } catch (err) {
       console.error('Error adding plant:', err);
       setError('Failed to add plant. Please try again.');
@@ -122,6 +146,7 @@ const AddPlantForm = () => {
   return (
     <div>
       <h3>Add Plant</h3>
+      {success && <div className="success-message">Plant added successfully!</div>} {/* Render success message */}
       {Auth.loggedIn() ? (
         <form onSubmit={handleFormSubmit}>
           {error && <div className="error-message">{error}</div>}

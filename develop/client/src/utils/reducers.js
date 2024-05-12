@@ -1,13 +1,29 @@
-import { UPDATE_PLANTS } from './actions';
+import { UPDATE_PLANTS, ADD_NEWPLANT, REMOVE_STATEPLANT } from './actions';
 
-// The reducer is a function that accepts the current state and an action. It returns a new state based on that action.
-export const reducer = (state, action) => {
+const initialState = {
+  stateplants: [], // Initial value for stateplants is an empty array
+};
+
+export default function reducer(state = initialState, action) {
   switch (action.type) {
-    
+    case ADD_NEWPLANT: {
+      const newplant = { ...action.payload };
+
+      return {
+        ...state,
+        stateplants: [...state.stateplants, newplant],
+      };
+    }
+    case REMOVE_STATEPLANT: {
+      return {
+        ...state,
+        stateplants: state.stateplants.filter((plant) => plant._id !== action.payload),
+      };
+    }
     case UPDATE_PLANTS:
       return {
         ...state,
-        plants: [...action.plants],
+        stateplants: [...action.stateplants],
       };
     default:
       return state;
