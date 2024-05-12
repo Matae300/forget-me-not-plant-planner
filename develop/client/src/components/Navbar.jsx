@@ -2,8 +2,12 @@ import { Link, useLocation } from 'react-router-dom';
 import navLogo from '../assets/images/plantplanner-hor-0.5x.png';
 
 
-function NavTabs() {
+function Navbar() {
   const currentPage = useLocation().pathname;
+  const logout = (event) => {
+    event.preventDefault();
+    Auth.logout();
+  };
 
   return (
     <>
@@ -48,6 +52,11 @@ function NavTabs() {
           My Profile
         </Link>
       </li>
+      <li className="nav-item">
+        <button className="w3-btn btn-lg btn-light m-2" onClick={logout}>
+            Logout
+        </button>
+      </li>
     </ul>
     </div>
 
@@ -56,4 +65,4 @@ function NavTabs() {
   );
 }
 
-export default NavTabs;
+export default Navbar;

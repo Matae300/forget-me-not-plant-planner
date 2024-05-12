@@ -5,9 +5,10 @@ import { QUERY_USER, QUERY_ME } from "../utils/queries";
 
 import Auth from "../utils/auth";
 import Dropdown from '../components/Dropdown'
-import Header from "../components/Header";
+import Navbar from "../components/Navbar";
 import Garden from "../components/Garden";
 import Footer from "../components/Footer";
+import TaskList from "../components/TaskList/taskList"
 
 // Error handling
 const Profile = () => {
@@ -44,7 +45,7 @@ const Profile = () => {
       {Auth.loggedIn() ? (
         <div>
           <header className="w3-container w3-sand">
-            <Header />
+            <Navbar />
           </header>
 
           <main className="w3-row test">
@@ -66,9 +67,7 @@ const Profile = () => {
 
               <div className="w3-container w3-col s8 m6 l4">
                 <div id="my-tasks" className="w3-brown myTasksStyle">
-                  {/* Replace with myTasks component */}
-                  <h2>My Tasks Go Here</h2>
-                  <p>Test</p>
+                  <TaskList />
                 </div>
               </div>
             </div>
