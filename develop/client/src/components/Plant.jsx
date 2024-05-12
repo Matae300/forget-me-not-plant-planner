@@ -22,7 +22,7 @@ console.log(plant);
         <div className="plant">
             {plant ? (
             <>
-                <Link to={`/plants/${plant.id}`}>
+                <Link to={`/plants/${plant._id}`}>
 
                     <div className="plantContainerStyle">
                         {/* Replace the test plant with a dynamic plant name */}
