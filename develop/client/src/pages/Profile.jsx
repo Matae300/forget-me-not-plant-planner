@@ -4,6 +4,7 @@ import { useQuery } from "@apollo/client";
 import { QUERY_USER, QUERY_ME } from "../utils/queries";
 
 import Auth from "../utils/auth";
+import Dropdown from '../components/Dropdown'
 import Header from "../components/Header";
 import Garden from "../components/Garden";
 import Footer from "../components/Footer";

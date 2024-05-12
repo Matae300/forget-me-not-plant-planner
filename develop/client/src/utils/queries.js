@@ -6,7 +6,33 @@ export const QUERY_ME = gql`
       _id
       username
       email
-      plants
+      plants {
+        _id
+      name
+      description
+      photoUrl
+      sunExposure
+      growingMonths
+      bloomingMonths
+      wateringTask {
+        _id
+        instructions
+        frequencyCount
+        frequencyUnit
+        frequencyInterval
+        createdDates {
+          _id
+          date
+          due
+          isChecked
+        }
+      }
+      userNotes {
+        _id
+        noteName
+        noteText
+      }
+      }
     }
   }`;
 

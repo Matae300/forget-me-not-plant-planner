@@ -67,6 +67,7 @@ type Query {
   wateringTask(wateringTaskId: ID!): WateringTask
   singleUserNotes(userNotesId: ID!): UserNotes
   me: User
+  allPlants: [Plant]
   myPlants: [Plant]
   myNotes: [UserNotes]
 }
@@ -82,6 +83,10 @@ type Mutation {
     growingMonths: String
     bloomingMonths: String
     wateringTask: WateringTaskInput!
+  ): Plant
+  addPlantToUser(
+    userId: ID!,
+    plantId: ID!
   ): Plant
   removePlant(plantId: ID!): Plant
   updateWateringTask(
