@@ -1,4 +1,4 @@
-const { User, Plant } = require('../models');
+const { User, Plant, WateringTask } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
@@ -53,12 +53,9 @@ const resolvers = {
       return allUserNotes;
     },
     myPlants: async (parent, args, context) => {
-      if (!context.user) {
-        throw new Error('You must be logged in to access your plants.');
-      }
-
+      if (context.user) {
       try {
-        const user = await User.findById({ _id: context.user._id }).populate('plants');
+        const user = await User.findById(context.user._id).populate('plants');
         if (!user) {
           throw new Error('User not found.');
         }
@@ -67,6 +64,8 @@ const resolvers = {
       } catch (error) {
         throw new Error(`Error fetching plants: ${error.message}`);
       }
+    }
+    throw AuthenticationError
     },
     me: async (parent, args, context) => {
       if (context.user) {
@@ -74,9 +73,6 @@ const resolvers = {
       }
       throw new Error('You must be logged in to access this data.');;
     },
-    allPlants: async () => {
-      return await Plant.find({});
-    }
   },  
 
   Mutation: {
@@ -130,31 +126,30 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    addPlantToUser: async (_, { userId, plantId }, context) => {
-      if (!context.user) throw new AuthenticationError('Not authenticated');
-    
-      const user = await User.findById(userId);
-      if (!user) throw new Error('User not found');
-    
-      
-      const alreadyAdded = user.plants.some(pid => pid.equals(plantId));
-      if (alreadyAdded) {
-        throw new Error('Plant already added to the user');
+    updateWateringTask: async (parent, { taskId, isChecked }, context) => {
+      if (context.user) {
+        console.log(taskId, isChecked)
+        const wateringTask = await Plant.findOneAndUpdate(
+          { 
+            'wateringTask.createdDates._id': taskId
+          },
+          {
+            $set: {
+              'wateringTask.createdDates.$.isChecked': isChecked,
+            }
+          },
+          {
+            new: true
+          }
+          );
+        return wateringTask;
+
       }
-    
-      const plant = await Plant.findById(plantId);
-      if (!plant) throw new Error('Plant not found');
-    
-      
-      user.plants.push(plant._id);
-      await user.save();
-    
-      return plant;  
     },
-    addUserNotes: async (parent, { name, noteName, noteText}, context) => {
+    addUserNotes: async (parent, { plantId, noteName, noteText}, context) => {
       if (context.user) {
         const updatedPlant = await Plant.findOneAndUpdate(
-          { name: name },
+          { _id: plantId },
           {
             $addToSet: {
               userNotes: { noteName, noteText },

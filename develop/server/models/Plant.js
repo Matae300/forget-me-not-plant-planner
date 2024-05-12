@@ -1,9 +1,10 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, mongoose } = require('mongoose');
+const { calculateDueDatesUntilOneYear } = require('../utils/helpers');
 
 const wateringTaskSchema = new Schema({
   instructions: {
     type: String,
-    required: false,
+    required: true,
     trim: true,
   },
    // The frequencyCount represents how many times the task should be performed
@@ -24,18 +25,24 @@ const wateringTaskSchema = new Schema({
     required: true,
     trim: true,
   },
-  
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  createdDates: [{
+    _id: {
+      type: Schema.Types.ObjectId,
+    },
+    date: {
+      type: String,
+    },
+    isChecked: {
+      type: Boolean,
+    }
+  }]
 });
 
 const plantSchema = new Schema({
   name: {
     type: String,
     required: true,
-    unique: false,
+    unique: true,
     trim: true,
   },
   description: {
@@ -67,18 +74,50 @@ const plantSchema = new Schema({
     type: wateringTaskSchema,
     required: true,
   },
-  userNotes: [{
+  otherTasks: [{
+    taskName: {
+      type: String,
+      required: true,
+    },
+    instructions: {
+      type: String,
+      required: true,
+    },
+    dates: [
+      {
+        type: String,
+        required: true
+      }
+    ]
+  }],
+  userNotes: {
     noteName: {
       type: String,
       required: false,
-      trim: true,
     },
     noteText: {
       type: String,
-      required: false,
-      trim: true,
-    },
-  }],
+      required: false
+    }
+  },
+});
+
+wateringTaskSchema.pre('save', async function (next) {
+  try {
+    const dates = calculateDueDatesUntilOneYear(this.frequencyCount, this.frequencyUnit, this.frequencyInterval);
+
+    this.createdDates = dates.map(created => {
+      return {
+      _id: new mongoose.Types.ObjectId(),
+      date: created.date,
+      isChecked: false,
+      }
+    });
+   
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 
 const Plant = model('Plant', plantSchema);
