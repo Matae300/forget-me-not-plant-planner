@@ -62,7 +62,7 @@ const Profile = () => {
 
               <div id="garden" className="w3-container w3-col s4 m6 l8">
                 {/* below could be the garden component, would just need to pass it the profile data,  ex. <Garden data={profile} /> */}
-                <Garden data={profile} />
+                <Garden data={profile}/>
               </div>
 
               <div className="w3-container w3-col s8 m6 l4">

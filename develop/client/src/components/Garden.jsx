@@ -2,20 +2,22 @@ import React from "react";
 // Component imports
 import Plant from "./Plant";
 
-const Garden = ({ plants }) => {
-    console.log('My plants:', plants);
+const Garden = ({data}) => {
+    console.log('Props', data);
+
+
     return (
         <>
             <h3>My Plants:</h3>
-            {plants && plants.length > 0 ? (
+            {/* {data.plants && data.plants.length > 0 ? (
                 <div className="gardenStyle">
-                    {plants.map((plant, index) => (
+                    {data.plants.map((plant, index) => (
                         <Plant key={index} plant={plant} />
                     ))}
                 </div>
             ) : (
                 <p>No plants to display.</p>
-            )}
+            )} */}
         </>
     );
 };

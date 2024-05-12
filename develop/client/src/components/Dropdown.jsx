@@ -16,6 +16,7 @@ function Dropdown({ userId }) {
   };
 
   const handleConfirm = async () => {
+    console.log("Adding plant to user:", selectedItem); 
     if (selectedItem) {
       try {
         await addPlantToUser({
