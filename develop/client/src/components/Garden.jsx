@@ -9,7 +9,7 @@ const Garden = ({data}) => {
     return (
         <>
             <h3>My Plants:</h3>
-            {/* {data.plants && data.plants.length > 0 ? (
+{data.plants && data.plants.length > 0 ? (
                 <div className="gardenStyle">
                     {data.plants.map((plant, index) => (
                         <Plant key={index} plant={plant} />
@@ -17,7 +17,7 @@ const Garden = ({data}) => {
                 </div>
             ) : (
                 <p>No plants to display.</p>
-            )} */}
+            )} 
         </>
     );
 };

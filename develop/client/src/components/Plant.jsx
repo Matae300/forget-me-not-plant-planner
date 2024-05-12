@@ -1,22 +1,23 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
-import { QUERY_SINGLE_PLANT } from '../utils/queries';
+import { QUERY_PLANT } from '../utils/queries';
 
 import plantTag from '../assets/images/plant-tag.png';
 import miscPlant from '../assets/images/miscPlant.png';
 import stateless from '../assets/images/stateless.png';
 
-const Plant = ({ plantId }) => {
-    const { loading, error, data } = useQuery(QUERY_SINGLE_PLANT, {
-        variables: { id: plantId }
+const Plant = (props) => {
+    console.log(props);
+    const { loading, error, data } = useQuery(QUERY_PLANT, {
+        variables: { id: props.plant._id }
     });
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
     const plant = data?.plant;
-
+console.log(plant);
     return (
         <div className="plant">
             {plant ? (

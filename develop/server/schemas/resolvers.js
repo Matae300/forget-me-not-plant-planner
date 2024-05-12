@@ -13,6 +13,7 @@ const resolvers = {
       return await Plant.find();
  },
     plant: async (parent, { _id }) => {  
+      console.log("This is the id", _id);
       return await Plant.findOne({ _id }).populate('wateringTask');  
     },
     wateringTask: async (parent, { wateringTaskId }) => {
@@ -72,8 +73,11 @@ const resolvers = {
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return User.findOne({ _id: context.user._id });
+       let userinfo =  await User.findOne({ _id: context.user._id }).populate('plants');
+        console.log("This is the user info", userinfo );
+        return userinfo;
       }
+
       throw new Error('You must be logged in to access this data.');;
     },
   },  
@@ -142,6 +146,7 @@ const resolvers = {
       }
     
       const plant = await Plant.findById(plantId);
+      console.log("This iis the plant!!! = ", plant)
       if (!plant) throw new Error('Plant not found');
     
       

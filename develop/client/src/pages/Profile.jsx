@@ -14,13 +14,7 @@ import TaskList from "../components/TaskList/taskList"
 const Profile = () => {
   const { username } = useParams();
 
-
-  const {loading, error, data} = useQuery(
-    username ? QUERY_USER : QUERY_ME,
-    {
-      variables: { username: username }
-    }
-  )
+  const {loading, error, data} = useQuery(QUERY_ME)
   const profile = data?.me || data?.profile || {};
 
   if (Auth.loggedIn() && Auth.getProfile().data._id === username) {

@@ -9,7 +9,7 @@ export default function TaskList() {
   const { loading, error, data } = useQuery(QUERY_MYPLANTS);
 
   const myPlants = data?.myPlants || [];
-  
+  console.log("These are my plants", myPlants);
   const wateringTasks = myPlants.flatMap((plant) => {
     const wateringTask = plant?.wateringTask;
     const createdDates = wateringTask?.createdDates;
@@ -26,7 +26,7 @@ export default function TaskList() {
       }
     })
   })
-
+console.log("These are my watering tasks", wateringTasks);
 
   const overDueTasks = wateringTasks.filter(task => task.due === "overdue")
   const todayTasks = wateringTasks.filter(task => task.due === "today")

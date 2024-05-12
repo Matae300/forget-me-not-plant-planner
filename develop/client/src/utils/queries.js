@@ -114,7 +114,7 @@ export const QUERY_ME = gql`
   }`;
 
   export const QUERY_SINGLE_PLANT = gql`
-  query singlePlant($id: ID!) {
+  query plant($id: ID!) {
     plant(_id: $id) {
     _id
     name
@@ -135,6 +135,32 @@ export const QUERY_ME = gql`
       _id
       noteName
       noteText
+    }
+  }
+}`;
+
+export const QUERY_PLANT = gql`
+query Query($id: ID!) {
+  plant(_id: $id) {
+    _id
+    bloomingMonths
+    description
+    growingMonths
+    name
+    photoUrl
+    sunExposure
+    wateringTask {
+      _id
+      instructions
+      frequencyCount
+      frequencyUnit
+      frequencyInterval
+      createdDates {
+        _id
+        date
+        due
+        isChecked
+      }
     }
   }
 }`;
