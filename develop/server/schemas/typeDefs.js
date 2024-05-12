@@ -4,7 +4,7 @@ type User {
   username: String
   email: String
   password: String!
-  plants: [Plant]!
+  plants: [Plant]
 }
 
 type Plant {
