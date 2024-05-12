@@ -96,11 +96,8 @@ const AddPlantForm = () => {
         sunExposure: sunExposure,
         growingMonths: growingMonths,
         bloomingMonths: bloomingMonths,
-        wateringTask: wateringTaskVariables
        } 
       });
-
-      console.log(plants)
 
     } catch (err) {
       console.error('Error adding plant:', err);
