@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_USERNOTES } from '../../utils/mutations';
 import { QUERY_MYPLANTS, QUERY_ME } from '../../utils/queries';
@@ -9,16 +9,12 @@ const AddNoteForm = () => {
   const [noteName, setNoteName] = useState('');
   const [noteText, setNoteText] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false); 
 
   const [addNote] = useMutation(ADD_USERNOTES, {
-    refetchQueries: [
-    QUERY_MYPLANTS, 
-     'getPlants',
-     QUERY_ME, 
-     'me'
-    ],
+    refetchQueries: [QUERY_MYPLANTS, QUERY_ME],
     errorPolicy: 'all',
-  }); ;
+  });
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -35,7 +31,7 @@ const AddNoteForm = () => {
       setError('Please enter text');
       return;
     }
-    
+
     try {
       const { data } = await addNote({
         variables: {
@@ -48,9 +44,12 @@ const AddNoteForm = () => {
       setName('');
       setNoteName('');
       setNoteText('');
+      setSuccess(true); 
+      setError(''); 
     } catch (err) {
-      console.error('Error adding plant:', err);
+      console.error('Error adding note:', err);
       setError('Failed to add note. Please try again.');
+      setSuccess(false); 
     }
   };
 
@@ -74,9 +73,10 @@ const AddNoteForm = () => {
   return (
     <div>
       <h3>Add Note</h3>
+      {success && <div className="success-message">Note added successfully!</div>} 
       {Auth.loggedIn() ? (
         <form onSubmit={handleFormSubmit}>
-           {error && <div className="error-message">{error}</div>}
+          {error && <div className="error-message">{error}</div>}
           <label htmlFor="name">Plant's Name:</label>
           <input
             type="text"
@@ -86,7 +86,7 @@ const AddNoteForm = () => {
             value={name}
             onChange={handleChange}
           />
-          <br/>
+          <br />
           <label htmlFor="noteName">Note Name:</label>
           <input
             type="text"
@@ -96,7 +96,7 @@ const AddNoteForm = () => {
             value={noteName}
             onChange={handleChange}
           />
-          <br/>
+          <br />
           <label htmlFor="noteText">Note Text:</label>
           <input
             type="text"
@@ -106,7 +106,7 @@ const AddNoteForm = () => {
             value={noteText}
             onChange={handleChange}
           />
-          <br/>
+          <br />
           <button type="submit">Add Note</button>
         </form>
       ) : (
