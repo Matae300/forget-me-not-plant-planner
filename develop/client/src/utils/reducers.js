@@ -1,8 +1,7 @@
-import { UPDATE_PLANTS, ADD_NEWPLANT } from './actions';
+import { UPDATE_PLANTS, ADD_NEWPLANT, REMOVE_STATEPLANT } from './actions';
 
 const initialState = {
-  plants: [], // Initial value for plants is an empty array
-  // other properties of your state...
+  stateplants: [], // Initial value for stateplants is an empty array
 };
 
 export default function reducer(state = initialState, action) {
@@ -12,13 +11,19 @@ export default function reducer(state = initialState, action) {
 
       return {
         ...state,
-        plants: [...state.plants, newplant],
+        stateplants: [...state.stateplants, newplant],
+      };
+    }
+    case REMOVE_STATEPLANT: {
+      return {
+        ...state,
+        stateplants: state.stateplants.filter((plant) => plant._id !== action.payload),
       };
     }
     case UPDATE_PLANTS:
       return {
         ...state,
-        plants: [...action.plants],
+        stateplants: [...action.stateplants],
       };
     default:
       return state;

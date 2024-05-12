@@ -23,7 +23,7 @@ const AddPlantForm = () => {
   const [success, setSuccess] = useState(false); 
 
   const dispatch = useDispatch();
-  const plants = useSelector((state) => state); 
+  const plants = useSelector((state) => state.stateplants); 
 
   const [addPlant] = useMutation(ADD_PLANT, {
     refetchQueries: [

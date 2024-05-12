@@ -1,8 +1,13 @@
 import { useApolloClient } from '@apollo/client'; // Import useApolloClient
+
 import { useMutation, useQuery } from '@apollo/client';
 import { QUERY_SINGLE_PLANT } from '../../utils/queries';
 import { REMOVE_PLANT } from '../../utils/mutations';
 import { QUERY_MYPLANTS, QUERY_ME } from '../../utils/queries';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { REMOVE_STATEPLANT } from '../../utils/actions';
+
 import Plants from '../../assets/images/plant.jpg'
 
 const PlantList = ({ plants, onClick }) => {
@@ -12,12 +17,16 @@ const PlantList = ({ plants, onClick }) => {
   const { refetch: refetchMe } = useQuery(QUERY_ME);
   const [removePlantMutation] = useMutation(REMOVE_PLANT);
 
+  const dispatch = useDispatch();
+  const stateplants = useSelector((state) => state.stateplants); 
+
   const handleDeletePlant = async (plantId) => {
     try {
       await removePlantMutation({ variables: { plantId } });
       // Refetch notes and user information after deletion to update the lists
       refetchPlants();
       refetchMe();
+      dispatch({ type: REMOVE_STATEPLANT, payload: plantId });
     } catch (error) {
       console.error('Error deleting plant:', error);
     }
@@ -50,8 +59,8 @@ const PlantList = ({ plants, onClick }) => {
             <p>Name: {plant.name}</p>
             <img src={Plants} alt={plant.name} />
             <p>Instructions: {plant.wateringTask.instructions}</p>
-            <button className="btn btn-danger" onClick={() => handleDeletePlant(plant._id)}>
-            🗑️
+            <button className="btn btn-danger" onClick={() => handleDeletePlant(plant._id)} >
+              ✖️
             </button>
           </div>
         </div>

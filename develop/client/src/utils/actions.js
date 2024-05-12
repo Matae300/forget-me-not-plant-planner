@@ -1,3 +1,3 @@
 export const ADD_NEWPLANT = 'ADD_NEWPLANT';
-export const REMOVE_PLANT = 'REMOVE_PLANT';
+export const REMOVE_STATEPLANT = 'REMOVE_STATEPLANT';
 export const UPDATE_PLANTS = "UPDATE_PLANTS";
