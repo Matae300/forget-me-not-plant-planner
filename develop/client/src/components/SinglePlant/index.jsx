@@ -1,6 +1,25 @@
-import Plants from '../../assets/images/plant.jpg'
+import React, { useEffect } from 'react';
+import { useQuery } from '@apollo/client';
+import { QUERY_MYPLANTS } from '../../utils/queries';
+
+import Plants from '../../assets/images/plant.jpg';
 
 const SinglePlant = ({ plant }) => {
+  const { loading, error, data, refetch } = useQuery(QUERY_MYPLANTS);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetch();
+    }, 1000); //refetch every second
+
+    return () => clearInterval(interval); 
+  }, [refetch]); 
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error fetching data.</p>;
+
+  const { myPlants } = data;
+
   if (!plant) {
     return <h3>No Plant Selected</h3>;
   }
@@ -11,10 +30,10 @@ const SinglePlant = ({ plant }) => {
     }
     return (
       <ul>
-        {notes.map((notes) => (
-          <li key={notes._id}>
-            <p>Note Name: {notes.noteName}</p>
-            <p>Text: {notes.noteText}</p>
+        {notes.map((note) => (
+          <li key={note._id}>
+            <p>Note Name: {note.noteName}</p>
+            <p>Text: {note.noteText}</p>
           </li>
         ))}
       </ul>
@@ -35,7 +54,7 @@ const SinglePlant = ({ plant }) => {
           <p>Watering Instructions: {plant.wateringTask.instructions || 'N/A'}</p>
           <div>
             <h2>Notes:</h2>
-            {renderNotesList(plant.userNotes)}
+            {renderNotesList(myPlants[0]?.userNotes)}
           </div>
         </div>
       </div>

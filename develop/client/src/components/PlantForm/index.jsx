@@ -161,8 +161,8 @@ const AddPlantForm = () => {
             onChange={handleChange}
           >
             <option value="">Select Frequency Unit</option>
-            <option value="weeks">Weeks</option>
-            <option value="months">Months</option>
+            <option value="week">Weeks</option>
+            <option value="month">Months</option>
           </select>
           <br/>
           <label htmlFor="frequencyInterval">Frequency Interval:</label>

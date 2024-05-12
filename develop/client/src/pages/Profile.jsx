@@ -2,7 +2,7 @@
 import { useQuery } from '@apollo/client';
 
 import { QUERY_USER, QUERY_ME } from '../utils/queries';
-import Dropdown from '../components/Dropdown';
+
 import Auth from '../utils/auth';
 import Header from '../components/Header';
 import Garden from '../components/Garden';
@@ -10,8 +10,28 @@ import Footer from '../components/Footer';
 
 // Error handling
 const Profile = () => {
-  if (!Auth.loggedIn()) {
-    console.log('No username available, user might not be logged in');
+  const { username: userParam } = useParams();
+  console.log('userParam:', userParam);
+
+  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+    variables: { username: userParam },
+  });
+
+  const user = data?.me || data?.user || {};
+  console.log('User data:', user);
+
+  if (
+    Auth.loggedIn() && user.username === userParam
+    /* TODO: Check if the user's username is strictly equal to the userParam variable's value */
+  ) {
+    return <Navigate to="/me" />;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user?.username) {
     return (
       <h4>
         You need to be logged in to see this. Use the navigation links above to sign up or log in!

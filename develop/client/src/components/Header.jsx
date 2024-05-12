@@ -1,14 +1,12 @@
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+
 import Auth from '../utils/auth';
 import Navbar from '../components/Navbar';
 
 const Header = () => {
-  const navigate = useNavigate();
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
-    navigate('/');
   };
   return (
     <>

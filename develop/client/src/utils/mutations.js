@@ -42,7 +42,12 @@ export const ADD_USER = gql`
           frequencyCount
           frequencyUnit
           frequencyInterval
-          createdAt
+          createdDates {
+            _id
+            date
+            due
+            isChecked
+          }
         }
         userNotes {
           _id
@@ -53,57 +58,36 @@ export const ADD_USER = gql`
     }
     `;
 
-    export const ADD_PLANT_TO_USER = gql`
-  mutation AddPlantToUser(
-    $userId: ID!,
-    $plantId: ID!,
-  ) {
-    addPlantToUser(
-      userId: $userId,
-      plantId: $plantId,
-    ) {
-      _id
-      name
-      description
-      photoUrl
-      sunExposure
-      growingMonths
-      bloomingMonths
-      wateringTask {
-        _id
-        instructions
-        frequencyCount
-        frequencyUnit
-        frequencyInterval
-      }
-      userNotes {
-        _id
-        noteName
-        noteText
-      }
-    }
-  }
-`;
-
-
     export const REMOVE_PLANT = gql`
     mutation removePlant($plantId: ID!) {
-      removePlant(plantId: $plantId) {
+      removePlant(plantID: $plantId) {
         _id
         name
       }
     }
-  `;
-  
+    `;
 
     
-    export const ADD_USERNOTES = gql`
-    mutation AddUserNotes($name: String!, $noteName: String!, $noteText: String!) {
-      addUserNotes(name: $name, noteName: $noteName, noteText: $noteText) {
+    export const UPDATE_WATERINGTASK = gql`
+    mutation updateWateringTask($taskId: ID!, $isChecked: Boolean!) {
+      updateWateringTask(taskId: $taskId, isChecked: $isChecked) {
+       createdDates {
         _id
-        name
-        noteName
+        date
+        due
+        isChecked
+       }
+      }
+          
+    }
+    `
+
+    export const ADD_USERNOTES = gql`
+    mutation AddUserNotes($plantId: ID!, $noteName: String!, $noteText: String!) {
+      addUserNotes(plantId: $plantId, noteName: $noteName, noteText: $noteText) {
+        _id
         noteText
+        noteName
       }
     }
     `;
