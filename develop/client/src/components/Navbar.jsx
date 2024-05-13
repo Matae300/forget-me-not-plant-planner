@@ -33,8 +33,8 @@ function Navbar() {
 
     <div className="w3-cell nav-item">
         <Link
-          to="/plants"
-          className={currentPage === '/plants' ? 'nav-link active' : 'nav-link'}>
+          to="/me"
+          className={currentPage === '/me' ? 'nav-link active' : 'nav-link'}>
           <p className="w3-btn w3-large btn-light">Manage My Garden</p>
         </Link>
       </div>
@@ -47,8 +47,8 @@ function Navbar() {
       <div className="w3-cell nav-item">
         {/* <!--Replace '/' with route to the task list and calendar--> */}
         <Link
-          to="/"
-          className={currentPage === '/me' ? 'nav-link active' : 'nav-link'} >
+          to="/tasklist"
+          className={currentPage === '/tasklist' ? 'nav-link active' : 'nav-link'} >
         <p className="w3-btn w3-large btn-light">View My Tasks</p>
         </Link>
       </div>
