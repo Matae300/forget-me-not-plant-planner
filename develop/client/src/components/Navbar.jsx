@@ -33,8 +33,8 @@ function Navbar() {
 
     <div className="w3-cell nav-item">
         <Link
-          to="/plants"
-          className={currentPage === '/plants' ? 'nav-link active' : 'nav-link'}>
+          to="/me"
+          className={currentPage === '/me' ? 'nav-link active' : 'nav-link'}>
           <p className="w3-btn w3-large btn-light">Manage My Garden</p>
         </Link>
       </div>
