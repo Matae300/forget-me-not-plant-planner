@@ -44,9 +44,7 @@ const Login = (props) => {
   };
 
   return (
-    <main className="">
       <div className="login-container">
-        <div className="">
           <h4 className="login-header">WELCOME BACK!</h4>
           <div className="">
             {data ? (
@@ -87,9 +85,7 @@ const Login = (props) => {
               </div>
             )}
           </div>
-        </div>
       </div>
-    </main>
   );
 };
 
