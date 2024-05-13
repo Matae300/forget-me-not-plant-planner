@@ -1,6 +1,6 @@
 import { Navigate, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-
+import { useToggle } from "../utils/ToggleContext";
 import { QUERY_USER, QUERY_ME } from "../utils/queries";
 
 import Auth from "../utils/auth";
@@ -13,6 +13,7 @@ import TaskList from "../components/TaskList/taskList"
 // Error handling
 const Profile = () => {
   const { username } = useParams();
+  const { showDropdown } = useToggle();
 
   const {loading, error, data} = useQuery(QUERY_ME)
   const profile = data?.me || data?.profile || {};
@@ -50,16 +51,21 @@ const Profile = () => {
                 </h2>
               </div>
 
-              <div>
+              {/* <div>
                 <Dropdown userId={profile._id} />
-              </div>
+              </div> */}
 
               <div id="garden" className="w3-container w3-col s4 m6 l8">
                 <Garden data={profile}/>
               </div>
 
               <div className="w3-container w3-col s8 m6 l4">
+                <div className="w3-container w3-blue">
+                {showDropdown && <Dropdown userId={profile._id} />}
+                </div>
+                <br></br>
                 <div id="my-tasks" className="w3-brown myTasksStyle">
+                
                   <TaskList />
                 </div>
               </div>

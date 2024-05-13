@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ALL_PLANTS } from '../utils/queries'; 
 import { ADD_PLANT_TO_USER } from '../utils/mutations';  
-
+import { useToggle } from '../utils/ToggleContext';
 
 function Dropdown({ userId }) {
   const { loading, error, data } = useQuery(QUERY_ALL_PLANTS);
   const [selectedItem, setSelectedItem] = useState('');
   const [confirm, setConfirm] = useState(false);
   const [addPlantToUser] = useMutation(ADD_PLANT_TO_USER);
+  const { hideDropdownMenu } = useToggle();
 
   const handleSelect = (event) => {
     setSelectedItem(event.target.value);
@@ -55,6 +56,7 @@ function Dropdown({ userId }) {
           Confirm
         </button>
       )}
+      <button onClick={hideDropdownMenu}>Hide</button>
     </div>
   );
 }
