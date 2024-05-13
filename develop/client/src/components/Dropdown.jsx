@@ -13,10 +13,13 @@ function Dropdown({ userId }) {
   const [showAddPlantForm, setShowAddPlantForm] = useState(false);
   const [addPlantToUser] = useMutation(ADD_PLANT_TO_USER);
   const { hideDropdownMenu } = useToggle();
+  const [errormessage, setError] = useState('');
+  const [success, setSuccess] = useState(false); 
 
   const handleSelect = (event) => {
     setSelectedItem(event.target.value);
     setConfirm(false); 
+    setError(''); // Clear error message when selection changes
   };
 
   const handleConfirm = async () => {
@@ -29,13 +32,13 @@ function Dropdown({ userId }) {
             plantId: selectedItem
           }
         });
-        alert("Plant successfully linked to your profile!");
-        setSelectedItem(''); 
+        setSelectedItem('');
+        setSuccess(true); 
         setConfirm(false);   
-        window.location.reload();
-      } catch (err) {
+        setError(''); // Clear error message on success
+      } catch (err) { 
         console.error("Error linking plant:", err);
-        alert("Failed to link plant: " + err.message);
+        setError('Failed to add plant. Please try again.');
       }
     }
   };
@@ -44,6 +47,14 @@ function Dropdown({ userId }) {
     setShowAddPlantForm(!showAddPlantForm);
   };
 
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setSuccess(false); // Reset success message after a certain duration
+    }, 3000); // 3000 milliseconds = 3 seconds
+
+    return () => clearTimeout(timeout); // Cleanup on unmount or re-render
+  }, [success]);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading plants data: {error.message}</p>;
   if (data && data.allPlants.length === 0) return <p>No plants available to select.</p>;
@@ -51,6 +62,8 @@ function Dropdown({ userId }) {
   return (
     <div className='dropdropdown-container'>
       <h2>Add a plant to your garden</h2>
+      {success && <div className="success-message">Plant added successfully!</div>}
+      {errormessage && <div className="error-message">{errormessage}</div>}
       <select value={selectedItem} onChange={handleSelect}>
         <option value="">Select a plant</option>
         {data.allPlants.map((plant) => (
