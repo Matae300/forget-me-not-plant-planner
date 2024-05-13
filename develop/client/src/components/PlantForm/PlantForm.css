@@ -1,0 +1,36 @@
+.header {
+    position: relative;
+    bottom: 3vh;
+    margin-bottom: -10%
+}
+
+.submit {
+    border: 0px solid;
+    border-radius: 10px;
+    width: 50%;
+    line-height: 5%;
+    background-color: #b1d5f2;
+    box-shadow: 3px 3px #09588d;
+    margin: 3% 0 0 0;
+}
+
+.additional {
+    display: grid;
+    justify-content: center;
+}
+
+#name {
+    height: 5vh;
+    width: 20%;
+}
+
+#frequency {
+    width: 4vw;
+    height: 5vh;
+}
+
+#interval {
+    width: 4vw;
+    height: 5vh;
+    margin-left: 1vw;
+}
