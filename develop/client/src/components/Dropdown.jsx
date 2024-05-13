@@ -49,7 +49,7 @@ function Dropdown({ userId }) {
   if (data && data.allPlants.length === 0) return <p>No plants available to select.</p>;
 
   return (
-    <div>
+    <div className='dropdropdown-container'>
       <h2>Add a plant to your garden</h2>
       <select value={selectedItem} onChange={handleSelect}>
         <option value="">Select a plant</option>

@@ -15,6 +15,8 @@ import PlantDetail from "../components/PlantDetail";
 import top from "../assets/images/clipboard-top.png"
 import middle from "../assets/images/clipboard-middle.png"
 import bottom from "../assets/images/clipboard-bottom.png"
+import '../components/Dropdown.css';
+
 
 // Error handling
 const Profile = () => {
@@ -70,7 +72,7 @@ const Profile = () => {
                 <div className="w3-container w3-green">
                   <PlantDetail />
                 </div>
-                <div className="w3-container w3-blue">
+                <div className="w3-container w3-blue dropdown-container" >
                 {showDropdown && <Dropdown userId={profile._id} />}
                 </div>
                 <br></br>
@@ -83,9 +85,7 @@ const Profile = () => {
                   </div>
                   <img src={bottom} className="bottom"></img>
                </div>
-               <div>
-                   <TaskList />
-              </div>
+               
               
             </div>
           </div>
