@@ -81,16 +81,6 @@ const AddPlantForm = ({ toggleForm }) => {
       setSuccess(true); 
       setError(''); 
 
-      dispatch({ type: ADD_NEWPLANT, payload: 
-        {
-        plantName: name,
-        description: description,
-        sunExposure: sunExposure,
-        growingMonths: growingMonths,
-        bloomingMonths: bloomingMonths,
-       } 
-      });
-
     } catch (err) {
       console.error('Error adding plant:', err);
       setError('Failed to add plant. Please try again.');

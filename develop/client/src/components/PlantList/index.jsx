@@ -17,8 +17,7 @@ const PlantList = ({ plants, onClick }) => {
   const { refetch: refetchMe } = useQuery(QUERY_ME);
   const [removePlantMutation] = useMutation(REMOVE_PLANT);
 
-  const dispatch = useDispatch();
-  const stateplants = useSelector((state) => state.stateplants); 
+
 
   const handleDeletePlant = async (plantId) => {
     try {
