@@ -1,5 +1,6 @@
 import './App.css';
 import { useState } from 'react';
+import { ToggleProvider } from './utils/ToggleContext';
 import { Outlet } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
@@ -34,11 +35,13 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+      <ToggleProvider>
       <div>
         {Auth.loggedIn()}
         {/* {Auth.loggedIn() && <Header />} */}
         <Outlet />
       </div>
+      </ToggleProvider>
     </ApolloProvider>
   );
 }

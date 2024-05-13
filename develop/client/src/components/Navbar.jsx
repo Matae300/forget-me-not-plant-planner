@@ -1,12 +1,17 @@
+import React from 'react';
+import { useToggle } from '../utils/ToggleContext';
 import { Link, useLocation } from 'react-router-dom';
 import navLogo from '../assets/images/plantplanner-hor-0.5x.png';
-
+import Auth from '../utils/auth';
 
 function Navbar() {
   const currentPage = useLocation().pathname;
+  const { showDropdownMenu } = useToggle();
   const logout = (event) => {
     event.preventDefault();
+    
     Auth.logout();
+    
   };
 
   return (
@@ -32,6 +37,11 @@ function Navbar() {
           <p className="w3-btn w3-large btn-light">Manage My Garden</p>
         </Link>
       </div>
+
+      <div className="w3-cell nav-item">
+      <button onClick={showDropdownMenu}>Add to Garden</button>
+      {/* Other navbar content */}
+     </div>
 
       <div className="w3-cell nav-item">
         {/* <!--Replace '/' with route to the task list and calendar--> */}
