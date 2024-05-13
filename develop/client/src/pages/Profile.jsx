@@ -15,18 +15,28 @@ import PlantDetail from "../components/PlantDetail";
 import top from "../assets/images/clipboard-top.png"
 import middle from "../assets/images/clipboard-middle.png"
 import bottom from "../assets/images/clipboard-bottom.png"
+import { useEffect } from "react";
 
 // Error handling
 const Profile = () => {
   const { username } = useParams();
   const { showDropdown } = useToggle();
 
-  const {loading, error, data} = useQuery(QUERY_ME)
+  const { loading, error, data, refetch } = useQuery(QUERY_ME);
   const profile = data?.me || data?.profile || {};
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refetch(); // Refetch data every second
+    }, 1000); // 1000 milliseconds = 1 second
+
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, [refetch]);
+
   if (Auth.loggedIn() && Auth.getProfile().data._id === username) {
-    return <Navigate to="/me"/>;
+    return <Navigate to="/me" />;
   }
+
   console.log("User data:", profile);
 
   if (loading) {
@@ -38,7 +48,7 @@ const Profile = () => {
     console.error("GraphQL Error:", error);
     return <p>Error loading profile.</p>;
   }
-  // Profile Page Successful Render
+
   console.log("Rendering profile page", profile.username);
 
   return (
@@ -50,7 +60,7 @@ const Profile = () => {
             <Navbar />
           </header>
 
-        <main className="w3-row w3-2021-green-ash">
+          <main className="w3-row w3-2021-green-ash">
             <div>
               <div className="flex-row justify-center mb-3">
                 <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
@@ -66,14 +76,14 @@ const Profile = () => {
                 <Garden data={profile}/>
               </div>
 
-              <div className="w3-container w3-col s8 m6 l4">
-                <div className="w3-container w3-green">
-                  <PlantDetail />
-                </div>
-                <div className="w3-container w3-blue">
-                {showDropdown && <Dropdown userId={profile._id} />}
-                </div>
-                <br></br>
+                <div className="w3-container w3-col s8 m6 l4">
+                  <div className="w3-container w3-green">
+                    <PlantDetail />
+                  </div>
+                  <div className="w3-container w3-blue">
+                    {showDropdown && <Dropdown userId={profile._id} />}
+                  </div>
+                  <br />
 
                 <div id="my-tasks" className="myTasksStyle">
                   <img src={top} className="top"></img>
@@ -91,7 +101,7 @@ const Profile = () => {
           </div>
           </main>
 
- <footer className="w3-container">
+          <footer className="w3-container">
             <Footer />
           </footer>
         </div>
