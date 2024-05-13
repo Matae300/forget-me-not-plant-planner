@@ -35,7 +35,7 @@ function Navbar() {
         <Link
           to="/me"
           className={currentPage === '/me' ? 'nav-link active' : 'nav-link'}>
-          <p className="w3-btn w3-large btn-light">Manage My Garden</p>
+          <p className="w3-btn w3-large btn-light">My Dashboard</p>
         </Link>
       </div>
 
