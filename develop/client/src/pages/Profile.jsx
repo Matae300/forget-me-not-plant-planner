@@ -38,11 +38,11 @@ const Profile = () => {
     <>
       {Auth.loggedIn() ? (
         <div>
-          <header className="w3-container w3-sand">
+          <header className="w3-container w3-sand no-padding">
             <Navbar />
           </header>
 
-          <main className="w3-row test">
+          <main className="w3-row w3-2021-green-ash">
             <div>
               <div className="flex-row justify-center mb-3">
                 <h2 className="col-12 col-md-10 bg-dark text-light p-3 mb-5">
@@ -55,7 +55,6 @@ const Profile = () => {
               </div>
 
               <div id="garden" className="w3-container w3-col s4 m6 l8">
-                {/* below could be the garden component, would just need to pass it the profile data,  ex. <Garden data={profile} /> */}
                 <Garden data={profile}/>
               </div>
 
