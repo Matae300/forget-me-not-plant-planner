@@ -4,7 +4,7 @@ import { ADD_PLANT } from '../../utils/mutations';
 import { QUERY_MYPLANTS, QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
-const AddPlantForm = () => {
+const AddPlantForm = ({ toggleForm }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [sunExposure, setSunExposure] = useState('');
@@ -212,6 +212,8 @@ const AddPlantForm = () => {
           />
           <br/>
           <button type="submit">Add Plant</button>
+          <br/>
+          <button type="button" onClick={toggleForm}>Cancel</button>
         </form>
         ) : (
           <p>
