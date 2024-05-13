@@ -212,6 +212,7 @@ const AddPlantForm = ({ toggleForm }) => {
           />
           <br/>
           <button type="submit">Add Plant</button>
+          <br/>
           <button type="button" onClick={toggleForm}>Cancel</button>
         </form>
         ) : (

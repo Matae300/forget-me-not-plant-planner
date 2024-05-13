@@ -39,7 +39,7 @@ function Navbar() {
       </div>
 
       <div className="w3-cell nav-item">
-      <button onClick={showDropdownMenu}>Add to Garden</button>
+      <button className="w3-btn w3-large btn-light" onClick={showDropdownMenu}>Add to Garden</button>
       {/* Other navbar content */}
      </div>
 
