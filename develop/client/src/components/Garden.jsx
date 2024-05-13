@@ -1,14 +1,25 @@
 import React from "react";
-import Plant from "../Plant";
+// Component imports
+import Plant from "./Plant";
 
-const Garden = ({ plants }) => {
+const Garden = ({data}) => {
+    console.log('Props', data);
+
+
     return (
-        <div>
-            <div className="gardenStyle">
-                {plants.map((plant) => (
-                    <Plant key={plant._id} plant={plant} />
-                ))}
-            </div>
-        </div>
+        <>
+            <h3>My Plants:</h3>
+{data.plants && data.plants.length > 0 ? (
+                <div className="gardenStyle">
+                    {data.plants.map((plant, index) => (
+                        <Plant key={index} plant={plant} />
+                    ))}
+                </div>
+            ) : (
+                <p>No plants to display.</p>
+            )} 
+        </>
     );
-}
+};
+
+export default Garden;

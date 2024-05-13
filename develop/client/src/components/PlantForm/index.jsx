@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { ADD_NEWPLANT } from '../../utils/actions';
-
 import { useMutation } from '@apollo/client';
 import { ADD_PLANT } from '../../utils/mutations';
 import { QUERY_MYPLANTS, QUERY_ME } from '../../utils/queries';
-
 import Auth from '../../utils/auth';
 
 const AddPlantForm = () => {
@@ -20,15 +15,13 @@ const AddPlantForm = () => {
   const [frequencyUnit, setFrequencyUnit] = useState('');
   const [frequencyInterval, setFrequencyInterval] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false); 
-
-  const dispatch = useDispatch();
-  const plants = useSelector((state) => state.stateplants); 
 
   const [addPlant] = useMutation(ADD_PLANT, {
     refetchQueries: [
-      QUERY_MYPLANTS, 
-      QUERY_ME
+     QUERY_MYPLANTS, 
+     'getPlants',
+     QUERY_ME, 
+     'me'
     ],
     errorPolicy: 'all',
   });
@@ -56,16 +49,16 @@ const AddPlantForm = () => {
       setError('Please enter interval.');
       return;
     }
-
+    
     try {
       const wateringTaskVariables = {
         instructions,
-        frequencyCount: parseInt(frequencyCount),
+        frequencyCount: parseInt(frequencyCount), // Parse as integer
         frequencyUnit,
-        frequencyInterval: parseInt(frequencyInterval),
+        frequencyInterval: parseInt(frequencyInterval), // Parse as integer
       };
-
-      await addPlant({
+      
+      const { data } = await addPlant({
         variables: {
           name,
           description,
@@ -76,7 +69,6 @@ const AddPlantForm = () => {
         },
       });
 
-  
       setName('');
       setDescription('');
       setSunExposure('');
@@ -143,7 +135,6 @@ const AddPlantForm = () => {
   return (
     <div>
       <h3>Add Plant</h3>
-      {success && <div className="success-message">Plant added successfully!</div>} {/* Render success message */}
       {Auth.loggedIn() ? (
         <form onSubmit={handleFormSubmit}>
           {error && <div className="error-message">{error}</div>}
@@ -183,8 +174,8 @@ const AddPlantForm = () => {
             onChange={handleChange}
           >
             <option value="">Select Frequency Unit</option>
-            <option value="weeks">Weeks</option>
-            <option value="months">Months</option>
+            <option value="week">Weeks</option>
+            <option value="month">Months</option>
           </select>
           <br/>
           <label htmlFor="frequencyInterval">Frequency Interval:</label>

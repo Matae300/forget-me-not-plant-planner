@@ -3,9 +3,8 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { setContext } from '@apollo/client/link/context';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
-import PlantProvider  from './utils/GlobalState';
-import Header from './components/Header';
-import Navbar from './components/Navbar';
+/* import Header from './components/Header';
+import Navbar from './components/Navbar'; */
 import Auth from './utils/auth';
 
 // Construct our main GraphQL API endpoint
@@ -35,12 +34,11 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-      <PlantProvider> 
-        <div>
-          {Auth.loggedIn() && <Header />}
-          <Outlet />
-        </div>
-      </PlantProvider>
+      <div>
+        {Auth.loggedIn()}
+        {/* {Auth.loggedIn() && <Header />} */}
+        <Outlet />
+      </div>
     </ApolloProvider>
   );
 }

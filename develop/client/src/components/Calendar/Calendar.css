@@ -1,0 +1,11 @@
+.fc-view-harness {
+    width: 50vw !important;
+}
+
+.fc-header-toolbar {
+    display: none !important;
+}
+
+.calendar {
+    margin-bottom: 10vh;
+}
