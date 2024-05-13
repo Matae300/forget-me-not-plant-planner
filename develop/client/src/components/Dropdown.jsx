@@ -60,7 +60,7 @@ function Dropdown({ userId }) {
   if (data && data.allPlants.length === 0) return <p>No plants available to select.</p>;
 
   return (
-    <div>
+    <div className='dropdropdown-container'>
       <h2>Add a plant to your garden</h2>
       {success && <div className="success-message">Plant added successfully!</div>}
       {errormessage && <div className="error-message">{errormessage}</div>}

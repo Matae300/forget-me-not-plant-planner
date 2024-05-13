@@ -15,6 +15,8 @@ import PlantDetail from "../components/PlantDetail";
 import top from "../assets/images/clipboard-top.png"
 import middle from "../assets/images/clipboard-middle.png"
 import bottom from "../assets/images/clipboard-bottom.png"
+import '../components/Dropdown.css';
+
 import { useEffect } from "react";
 
 // Error handling
@@ -76,14 +78,14 @@ const Profile = () => {
                 <Garden data={profile}/>
               </div>
 
-                <div className="w3-container w3-col s8 m6 l4">
-                  <div className="w3-container w3-green">
-                    <PlantDetail />
-                  </div>
-                  <div className="w3-container w3-blue">
-                    {showDropdown && <Dropdown userId={profile._id} />}
-                  </div>
-                  <br />
+              <div className="w3-container w3-col s8 m6 l4">
+                <div className="w3-container w3-green">
+                  <PlantDetail />
+                </div>
+                <div className="w3-container w3-blue dropdown-container" >
+                {showDropdown && <Dropdown userId={profile._id} />}
+                </div>
+                <br></br>
 
                 <div id="my-tasks" className="myTasksStyle">
                   <img src={top} className="top"></img>
@@ -93,9 +95,7 @@ const Profile = () => {
                   </div>
                   <img src={bottom} className="bottom"></img>
                </div>
-               <div>
-                   <TaskList />
-              </div>
+               
               
             </div>
           </div>
