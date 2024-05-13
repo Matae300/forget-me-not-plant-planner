@@ -39,11 +39,10 @@ const Signup = () => {
   };
 
   return (
-    <main className="">
       <div className="signup-container">
         <div className="">
           <h4 className="signup-header"><span className='italic'>NEW?</span> START HERE</h4>
-          <h3 className='signup-text'>CREATE AN ACCOUNT</h3>
+          <h4 className='signup-text'>CREATE AN ACCOUNT</h4>
           <div className="">
             {data ? (
               <p>
@@ -94,7 +93,6 @@ const Signup = () => {
           </div>
         </div>
       </div>
-    </main>
   );
 };
 

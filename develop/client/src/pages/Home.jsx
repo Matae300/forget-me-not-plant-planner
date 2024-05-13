@@ -18,13 +18,10 @@ function Home() {
   }
   
   const authContainerStyle = {
-    // position: 'fixed',
-    // top: '20px',
-    // right: '20px', 
     display: 'flex',
     flexDirection: 'column', 
     alignItems: 'flex-start', 
-    gap: '10px',
+    gap: '0px',
   };
 
   const authStyle = {
@@ -65,7 +62,7 @@ function Home() {
 
     </div>
 
-    <div className="smaller w3-quarter w3-display-container w3-padding-16">
+    <div className="smaller w3-quarter w3-display-container">
 
 {/*       <div className="watering w3-col l12">
         <img src={watering} alt="watering can" />

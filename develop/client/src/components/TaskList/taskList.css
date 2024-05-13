@@ -1,0 +1,22 @@
+.top {
+    position: relative;
+    top: 3vh;
+  }
+  
+  .middle {
+    position: relative;
+    bottom: 13vh;
+    width: 94%;
+    background-image: url("../src/assets/images/clipboard-middle.png")
+  }
+  
+  .bottom {
+    position: relative;
+    bottom: 16vh;
+  }
+
+  .taskList {
+    width: 94%;
+    height: 60vh;
+    overflow-y:scroll;
+  }

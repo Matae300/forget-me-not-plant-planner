@@ -5,6 +5,7 @@
     border-radius: 5px;
     background-color: white;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: none; /* start with the dropdown hidden unless it us invoked */
   }
   
   .dropdown-header {
@@ -24,4 +25,12 @@
     margin-top: 10px; 
     display: block;
     width: 100%;
+  }
+
+  .empty {
+    display: none;
+  }
+
+  .populated {
+    display: block; /* Show the container when populated */
   }
