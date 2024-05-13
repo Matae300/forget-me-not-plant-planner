@@ -44,6 +44,7 @@ const Profile = () => {
   return (
     <>
       {Auth.loggedIn() ? (
+        <PlantDataProvider>
         <div>
           <header className="w3-container w3-sand no-padding">
             <Navbar />
@@ -60,7 +61,7 @@ const Profile = () => {
               {/* <div>
                 <Dropdown userId={profile._id} />
               </div> */}
-              <PlantDataProvider>
+              
               <div id="garden" className="w3-container w3-col s4 m6 l8">
                 <Garden data={profile}/>
               </div>
@@ -85,7 +86,7 @@ const Profile = () => {
                <div>
                    <TaskList />
               </div>
-              </PlantDataProvider>
+              
             </div>
           </div>
           </main>
@@ -94,6 +95,7 @@ const Profile = () => {
             <Footer />
           </footer>
         </div>
+        </PlantDataProvider>
       ) : (
         <div>
           <h4>
