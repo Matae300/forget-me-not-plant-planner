@@ -55,16 +55,6 @@ export default function PlantForm({ toggleForm }) {
       setError(''); 
       setOption('');
 
-      dispatch({ type: ADD_NEWPLANT, payload: 
-        {
-        plantName: name,
-        description: description,
-        sunExposure: sunExposure,
-        growingMonths: growingMonths,
-        bloomingMonths: bloomingMonths,
-       } 
-      });
-
     } catch (err) {
       setError("Error: Check your plant fields");
     }
