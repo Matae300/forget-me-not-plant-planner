@@ -11,6 +11,7 @@ function Navbar() {
     event.preventDefault();
     
     Auth.logout();
+    window.location.href = '/';
     
   };
 
