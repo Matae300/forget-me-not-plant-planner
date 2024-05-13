@@ -5,6 +5,8 @@ import { checkDueDate } from '../../utils/helpers';
 import TaskItem from "../TaskItem/TaskItem";
 import Auth from "../../utils/auth";
 
+import './taskList.css';
+
 export default function TaskList() {
   const { loading, error, data } = useQuery(QUERY_MYPLANTS);
 

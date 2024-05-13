@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { QUERY_PLANT } from '../utils/queries';
 
 import plantTag from '../assets/images/plant-tag.png';
-import miscPlant from '../assets/images/miscPlant.png';
 import stateless from '../assets/images/stateless.png';
 
 const Plant = (props) => {
@@ -19,27 +18,24 @@ const Plant = (props) => {
     const plant = data?.plant;
 console.log(plant);
     return (
-        <div className="plant">
+        <div className="plantStyle">
             {plant ? (
             <>
                 <Link to={`/plants/${plant._id}`}>
 
-                    <div className="plantContainerStyle">
-                        {/* Replace the test plant with a dynamic plant name */}
+                    <div className='plantContainerStyle'>
                         <h2 className='plantTagTextStyle'>{plant.name}</h2>
-                        {/* <h2 className='plantTagTextStyle'>Testing PlantName Here</h2> */}
-                        <div className="plantTagPhotoStyle">
-                            {/* Replace the generic plant image with a dynamic plant photo image */}
+                        <div className='plantTagPhotoStyle'>
                             <img src={plant.photoUrl} alt={plant.name} />
                             {/* <img src= { miscPlant } alt="miscellaneous plant" /> */}
                         </div>
                         <div className="plantTagStateStyle">
                              {/* !!!!!! Replace the static stateless image with a dynamic state image */}
-                            <img src= { stateless } alt="stateless" />
+                            <img src= { stateless } alt="stateless" className="" />
                         </div>
-                        <div className="plantTagStyle">
+{/*                         <div className="plantTagStyle">
                             <img src= { plantTag } alt="plant tag" />
-                        </div>
+                        </div> */}
                     </div>
                 
                 </Link>

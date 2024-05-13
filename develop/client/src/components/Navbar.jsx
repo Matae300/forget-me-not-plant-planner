@@ -11,53 +11,51 @@ function Navbar() {
 
   return (
     <>
-<div className="navbarStyles w3-container">
+<div className="navbarStyles w3-container no-padding">
 
-  <div className="w3-col s12 m6 l6 no-padding test">
-    <img src={navLogo} className="navLogo" alt='Forget-Me-Not Plant Planner' />
-  </div> 
-
-  <div className="w3-col s12 m6 l6 nav-links test">
-    <ul className="navbar">
-      <li className="nav-item">
-        <Link
+{/* nav logo links to home page */}
+  <div className="nav-links w3-col s12 m6 l4 w3-padding-small">
+   <Link
           to="/"
           className={currentPage === '/' ? 'nav-link active' : 'nav-link'}
         >
-          Home
-        </Link>
-      </li>
-      <li className="nav-item">
+          <img src={navLogo} className="navLogo no-padding" alt='Forget-Me-Not Plant Planner' />
+      </Link>
+  </div>
+  {/* nav links to add a plant, view tasks, and logout button */}
+  <div className="nav-links navbarStyles w3-row w3-col s12 m6 l8 no-padding">
+
+    <div className="w3-cell nav-item">
         <Link
           to="/plants"
-          className={currentPage === '/plants' ? 'nav-link active' : 'nav-link'}
-        >
-          My Garden
+          className={currentPage === '/plants' ? 'nav-link active' : 'nav-link'}>
+          <p className="w3-btn w3-large btn-light">Manage My Garden</p>
         </Link>
-      </li>
-      <li className="nav-item">
+      </div>
+
+      <div className="w3-cell nav-item">
         {/* <!--Replace '/' with route to the task list and calendar--> */}
         <Link
           to="/"
-          className={currentPage === '/me' ? 'nav-link active' : 'nav-link'}
-        >
-          My Tasks
+          className={currentPage === '/me' ? 'nav-link active' : 'nav-link'} >
+        <p className="w3-btn w3-large btn-light">View My Tasks</p>
         </Link>
-      </li>
-      <li className="nav-item">
+      </div>
+
+     {/*  <li className="nav-item">
         <Link
           to="/me"
-          className={currentPage === '/me' ? 'nav-link active' : 'nav-link'}
-        >
+          className={currentPage === '/me' ? 'nav-link active' : 'nav-link'}>
           My Profile
         </Link>
-      </li>
-      <li className="nav-item">
-        <button className="w3-btn btn-lg btn-light m-2" onClick={logout}>
-            Logout
+      </li> */}
+
+      <div className="w3-cell nav-item w3-margin-left">
+        <button className="w3-btn w3-large btn-light" onClick={logout}>
+        Logout
         </button>
-      </li>
-    </ul>
+      </div>
+
     </div>
 
   </div>
