@@ -50,6 +50,7 @@ function Dropdown({ userId }) {
 
   return (
     <div>
+      <h2>Add a plant to your garden</h2>
       <select value={selectedItem} onChange={handleSelect}>
         <option value="">Select a plant</option>
         {data.allPlants.map((plant) => (
@@ -58,18 +59,22 @@ function Dropdown({ userId }) {
           </option>
         ))}
       </select>
-      <hr />
+      <br></br>
       {selectedItem && (
         <button onClick={handleConfirm} disabled={confirm}>
           Confirm
         </button>
       )}
-      <hr />
+      <br></br>
       <button onClick={hideDropdownMenu}>Cancel</button>
-      <hr />
+      <br></br>
+      <div>
+      <h2>Add Custom Plant</h2>
       <button onClick={toggleAddPlantForm}>Add Custom Plant</button>
-      <button onClick={hideDropdownMenu}>Cancel</button>
+      <br></br>
+      
       {showAddPlantForm && <AddPlantForm toggleForm={toggleAddPlantForm} />}
+      </div>
     </div>
   );
 }
