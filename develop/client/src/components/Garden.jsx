@@ -9,9 +9,10 @@ const Garden = ({data}) => {
     return (
         <>
             <h3>My Plants:</h3>
-{data.plants && data.plants.length > 0 ? (
+                {data.plants && data.plants.length > 0 ? (
                 <div className="gardenStyle">
                     {data.plants.map((plant, index) => (
+                        console.log('test', plant),
                         <Plant key={index} plant={plant} />
                     ))}
                 </div>

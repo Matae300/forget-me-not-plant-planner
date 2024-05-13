@@ -2,6 +2,7 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
 import { QUERY_PLANT } from '../utils/queries';
+import { usePlantData } from '../utils/PlantDataContext';
 
 import plantTag from '../assets/images/plant-tag.png';
 import stateless from '../assets/images/stateless.png';
@@ -12,16 +13,23 @@ const Plant = (props) => {
         variables: { id: props.plant._id }
     });
 
+    const { setSelectedPlant } = usePlantData();
+
+    const handleClick = (plantData) => {
+        console.log('plantData', plantData);
+        setSelectedPlant(plantData);
+    };
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
     const plant = data?.plant;
-console.log(plant);
+console.log('plant.jsx', plant);
     return (
         <div className="plantStyle">
             {plant ? (
             <>
-                <Link to={`/plants/${plant._id}`}>
+                <button onClick={() => handleClick(plant)} style={{ all: 'unset', cursor: 'pointer' }}>
 
                     <div className='plantContainerStyle'>
                         <h2 className='plantTagTextStyle'>{plant.name}</h2>
@@ -38,7 +46,7 @@ console.log(plant);
                         </div> */}
                     </div>
                 
-                </Link>
+                </button>
             </>
             ) : (
                 <p>No plant found with this ID.</p>
