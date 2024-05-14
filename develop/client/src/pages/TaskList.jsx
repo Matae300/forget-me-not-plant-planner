@@ -8,7 +8,7 @@ import Auth from '../utils/auth';
 export default function TaskPage() {
     return (
         <>
-        <div style={{display: "flex"}}>
+        <div style={{display: "flex"}} className="myTasksStyle">
         <Navbar />
         <Calendar />
         <TaskList />

@@ -143,9 +143,11 @@ img.navLogo {
   width: 100%;
 }
 
-/* .myTasksStyle {
-
-} */
+.myTasksStyle {
+  background-image: url("./assets/images/garden-BG.png");
+  background-size: cover;
+  background-position: bottom;
+}
 
 
 .no-padding {
