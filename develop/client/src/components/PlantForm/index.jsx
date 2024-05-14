@@ -7,7 +7,7 @@ export default function PlantForm({ toggleForm }) {
   const [name, setName] = useState("");
   const [frequency, setFrequency] = useState("");
   const [interval, setInterval] = useState("");
-  const [option, setOption] = useState("");
+  const [frequencyUnit, setFrequencyUnit] = useState("");
   const [task, setTask] = useState("");
   const [description, setDescription] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
@@ -19,24 +19,23 @@ export default function PlantForm({ toggleForm }) {
   const [addPlant] = useMutation(ADD_PLANT);
 
   const handleSelect = (event) => {
-    setSelectedItem(event.target.value);
-    setConfirm(false); 
+    setFrequencyUnit(event.target.value);
+
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const wateringTaskVariables = {
-        instructions: task,
-        frequencyCount: parseInt(frequency),
-        frequencyUnit: option,
-        frequencyInterval: parseInt(interval),
-      };
 
       const { data } = await addPlant({
         variables: {
           name,
-          wateringTask: wateringTaskVariables,
+          wateringTask: {
+            instructions: task,
+            frequencyCount: parseInt(frequency),
+            frequencyUnit,
+            frequencyInterval: parseInt(interval),
+          },
           description,
           photoUrl,
           sunExposure,
@@ -50,11 +49,12 @@ export default function PlantForm({ toggleForm }) {
       setSunExposure('');
       setGrowingMonths('');
       setBloomingMonths('');
-      setInstructions('');
-      setSuccess(true); 
+      setTask('');
       setError(''); 
-      setOption('');
-
+      setFrequency("");
+      setFrequencyUnit('');
+      setInterval("");
+      toggleForm();
     } catch (err) {
       setError("Error: Check your plant fields");
     }
@@ -120,7 +120,8 @@ export default function PlantForm({ toggleForm }) {
               value={interval}
               onChange={handleChange}
             ></input>
-            <select className="options" value={option} onChange={handleSelect}>
+            <select className="options" value={frequencyUnit} onChange={handleSelect}>
+              <option value="">Select</option>
               <option value="week">Weeks</option>
               <option value="month">Months</option>
             </select>
