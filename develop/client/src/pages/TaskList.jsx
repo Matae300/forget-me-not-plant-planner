@@ -9,7 +9,7 @@ export default function TaskPage() {
     return (
         <>
         <Navbar />
-        <div style={{display: "flex"}}>
+        <div style={{display: "flex"}} className="myTasksStyle">
         <Calendar />
         <TaskList />
         </div>

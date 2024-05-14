@@ -143,9 +143,17 @@ img.navLogo {
   width: 100%;
 }
 
-/* .myTasksStyle {
+.myTasksStyle {
+  background-image: url("./assets/images/garden-BG.png");
+  background-size: cover;
+  background-position: bottom;
+}
 
-} */
+.taskList {
+  background-image: url("./assets/images/clipboard-middle.png");
+  background-size: cover;
+  background-position: center;
+}
 
 
 .no-padding {
