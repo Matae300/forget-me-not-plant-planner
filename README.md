@@ -1,6 +1,7 @@
 # Forget Me Not Plant Planner
 
-![Photo of landing page](./client/src/assets/images/homepage.PNG)
+![homepage](https://github.com/Matae300/forget-me-not-plant-planner/assets/111401054/e8046182-aa26-4180-b2cb-9bcd00c6bb37)
+
 
 ![MongoDB Badge](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=fff&style=flat-square)![Express Badge](https://img.shields.io/badge/Express-000?logo=express&logoColor=fff&style=flat-square)![React Badge](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=000&style=flat-square)![Node.js Badge](https://img.shields.io/badge/Node.js-393?logo=nodedotjs&logoColor=fff&style=flat-square)
 
@@ -43,11 +44,12 @@
 
 [Link to live URL]()
 
-## Screenshotsg
-![Dropdown](./client/src/assets/images/addplant.PNG)
-![Garden](./client/src/assets/images/garden-BG.png)
-![Tasks](./client/src/assets/images/tasks.PNG)
-![Worms](./client/src/assets/images/worms.PNG)
+## Screenshots
+![addplant](https://github.com/Matae300/forget-me-not-plant-planner/assets/111401054/c1a00143-c1dc-4e88-9388-6c46f8be9076)
+![garden-BG](https://github.com/Matae300/forget-me-not-plant-planner/assets/111401054/d5635191-e209-4bb7-9857-6b3718fdd609)
+![tasks](https://github.com/Matae300/forget-me-not-plant-planner/assets/111401054/616a7661-ea3b-4362-8886-4ba298c541eb)
+![worms](https://github.com/Matae300/forget-me-not-plant-planner/assets/111401054/2aae2555-b311-40e6-b17e-ed573e2e4062)
+
 
 
 ## Technologies-Used
