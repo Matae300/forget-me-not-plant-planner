@@ -149,6 +149,12 @@ img.navLogo {
   background-position: bottom;
 }
 
+.taskList {
+  background-image: url("./assets/images/clipboard-middle.png");
+  background-size: cover;
+  background-position: center;
+}
+
 
 .no-padding {
   padding: 0;
